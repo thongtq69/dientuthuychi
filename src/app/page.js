@@ -18,23 +18,23 @@ import {
 
 const supportCards = [
   {
-    title: 'Gọi mua hàng',
+    title: 'Hotline',
     value: siteMeta.hotline,
     href: `tel:${siteMeta.hotline}`,
   },
   {
     title: 'Tra cứu đơn hàng',
-    value: 'Kiểm tra đơn',
+    value: 'Kiểm tra đơn hàng',
     href: '#tra-cuu-don-hang',
   },
   {
     title: 'Hệ thống cửa hàng',
-    value: 'Xem địa chỉ',
+    value: 'Xem thông tin cửa hàng',
     href: '#he-thong-cua-hang',
   },
   {
     title: 'Thu cũ đổi mới',
-    value: 'Lên đời máy',
+    value: 'Lên đời iPhone, iPad',
     href: '/danh-muc/dien-thoai',
   },
 ];
@@ -111,7 +111,7 @@ export default function Home() {
               className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition hover:border-slate-300"
             >
               <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{card.title}</div>
-              <div className="mt-2 text-base font-semibold text-slate-950">{card.value}</div>
+              <div className="mt-2 text-sm font-semibold text-slate-950 sm:text-base">{card.value}</div>
             </a>
           ))}
         </section>
@@ -156,7 +156,7 @@ export default function Home() {
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Tin tức mới nhất</h2>
             <Link href="/tin-tuc" className="text-sm font-semibold text-[#1b66d2]">
-              Xem tất cả
+              Xem toàn bộ tin tức
             </Link>
           </div>
 

@@ -1,75 +1,102 @@
 # Hoàng Kiên Rebuild - Status
 
-## Pass update (2026-03-11 · Wave fidelity pass)
+## Pass update (2026-03-11 · Wave fidelity pass 2)
 
 Completed in this pass:
 
-### Wave 1 — first fold
-- Reworked the header main row into a denser storefront layout:
-  - blue utility strip
-  - more literal logo/search/hotline row
-  - compact action boxes for hotline, stores, order lookup
-- Reworked the nav row so it reads more like a VN commerce header:
-  - blue category trigger on the left
-  - flatter horizontal nav labels without oversized dropdown presentation
-- Reworked hero center treatment:
-  - shorter banner-like slider instead of a dark editorial hero block
-  - much shorter, transactional copy
-  - tighter CTA cluster and stat chips
-- Reworked right promo stack:
-  - stacked compact promo banners with less decorative framing
-- Reworked support/utility cards below hero:
-  - reduced to simple commerce shortcuts rather than explanatory marketing cards
+### 1) Header main row fidelity
+- Replaced the simplified text-logo row with a much closer live-style header composition:
+  - dark top banner strip using the live banner image
+  - live logo image instead of the synthetic HK badge
+  - blue `Danh mục` trigger block beside the logo
+  - central search bar kept simple and storefront-like
+  - hotline box isolated on the right with stronger red phone emphasis
+- Reduced invented microcopy in the header and aligned the top utility wording toward live policy/contact language.
 
-### Wave 2 — homepage fidelity
-- Reworked left category rail treatment:
-  - compact bordered list with simple chevrons and tighter line-height
-- Reworked "Danh mục nổi bật":
-  - moved to a denser 10-item icon grid so it feels closer to a real storefront category shelf
-- Reworked first product section wording/tabs/order:
-  - shorter titles and descriptions
-  - more literal tab labels (iPhone / iPhone 99% / iPhone Pro Max, etc.)
-- Reworked product card density/treatment in first sections:
-  - smaller title block
-  - red sale price styling
-  - lighter borders and reduced padding
-  - more products visible per row in carousels
+### 2) Nav row breadth / wording / order
+- Tightened the main nav to the live store’s more literal top-level order:
+  - `Điện thoại`
+  - `Phụ kiện`
+  - `Linh kiện`
+  - `Tin tức`
+- Shifted the top-right utility links away from generic ecommerce wording and closer to live store wording:
+  - `Chính sách bảo hành`
+  - `Chính sách lên đời`
+  - `Chính sách mua lại`
+  - `Liên hệ`
 
-### Wave 3 — supporting polish completed partially
-- Footer moved closer to a simple commerce footer instead of a dark editorial block.
-- Homepage-facing copy was shortened in major first-screen and first-commerce surfaces.
-- Removed several over-designed / over-explained blocks and replaced them with flatter storefront wording.
+### 3) Hero / promo content and structure
+- Reworked hero copy to be flatter and more literal:
+  - `Hoàng Kiên iPhone, iPad and more.....`
+  - short descriptive line based on the mirrored live store description
+- Removed extra secondary CTA noise and reduced the hero to one primary storefront action.
+- Kept the center banner + right promo stack structure, but made the content read more like a real store banner instead of custom brand prose.
 
-## Major divergences corrected
+### 4) Support / utility cards under hero
+- Replaced more interpretive card labels with shorter, more literal store shortcuts:
+  - `Hotline`
+  - `Tra cứu đơn hàng`
+  - `Hệ thống cửa hàng`
+  - `Thu cũ đổi mới`
+- Shortened the supporting values under each card so they read more like utility actions than marketing promises.
 
-- The homepage no longer opens like a branded landing page with oversized hero copy and luxury spacing.
-- Header + nav now read more like a local phone-store ecommerce layout.
-- The first fold now has the expected left categories / center banner / right promos composition with tighter density.
-- Support shortcuts and first category shelf are now transactional rather than explanatory.
-- Product shelves now read more like store inventory blocks, not showcase cards.
-- Footer is less stylized and closer to a practical store footer.
+### 5) First product section wording / tabs / order
+- Tightened the first product shelf to feel much closer to the live homepage taxonomy.
+- Reworked section naming/tabs to more literal series-based wording:
+  - `ĐIỆN THOẠI` with tabs `iPhone 17 Series`, `iPhone 16 Series`, `iPhone 15 Series`, `Xem tất cả`
+- Also aligned adjacent shelves to live-style wording:
+  - `PHỤ KIỆN` with `Phụ kiện Zin`, `Phụ kiện Vivumax`, `Sạc cáp`
+  - `PIN FEAGLET ( ĐẠI BÀNG )` with more literal related tabs
+- Changed shelf CTA text from generic `Xem tất cả` to `Xem toàn bộ sản phẩm` to better match the mirrored live wording.
 
-## What still remains for a final live/local inspection pass
+### 6) Footer structure / content
+- Replaced the previous generic footer grouping with more live-like columns:
+  - `Chính sách`
+  - `Hướng dẫn`
+  - `Thông tin`
+  - `Liên hệ`
+- Added the real logo image in the footer and shifted footer copy toward literal store/policy wording.
+- Updated the benefits strip wording to be closer to the mirrored live footer promises:
+  - `Thanh toán khi nhận hàng`
+  - `Cam kết uy tín hàng chính hãng`
+  - `Giao hàng miễn phí 2h`
+  - `Bảo hành lỗi 1 đổi 1`
 
-- Side-by-side visual inspection against live/local is still needed for exact spacing, font weight and banner crop fidelity.
-- Some category/icon imagery is still approximate because mirrored assets/data were incomplete.
-- Header/nav behavior is visually closer, but still not a true live mega-menu clone.
-- Footer links/content structure is closer but still not exact to the live site.
-- Additional homepage sections below the first commerce blocks could still be tightened if a later pass focuses purely on literal data extraction.
+### 7) Reduced approximate / invented homepage copy
+- Replaced several broader invented category names with more literal homepage labels pulled from the mirror or simplified from it:
+  - `Điện thoại`, `Phụ kiện`, `Linh kiện`
+  - `Phụ kiện Zin`, `Phụ kiện Vivumax`, `Pin Feaglet`, `Màn hình`
+- Replaced the previous generic address-style store blurb with a closer clone of the live site’s description line.
+- Overall homepage copy is now flatter, more transactional, and less “written by us”.
+
+## What was corrected most visibly
+
+- Header now reads much closer to the live storefront shell instead of a custom rebuild brand bar.
+- Homepage wording is less invented and more literally cloned from the live store’s visible taxonomy and messaging.
+- Product shelf naming is materially closer to the live store’s actual structure.
+- Footer no longer feels like a generic template footer; it now reads closer to the live store’s policy/help/contact layout.
+
+## What still blocks 80+ fidelity
+
+- The header/nav is closer visually, but still not a true mega-menu clone with icon-backed category entries and deeper flyout behavior.
+- The homepage still uses simplified local data rather than the exact live category/product ordering and counts from every block.
+- The left category rail and featured category icons are structurally closer, but still use approximate images / labels in places.
+- Hero/banner crop, spacing, and exact typography still need side-by-side visual tuning against live/local screenshots.
+- Footer contact details / store addresses are still placeholder-level rather than exact live business details.
+- Some lower homepage support/help blocks remain simplified instead of being exact clones of live modules.
 
 ## Verification
 
-- Run lint
-- Run production build
+- `npm run lint` ✅
+- `npm run build` ✅
 
 ## Key files changed in this pass
 
 - `src/app/page.js`
+- `src/components/Footer.jsx`
 - `src/components/Header.jsx`
 - `src/components/HeroCarousel.jsx`
 - `src/components/ProductCarouselSection.jsx`
-- `src/components/ProductCard.jsx`
 - `src/components/SectionHeading.jsx`
-- `src/components/Footer.jsx`
 - `src/data/siteData.js`
 - `STATUS.md`

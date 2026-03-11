@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Image from 'next/image';
 import { footerColumns, siteMeta, storeBenefits, storeLocations } from '@/data/siteData';
 
 export function Footer() {
@@ -13,9 +13,17 @@ export function Footer() {
           ))}
         </div>
 
-        <div id="he-thong-cua-hang" className="mt-8 grid gap-8 border-t border-slate-200 pt-8 xl:grid-cols-[1.25fr_repeat(4,1fr)]">
+        <div id="he-thong-cua-hang" className="mt-8 grid gap-8 border-t border-slate-200 pt-8 xl:grid-cols-[1.2fr_repeat(4,1fr)]">
           <div>
-            <div className="text-2xl font-bold text-slate-950">{siteMeta.name}</div>
+            <div className="relative h-[42px] w-[180px]">
+              <Image
+                src="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/logo.png?1768028836881"
+                alt={siteMeta.name}
+                fill
+                sizes="180px"
+                className="object-contain object-left"
+              />
+            </div>
             <p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">{siteMeta.address}</p>
             <p className="mt-2 text-sm text-slate-600">Hotline: {siteMeta.hotline}</p>
 
@@ -25,15 +33,6 @@ export function Footer() {
                   {location}
                 </div>
               ))}
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              <a href={`tel:${siteMeta.hotline}`} className="inline-flex rounded-lg bg-[#1b66d2] px-4 py-2.5 text-sm font-semibold text-white">
-                Hotline {siteMeta.hotline}
-              </a>
-              <Link href="/tin-tuc" className="inline-flex rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-900">
-                Tin tức
-              </Link>
             </div>
           </div>
 
@@ -54,7 +53,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 lg:flex lg:items-center lg:justify-between lg:gap-4">
-          <div>Chuyên iPhone, iPad, linh kiện và phụ kiện Apple.</div>
+          <div>Apple Store - {siteMeta.name} {siteMeta.tagline}</div>
           <div>Mua hàng nhanh qua hotline, giao nội thành và hỗ trợ bảo hành rõ ràng.</div>
         </div>
       </div>

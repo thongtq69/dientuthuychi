@@ -18,7 +18,7 @@ export function ProductCarouselSection({ section }) {
         eyebrow={section.eyebrow}
         title={section.title}
         description={section.description}
-        actionLabel="Xem tất cả"
+        actionLabel="Xem toàn bộ sản phẩm"
         actionHref={section.actionHref}
       />
 
