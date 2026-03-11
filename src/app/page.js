@@ -34,7 +34,8 @@ export default function Home() {
         <section className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)]">
           <aside className="hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm xl:block">
             <div className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-600">Danh mục nổi bật</div>
-            <div className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">Lối vào nhanh</div>
+            <div className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">Mua nhanh theo nhu cầu</div>
+            <div className="mt-2 text-sm leading-6 text-slate-600">Chọn nhanh nhóm sản phẩm đang được quan tâm nhiều tại cửa hàng.</div>
             <div className="mt-5 space-y-3">
               {featuredCategories.map((category) => (
                 <CategoryCard key={category.title} category={category} />
@@ -56,20 +57,20 @@ export default function Home() {
         <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <SectionHeading
-              eyebrow="Commerce direction"
-              title="Homepage được kéo gần hơn nhịp storefront thật thay vì một landing demo đẹp vừa vừa"
-              description="Pass này giảm bớt text tự sự về rebuild và thay bằng những tín hiệu mua sắm dễ hiểu hơn: shell thương mại ở đầu trang, nhịp category rõ, section sản phẩm chắc tay hơn và khối editorial có lối ra thật."
+              eyebrow="Mua sắm tại Hoàng Kiên"
+              title="iPhone, phụ kiện và linh kiện Apple được sắp rõ ràng để xem nhanh, chọn nhanh"
+              description="Trang chủ ưu tiên các lối vào mua hàng quan trọng: danh mục dễ thấy, hotline rõ ràng, khối sản phẩm bán chạy nổi bật hơn và nhiều tín hiệu hậu mãi để khách yên tâm khi đặt hàng."
               actionLabel="Xem danh mục điện thoại"
               actionHref="/danh-muc/dien-thoai"
             />
             <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
               {[
-                'Header có utility strip đầy đủ hơn và menu dropdown dày hơn',
-                'Thêm commerce shell dưới header để đỡ hụt nhịp đầu trang',
-                'Homepage bớt cảm giác ghi chú nội bộ, nhiều CTA thật hơn',
-                'Khối tin tức dẫn vào listing và article page riêng',
-                'Footer rõ tín hiệu hotline, hậu mãi và lối vào nội dung',
-                'Responsive được làm chắc hơn ở mobile menu và section density',
+                'Danh mục iPhone, phụ kiện và linh kiện được đẩy lên đầu trang dễ thấy hơn',
+                'Hotline, cửa hàng và tra cứu đơn hàng được đưa vào đầu trang để chốt nhu cầu nhanh',
+                'Khối ưu đãi và hậu mãi rõ hơn để tăng cảm giác mua sắm thật',
+                'Section sản phẩm bán chạy có nhịp dày hơn, nhìn gần storefront thương mại hơn',
+                'Tin tức công nghệ được giữ lại như một lối vào hỗ trợ bán hàng',
+                'Footer tập trung vào bảo hành, hỗ trợ và hệ thống cửa hàng để tạo cảm giác mua sắm tin cậy hơn',
               ].map((item) => (
                 <div key={item} className="rounded-2xl bg-slate-50 px-4 py-3">
                   {item}
@@ -95,8 +96,8 @@ export default function Home() {
         <section id="tin-tuc" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <SectionHeading
             eyebrow="Tin tức mới nhất"
-            title="Editorial section giờ có chuyên mục thật, card rõ hơn và ít cảm giác blog demo hơn"
-            description="Homepage vẫn giữ pattern 1 bài lớn + danh sách nhỏ, nhưng tất cả đã trỏ vào listing/article page để mạch nội dung liền hơn với phần còn lại của storefront."
+            title="Tin công nghệ và kinh nghiệm chọn iPhone được cập nhật liên tục"
+            description="Giữ phần nội dung theo hướng hỗ trợ mua hàng: cập nhật iOS, mẹo dùng iPhone và kinh nghiệm chọn máy để khách có thêm lý do ở lại trang lâu hơn."
             actionLabel="Xem toàn bộ tin tức"
             actionHref="/tin-tuc"
           />
@@ -134,8 +135,8 @@ export default function Home() {
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <SectionHeading
             eyebrow="Hướng dẫn & video"
-            title="Grid video giữ vai trò lấp nhịp cuối homepage, nhưng đã được siết lại để bớt thô"
-            description="Khối này vẫn cần nguồn dữ liệu live tốt hơn, nhưng spacing, hierarchy và hover đã ổn hơn nhiều so với kiểu card demo rời rạc."
+            title="Video hướng dẫn sử dụng iPhone và mẹo xử lý nhanh tình huống thường gặp"
+            description="Khối nội dung này giúp homepage bớt khô, đồng thời bổ sung thêm tín hiệu tư vấn và chăm sóc khách hàng sau khi mua máy."
             actionLabel="Xem toàn bộ video"
             actionHref="/tin-tuc"
           />

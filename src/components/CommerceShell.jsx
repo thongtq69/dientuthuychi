@@ -7,7 +7,7 @@ export function CommerceShell() {
       <aside className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm">
         <div className="bg-slate-950 px-5 py-4 text-white">
           <div className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-300">Danh mục sản phẩm</div>
-          <div className="mt-2 text-lg font-semibold">Khung storefront</div>
+          <div className="mt-2 text-lg font-semibold">Mua nhanh theo nhóm</div>
         </div>
         <div className="space-y-1 p-3">
           {featuredCategories.map((category, index) => (
@@ -29,17 +29,17 @@ export function CommerceShell() {
         <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Hotline bán hàng</div>
           <div className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{siteMeta.hotline}</div>
-          <p className="mt-3 text-sm leading-6 text-slate-600">Tăng cảm giác cửa hàng thật bằng cụm hotline, tiếp nhận đơn và hỗ trợ nhanh ngay dưới header.</p>
+          <p className="mt-3 text-sm leading-6 text-slate-600">Tư vấn chọn máy, báo giá nhanh, hỗ trợ đặt hàng và giải đáp sản phẩm mỗi ngày.</p>
         </div>
         <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Giao hàng & hậu mãi</div>
-          <div className="mt-2 text-lg font-semibold text-slate-950">Nội thành giao nhanh, kiểm tra hàng trước khi nhận</div>
-          <p className="mt-3 text-sm leading-6 text-slate-600">Khối này thay cho các ô tiện ích hơi rời rạc trước đó và giúp homepage có chất commerce-shell rõ hơn.</p>
+          <div className="mt-2 text-lg font-semibold text-slate-950">Nội thành giao nhanh, hỗ trợ kiểm tra hàng trước khi nhận</div>
+          <p className="mt-3 text-sm leading-6 text-slate-600">Ưu tiên trải nghiệm mua sắm rõ ràng, tư vấn kỹ trước khi chốt và hỗ trợ sau bán tốt hơn.</p>
         </div>
         <div className="rounded-[1.75rem] border border-slate-200 bg-slate-950 p-5 text-white shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">Tin tức & tư vấn</div>
-          <div className="mt-2 text-lg font-semibold">Có blog listing và article page riêng</div>
-          <p className="mt-3 text-sm leading-6 text-slate-300">Section tin tức giờ không còn là khối chết — đã có đường dẫn thật để giữ người dùng trong hệ storefront.</p>
+          <div className="mt-2 text-lg font-semibold">Mẹo dùng iPhone, cập nhật iOS và kinh nghiệm mua máy</div>
+          <p className="mt-3 text-sm leading-6 text-slate-300">Xem nhanh tin công nghệ, kinh nghiệm chọn iPhone cũ đẹp và nhiều nội dung hữu ích khác.</p>
           <Link href="/tin-tuc" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
             Xem chuyên mục tin tức
             <span aria-hidden="true">→</span>

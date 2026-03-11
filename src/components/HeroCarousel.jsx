@@ -27,8 +27,8 @@ export function HeroCarousel({ slides }) {
                   <a href={slide.ctaHref} className="inline-flex rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-400">
                     {slide.ctaLabel}
                   </a>
-                  <a href="#foundation" className="inline-flex rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10">
-                    Xem nền tảng rebuild
+                  <a href="#iphone" className="inline-flex rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10">
+                    Xem sản phẩm nổi bật
                   </a>
                 </div>
 

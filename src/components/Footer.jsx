@@ -13,7 +13,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 grid gap-10 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
+        <div id="he-thong-cua-hang" className="mt-12 grid gap-10 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
           <div>
             <div className="text-2xl font-semibold text-white">{siteMeta.name}</div>
             <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">{siteMeta.address}</p>
@@ -54,8 +54,8 @@ export function Footer() {
         </div>
 
         <div className="mt-10 grid gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 p-5 text-sm text-slate-400 lg:grid-cols-[1.1fr_0.9fr_auto_auto] lg:items-center">
-          <div>Rebuild storefront foundation for hoangkien.com · Next.js + Tailwind + Swiper.</div>
-          <div className="text-slate-300">Ưu tiên trải nghiệm mobile, category shell và tín hiệu tin cậy giống storefront thật.</div>
+          <div>Chuyên iPhone, phụ kiện và linh kiện Apple với hỗ trợ tư vấn nhanh mỗi ngày.</div>
+          <div className="text-slate-300">Mua sắm thuận tiện hơn với hotline, giao nhanh nội thành và chính sách bảo hành rõ ràng.</div>
           <a href="#" className="rounded-full border border-white/10 px-4 py-2 text-center font-semibold text-white">
             Chính sách bảo hành
           </a>

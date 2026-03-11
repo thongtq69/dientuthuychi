@@ -41,7 +41,7 @@ export function Header() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white shadow-lg">HK</div>
             <div className="min-w-0">
               <div className="truncate text-xl font-semibold tracking-tight text-slate-950">{siteMeta.name}</div>
-              <div className="truncate text-xs text-slate-500">Apple devices · accessories · repair parts</div>
+              <div className="truncate text-xs text-slate-500">iPhone · linh kiện Apple · phụ kiện chính hãng</div>
             </div>
           </Link>
         </div>
@@ -67,7 +67,7 @@ export function Header() {
           </a>
           <a href="#he-thong-cua-hang" className="rounded-[1.25rem] border border-slate-200 px-4 py-3 text-right shadow-sm transition hover:border-sky-200 hover:bg-sky-50">
             <div className="text-xs text-slate-500">Cửa hàng</div>
-            <div className="font-semibold text-slate-950">Bản đồ & tra cứu</div>
+            <div className="font-semibold text-slate-950">Xem hệ thống</div>
           </a>
           <a href="#tra-cuu-don-hang" className="rounded-[1.25rem] border border-slate-200 px-4 py-3 text-right shadow-sm transition hover:border-sky-200 hover:bg-sky-50">
             <div className="text-xs text-slate-500">Đơn hàng</div>
