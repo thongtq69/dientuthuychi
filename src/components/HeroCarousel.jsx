@@ -8,48 +8,35 @@ import 'swiper/css/pagination';
 
 export function HeroCarousel({ slides }) {
   return (
-    <section className="overflow-hidden rounded-[2rem] border border-slate-900 bg-slate-950 text-white shadow-[0_30px_80px_rgba(15,23,42,0.25)]">
+    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <Swiper modules={[Pagination, Autoplay]} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} loop>
         {slides.map((slide) => (
           <SwiperSlide key={slide.title}>
-            <div className="relative grid min-h-[520px] gap-10 p-6 sm:p-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:p-12">
-              <div className="absolute inset-0 opacity-20">
-                <Image src={slide.image} alt={slide.title} fill sizes="100vw" className="object-cover" />
-              </div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.22),_transparent_35%),linear-gradient(90deg,rgba(2,6,23,0.92),rgba(2,6,23,0.52))]" />
+            <div className="relative min-h-[240px] sm:min-h-[300px] lg:min-h-[360px]">
+              <Image src={slide.image} alt={slide.title} fill sizes="100vw" className="object-cover" priority />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/35 to-transparent" />
 
-              <div className="relative z-10 max-w-2xl self-center">
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-sky-300">{slide.eyebrow}</p>
-                <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>
-                <p className="mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">{slide.description}</p>
+              <div className="relative z-10 flex min-h-[240px] max-w-[62%] flex-col justify-center px-5 py-6 text-white sm:min-h-[300px] sm:px-7 lg:min-h-[360px] lg:px-10">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-200">{slide.eyebrow}</p>
+                <h1 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl">{slide.title}</h1>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-slate-100 sm:text-base">{slide.description}</p>
 
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <a href={slide.ctaHref} className="inline-flex rounded-full bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-400">
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <a href={slide.ctaHref} className="inline-flex rounded-lg bg-[#1b66d2] px-4 py-2.5 text-sm font-semibold text-white">
                     {slide.ctaLabel}
                   </a>
-                  <a href="#iphone" className="inline-flex rounded-full border border-white/15 px-6 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/10">
-                    Xem sản phẩm nổi bật
+                  <a href="#iphone" className="inline-flex rounded-lg bg-white/15 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm">
+                    Xem sản phẩm
                   </a>
                 </div>
 
-                <div className="mt-8 flex flex-wrap gap-3">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {slide.stats?.map((stat) => (
-                    <div key={stat} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200">
+                    <div key={stat} className="rounded-lg bg-white/12 px-3 py-1.5 text-xs text-white">
                       {stat}
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="relative z-10 h-[260px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-2xl sm:h-[340px] lg:h-[420px]">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  className="object-cover"
-                  priority
-                />
               </div>
             </div>
           </SwiperSlide>

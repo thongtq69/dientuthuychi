@@ -3,47 +3,47 @@ import { footerColumns, siteMeta, storeBenefits, storeLocations } from '@/data/s
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-slate-200 bg-slate-950 text-slate-200">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-4 rounded-[2rem] bg-white/5 p-6 sm:grid-cols-2 xl:grid-cols-4">
+    <footer className="mt-12 border-t border-slate-200 bg-white text-slate-700">
+      <div className="mx-auto max-w-7xl px-3 py-10 sm:px-4 lg:px-6 xl:px-8">
+        <div className="grid gap-3 rounded-2xl bg-slate-50 p-4 sm:grid-cols-2 xl:grid-cols-4">
           {storeBenefits.map((benefit) => (
-            <div key={benefit} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium">
+            <div key={benefit} className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium">
               {benefit}
             </div>
           ))}
         </div>
 
-        <div id="he-thong-cua-hang" className="mt-12 grid gap-10 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
+        <div id="he-thong-cua-hang" className="mt-8 grid gap-8 border-t border-slate-200 pt-8 xl:grid-cols-[1.25fr_repeat(4,1fr)]">
           <div>
-            <div className="text-2xl font-semibold text-white">{siteMeta.name}</div>
-            <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">{siteMeta.address}</p>
-            <p className="mt-2 text-sm text-slate-500">Hotline hỗ trợ: {siteMeta.hotline}</p>
+            <div className="text-2xl font-bold text-slate-950">{siteMeta.name}</div>
+            <p className="mt-3 max-w-sm text-sm leading-6 text-slate-600">{siteMeta.address}</p>
+            <p className="mt-2 text-sm text-slate-600">Hotline: {siteMeta.hotline}</p>
 
-            <div className="mt-5 grid gap-3 text-sm text-slate-400">
+            <div className="mt-4 grid gap-2 text-sm text-slate-600">
               {storeLocations.map((location) => (
-                <div key={location} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                <div key={location} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
                   {location}
                 </div>
               ))}
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-3">
-              <a href={`tel:${siteMeta.hotline}`} className="inline-flex rounded-full bg-sky-500 px-5 py-3 text-sm font-semibold text-white">
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a href={`tel:${siteMeta.hotline}`} className="inline-flex rounded-lg bg-[#1b66d2] px-4 py-2.5 text-sm font-semibold text-white">
                 Hotline {siteMeta.hotline}
               </a>
-              <Link href="/tin-tuc" className="inline-flex rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
-                Tin tức công nghệ
+              <Link href="/tin-tuc" className="inline-flex rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-900">
+                Tin tức
               </Link>
             </div>
           </div>
 
           {footerColumns.map((column) => (
             <div key={column.title}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{column.title}</h3>
-              <ul className="mt-4 space-y-3 text-sm text-slate-300">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{column.title}</h3>
+              <ul className="mt-4 space-y-3 text-sm text-slate-600">
                 {column.links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="transition hover:text-white">
+                    <a href="#" className="transition hover:text-[#1b66d2]">
                       {link}
                     </a>
                   </li>
@@ -53,15 +53,9 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 p-5 text-sm text-slate-400 lg:grid-cols-[1.1fr_0.9fr_auto_auto] lg:items-center">
-          <div>Chuyên iPhone, phụ kiện và linh kiện Apple với hỗ trợ tư vấn nhanh mỗi ngày.</div>
-          <div className="text-slate-300">Mua sắm thuận tiện hơn với hotline, giao nhanh nội thành và chính sách bảo hành rõ ràng.</div>
-          <a href="#" className="rounded-full border border-white/10 px-4 py-2 text-center font-semibold text-white">
-            Chính sách bảo hành
-          </a>
-          <a href="#" className="rounded-full border border-white/10 px-4 py-2 text-center font-semibold text-white">
-            Hướng dẫn mua hàng
-          </a>
+        <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 lg:flex lg:items-center lg:justify-between lg:gap-4">
+          <div>Chuyên iPhone, iPad, linh kiện và phụ kiện Apple.</div>
+          <div>Mua hàng nhanh qua hotline, giao nội thành và hỗ trợ bảo hành rõ ràng.</div>
         </div>
       </div>
     </footer>

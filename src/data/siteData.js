@@ -1,105 +1,124 @@
 export const siteMeta = {
   name: 'Hoàng Kiên',
   hotline: '0813600999',
-  address: 'Chuyên iPhone, linh kiện sửa chữa và phụ kiện Apple chính hãng',
+  address: 'iPhone, iPad, phụ kiện và linh kiện Apple',
   supportHours: '08:00 - 22:00 mỗi ngày',
-  searchPlaceholder: 'Tìm iPhone, pin, sạc, cáp, linh kiện...',
+  searchPlaceholder: 'Bạn cần tìm gì?',
 };
 
 export const utilityLinks = [
   { label: 'Hệ thống cửa hàng', href: '#he-thong-cua-hang' },
   { label: 'Tra cứu đơn hàng', href: '#tra-cuu-don-hang' },
-  { label: 'Thu cũ đổi mới', href: '#thu-cu-doi-moi' },
-  { label: 'Tin công nghệ', href: '#tin-tuc' },
+  { label: 'Thu cũ đổi mới', href: '/danh-muc/dien-thoai' },
+  { label: 'Chính sách bảo hành', href: '/tin-tuc' },
 ];
 
 export const navItems = [
   { label: 'Trang chủ', href: '/' },
-  {
-    label: 'Điện thoại',
-    href: '/danh-muc/dien-thoai',
-    children: ['iPhone mới', 'iPhone 99%', 'iPhone Pro Max', 'iPhone tiêu chuẩn'],
-  },
-  {
-    label: 'Phụ kiện',
-    href: '/danh-muc/phu-kien',
-    children: ['Sạc & cáp', 'Pin sạc dự phòng', 'Tai nghe', 'Phụ kiện Vivumax'],
-  },
-  {
-    label: 'Linh kiện',
-    href: '/danh-muc/linh-kien',
-    children: ['Pin Feaglet', 'Pin EU', 'Màn hình', 'Camera'],
-  },
+  { label: 'iPhone', href: '/danh-muc/dien-thoai' },
+  { label: 'iPad', href: '/danh-muc/dien-thoai' },
+  { label: 'Apple Watch', href: '/danh-muc/phu-kien' },
+  { label: 'AirPods', href: '/danh-muc/phu-kien' },
+  { label: 'Phụ kiện', href: '/danh-muc/phu-kien' },
+  { label: 'Linh kiện', href: '/danh-muc/linh-kien' },
   { label: 'Tin tức', href: '#tin-tuc' },
 ];
 
 export const featuredCategories = [
   {
-    title: 'Điện thoại iPhone',
+    title: 'iPhone',
     href: '/danh-muc/dien-thoai',
     image: 'https://bizweb.dktcdn.net/100/112/815/products/iphone-17promax-du-mau-88a053ed-0742-445a-869b-0b0d876590ce.png?v=1765510576573',
-    description: 'iPhone mới, iPhone 99% đẹp, đủ phiên bản từ tiêu chuẩn đến Pro Max.',
+    description: 'Điện thoại iPhone.',
+  },
+  {
+    title: 'iPad',
+    href: '/danh-muc/dien-thoai',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/po-p-compressed-4bc7063a-7269-439e-ad18-f2beb809f7d1.jpg?v=1730280101420',
+    description: 'Máy tính bảng Apple.',
+  },
+  {
+    title: 'Apple Watch',
+    href: '/danh-muc/phu-kien',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/6.png?v=1744702826943',
+    description: 'Đồng hồ Apple Watch.',
+  },
+  {
+    title: 'MacBook',
+    href: '/danh-muc/dien-thoai',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/16prm-full-da134920-b18f-41e8-a5c9-50312d7d0e9d-a373a501-a879-49b7-8036-024e2dead860.png?v=1730447868917',
+    description: 'Laptop Apple.',
+  },
+  {
+    title: 'AirPods',
+    href: '/danh-muc/phu-kien',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/2.png?v=1760931405503',
+    description: 'Tai nghe Apple.',
+  },
+  {
+    title: 'Sạc cáp',
+    href: '/danh-muc/phu-kien',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/ytrtyi.png?v=1703319792653',
+    description: 'Sạc và cáp.',
+  },
+  {
+    title: 'Pin dự phòng',
+    href: '/danh-muc/phu-kien',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/2.png?v=1760931405503',
+    description: 'Pin dự phòng.',
+  },
+  {
+    title: 'Ốp lưng',
+    href: '/danh-muc/phu-kien',
+    image: 'https://bizweb.dktcdn.net/100/112/815/products/6.png?v=1744702826943',
+    description: 'Ốp lưng, bao da.',
   },
   {
     title: 'Pin Feaglet',
     href: '/danh-muc/linh-kien',
     image: 'https://bizweb.dktcdn.net/100/112/815/products/pin-15-promax.png?v=1764920853963',
-    description: 'Pin thay thế cho nhiều dòng iPhone, ổn định và dễ chọn theo model.',
-  },
-  {
-    title: 'Sạc & cáp',
-    href: '/danh-muc/phu-kien',
-    image: 'https://bizweb.dktcdn.net/100/112/815/products/6.png?v=1744702826943',
-    description: 'Củ sạc nhanh, cáp Type-C, Lightning và combo phụ kiện bán chạy.',
-  },
-  {
-    title: 'Phụ kiện Vivumax',
-    href: '/danh-muc/phu-kien',
-    image: 'https://bizweb.dktcdn.net/100/112/815/products/2.png?v=1760931405503',
-    description: 'Nhóm phụ kiện giá tốt, dễ mua kèm khi lên đời máy hoặc thay sạc.',
+    description: 'Pin Feaglet.',
   },
   {
     title: 'Pin EU',
     href: '/danh-muc/linh-kien',
     image: 'https://bizweb.dktcdn.net/100/112/815/products/987b7279884f23117a5e-0e3a87fc-0b54-4da9-bf81-606f5793c0fa-9b74d55e-fc69-4a38-9d33-19730b2a4430-6d1dcfa9-e109-4260-a99a-c6706d7237a6.jpg?v=1764901190337',
-    description: 'Linh kiện thay thế cho iPhone đời phổ biến, dễ tìm theo máy và dung lượng.',
+    description: 'Pin EU.',
   },
 ];
 
 export const heroSlides = [
   {
-    eyebrow: 'iPhone chính hãng · máy đẹp · linh kiện chất lượng',
-    title: 'Mua iPhone, phụ kiện và linh kiện Apple tại Hoàng Kiên',
-    description:
-      'Ưu đãi giá tốt mỗi ngày, hỗ trợ kỹ thuật tận tâm, giao nhanh nội thành và nhiều nhóm sản phẩm để bạn chọn đúng máy, đúng phụ kiện, đúng nhu cầu.',
-    ctaLabel: 'Xem điện thoại',
+    eyebrow: 'Hoàng Kiên',
+    title: 'iPhone, iPad and more.....',
+    description: 'Giá tốt mỗi ngày · giao nhanh · hỗ trợ kỹ thuật · thu cũ đổi mới',
+    ctaLabel: 'Mua ngay',
     ctaHref: '/danh-muc/dien-thoai',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881',
-    stats: ['Giao nhanh nội thành', '1 đổi 1 lỗi NSX', 'Trả góp linh hoạt'],
+    stats: ['Giao nhanh', 'Bảo hành rõ ràng', 'Thu cũ đổi mới'],
   },
   {
-    eyebrow: 'Pin, cáp, sạc và linh kiện cho nhiều dòng iPhone',
-    title: 'Đủ nhóm sản phẩm bán chạy cho nhu cầu thay mới và sửa chữa',
-    description:
-      'Từ pin Feaglet, pin EU đến sạc cáp và phụ kiện Vivumax, danh mục được sắp rõ ràng để tìm nhanh, xem giá nhanh và đặt hàng thuận tiện hơn.',
-    ctaLabel: 'Xem linh kiện',
-    ctaHref: '/danh-muc/linh-kien',
+    eyebrow: 'Phụ kiện - linh kiện',
+    title: 'Sạc cáp, pin và phụ kiện bán chạy',
+    description: 'Dễ tìm, dễ chọn, hỗ trợ đặt hàng nhanh qua hotline.',
+    ctaLabel: 'Xem sản phẩm',
+    ctaHref: '/danh-muc/phu-kien',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner2.jpg?1768028836881',
-    stats: ['Giá rõ ràng', 'Nhiều mẫu bán chạy', 'Hỗ trợ tư vấn nhanh'],
+    stats: ['Sạc cáp', 'Pin Feaglet', 'Phụ kiện Vivumax'],
   },
 ];
 
 export const promoBanners = [
   {
-    title: 'Bảo hành 12 tháng · lỗi kỹ thuật đổi mới',
-    description: 'Áp dụng theo từng nhóm máy, linh kiện và phụ kiện. Tư vấn rõ điều kiện trước khi chốt đơn.',
+    title: 'Bảo hành 12 tháng',
+    description: 'Áp dụng theo từng nhóm sản phẩm.',
     href: '/danh-muc/dien-thoai',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner_top.jpg?1768028836881',
     tone: 'dark',
   },
   {
-    title: 'Giao nhanh nội thành · hỗ trợ nhận hàng tận nơi',
-    description: 'Đặt hàng nhanh qua hotline, hỗ trợ kiểm tra sản phẩm trước khi nhận với nhiều khu vực nội thành.',
+    title: 'Giao nhanh nội thành',
+    description: 'Hỗ trợ đặt hàng qua hotline.',
     href: '/danh-muc/phu-kien',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881',
     tone: 'light',
@@ -380,17 +399,19 @@ export const collections = [
 export const productSections = [
   {
     id: 'iphone',
+    eyebrow: 'Sản phẩm nổi bật',
     title: 'Điện thoại nổi bật',
-    description: 'Tổng hợp iPhone bán chạy, đủ phân khúc từ dễ tiếp cận đến dòng cao cấp.',
-    tabs: ['iPhone mới', 'iPhone 99%', 'Pro / Pro Max', 'Xem tất cả'],
+    description: 'iPhone bán chạy tại cửa hàng.',
+    tabs: ['iPhone', 'iPhone 99%', 'iPhone Pro Max', 'Xem tất cả'],
     products: ['iphone-17-pro-max-256gb-chinh-hang', 'iphone-16-pro-max-512gb', 'apple-iphone-15-128gb'],
     actionHref: '/danh-muc/dien-thoai',
   },
   {
     id: 'phu-kien',
+    eyebrow: 'Sản phẩm nổi bật',
     title: 'Phụ kiện nổi bật',
-    description: 'Các mẫu sạc, cáp và phụ kiện phổ biến dễ mua thêm khi chọn máy.',
-    tabs: ['Sạc & cáp', 'Tai nghe', 'Sạc dự phòng', 'Vivumax'],
+    description: 'Sạc cáp và phụ kiện bán chạy.',
+    tabs: ['Sạc cáp', 'Pin dự phòng', 'AirPods', 'Vivumax'],
     products: [
       'cu-sac-nhanh-cong-pd-type-c-vivumax-pd20-20w',
       'cap-sac-nhanh-day-ben-du-dau-hop-kim-kem-3a-vivumax-ci16-type-c-to-lightning-30w-mau-titanium-xanh-den',
@@ -399,9 +420,10 @@ export const productSections = [
   },
   {
     id: 'linh-kien',
-    title: 'Pin Feaglet & linh kiện',
-    description: 'Nhóm pin và linh kiện thay thế cho nhiều đời iPhone đang được quan tâm.',
-    tabs: ['Pin', 'Màn hình', 'Sửa chữa', 'Xem tất cả'],
+    eyebrow: 'Sản phẩm nổi bật',
+    title: 'Pin Feaglet nổi bật',
+    description: 'Pin thay thế cho nhiều dòng iPhone.',
+    tabs: ['Pin Feaglet', 'Pin EU', 'Màn hình', 'Xem tất cả'],
     products: ['pin-iphone-15-pro-max-feaglet-4422mah', 'pin-iphone-14-pro-max-feaglet-4323mah'],
     actionHref: '/danh-muc/linh-kien',
   },
@@ -460,15 +482,15 @@ export const editorialSections = {
 
 export const storeBenefits = [
   'Thanh toán khi nhận hàng',
-  'Cam kết chính hãng - hỗ trợ kỹ thuật',
-  'Giao hàng nội thành nhanh',
-  'Bảo hành lỗi 1 đổi 1',
+  'Cam kết chính hãng',
+  'Giao hàng nội thành',
+  'Bảo hành rõ ràng',
 ];
 
 export const trustBadges = [
-  { title: 'Bảo hành 12 tháng', text: 'Áp dụng theo từng nhóm máy, linh kiện và phụ kiện tại cửa hàng.' },
-  { title: 'Kiểm tra hàng trước khi nhận', text: 'Hỗ trợ khách yên tâm hơn khi đặt mua online và nhận hàng tận nơi.' },
-  { title: 'Thu cũ đổi mới', text: 'Hỗ trợ lên đời iPhone nhanh, tư vấn giá và tình trạng máy rõ ràng.' },
+  { title: 'Bảo hành 12 tháng', text: 'Áp dụng theo từng nhóm máy, linh kiện và phụ kiện.' },
+  { title: 'Kiểm tra hàng trước khi nhận', text: 'Hỗ trợ khách mua online yên tâm hơn khi nhận hàng.' },
+  { title: 'Thu cũ đổi mới', text: 'Hỗ trợ lên đời iPhone nhanh tại cửa hàng.' },
 ];
 
 export const footerColumns = [
@@ -478,7 +500,7 @@ export const footerColumns = [
   },
   {
     title: 'Danh mục',
-    links: ['Điện thoại', 'Phụ kiện', 'Linh kiện', 'Tin tức'],
+    links: ['iPhone', 'iPad', 'Phụ kiện', 'Linh kiện'],
   },
   {
     title: 'Hỗ trợ',
@@ -491,8 +513,8 @@ export const footerColumns = [
 ];
 
 export const storeLocations = [
-  'CS1: Hà Nội - chuyên iPhone, phụ kiện và kỹ thuật Apple',
-  'CS2: Hỗ trợ giao hàng, tiếp nhận bảo hành và tư vấn nhanh',
+  'CS1: Chuyên iPhone, iPad và phụ kiện Apple',
+  'CS2: Hỗ trợ giao hàng, bảo hành và kỹ thuật',
 ];
 
 export const blogPosts = [

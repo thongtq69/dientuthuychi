@@ -13,20 +13,21 @@ export function ProductCarouselSection({ section }) {
   const products = getProductsBySlugs(section.products);
 
   return (
-    <section id={section.id} className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
-      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-        <SectionHeading
-          eyebrow="Danh mục sản phẩm"
-          title={section.title}
-          description={section.description}
-          actionLabel="Xem tất cả"
-          actionHref={section.actionHref}
-        />
-      </div>
+    <section id={section.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <SectionHeading
+        eyebrow={section.eyebrow}
+        title={section.title}
+        description={section.description}
+        actionLabel="Xem tất cả"
+        actionHref={section.actionHref}
+      />
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="mb-4 flex flex-wrap gap-2">
         {section.tabs.map((tab, index) => (
-          <span key={tab} className={`rounded-full px-4 py-2 text-sm ${index === 0 ? 'bg-slate-950 text-white' : 'border border-slate-200 bg-slate-50 text-slate-600'}`}>
+          <span
+            key={tab}
+            className={`rounded-lg px-3 py-2 text-sm ${index === 0 ? 'bg-[#1b66d2] text-white' : 'border border-slate-200 bg-slate-50 text-slate-600'}`}
+          >
             {tab}
           </span>
         ))}
@@ -35,13 +36,13 @@ export function ProductCarouselSection({ section }) {
       <Swiper
         modules={[Navigation]}
         navigation
-        spaceBetween={16}
+        spaceBetween={12}
         breakpoints={{
-          320: { slidesPerView: 1.2 },
-          560: { slidesPerView: 2.1 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
-          1280: { slidesPerView: 5 },
+          320: { slidesPerView: 2.1 },
+          560: { slidesPerView: 2.6 },
+          768: { slidesPerView: 3.2 },
+          1024: { slidesPerView: 4.2 },
+          1280: { slidesPerView: 5.2 },
         }}
       >
         {products.map((product) => (

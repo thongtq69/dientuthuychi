@@ -16,44 +16,39 @@ import {
   trustBadges,
 } from '@/data/siteData';
 
-const quickLinks = [
-  { label: 'Thu cũ - Đổi mới', href: '/danh-muc/dien-thoai' },
-  { label: 'Chính sách bảo hành', href: '/tin-tuc' },
-  { label: 'Tra cứu đơn hàng', href: '#tra-cuu-don-hang' },
-  { label: 'Hệ thống cửa hàng', href: '#he-thong-cua-hang' },
+const supportCards = [
+  {
+    title: 'Gọi mua hàng',
+    value: siteMeta.hotline,
+    href: `tel:${siteMeta.hotline}`,
+  },
+  {
+    title: 'Tra cứu đơn hàng',
+    value: 'Kiểm tra đơn',
+    href: '#tra-cuu-don-hang',
+  },
+  {
+    title: 'Hệ thống cửa hàng',
+    value: 'Xem địa chỉ',
+    href: '#he-thong-cua-hang',
+  },
+  {
+    title: 'Thu cũ đổi mới',
+    value: 'Lên đời máy',
+    href: '/danh-muc/dien-thoai',
+  },
 ];
 
 const sidePromos = [
   {
-    title: 'Thu cũ - lên đời iPhone nhanh',
+    title: 'Thu cũ - đổi mới',
     href: '/danh-muc/dien-thoai',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/2banner_1.jpg?1768028836881',
   },
   {
-    title: 'Bảo hành rõ ràng - hỗ trợ tận tâm',
-    href: '/tin-tuc',
+    title: 'Phụ kiện - linh kiện',
+    href: '/danh-muc/phu-kien',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/2banner_2.jpg?1768028836881',
-  },
-];
-
-const serviceCards = [
-  {
-    title: 'Tư vấn mua hàng',
-    value: siteMeta.hotline,
-    href: `tel:${siteMeta.hotline}`,
-    description: 'Hỗ trợ chọn máy, báo giá nhanh và chốt đơn mỗi ngày.',
-  },
-  {
-    title: 'Tra cứu đơn hàng',
-    value: 'Kiểm tra nhanh',
-    href: '#tra-cuu-don-hang',
-    description: 'Theo dõi đơn và tình trạng xử lý thuận tiện hơn.',
-  },
-  {
-    title: 'Tìm chi nhánh',
-    value: 'Hệ thống Hoàng Kiên',
-    href: '#he-thong-cua-hang',
-    description: 'Xem điểm bán, tiếp nhận bảo hành và hỗ trợ kỹ thuật.',
   },
 ];
 
@@ -62,21 +57,21 @@ export default function Home() {
   const [featuredPost, ...secondaryPosts] = posts;
 
   return (
-    <div className="min-h-screen bg-[#f5f6f8] text-slate-900">
+    <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
       <Header />
 
-      <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-5 sm:px-6 lg:px-8 lg:gap-8 lg:py-6">
-        <section className="grid gap-4 xl:grid-cols-[260px_minmax(0,1fr)_320px]">
-          <aside className="hidden overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm xl:block">
-            <div className="bg-slate-950 px-5 py-4 text-white">
-              <div className="text-sm font-semibold">Danh mục</div>
+      <main className="mx-auto flex max-w-7xl flex-col gap-4 px-3 py-4 sm:px-4 lg:gap-5 lg:px-6 lg:py-5 xl:px-8">
+        <section className="grid gap-3 xl:grid-cols-[238px_minmax(0,1fr)_286px]">
+          <aside className="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm xl:block">
+            <div className="border-b border-slate-200 bg-[#1b66d2] px-4 py-3 text-sm font-semibold text-white">
+              Danh mục sản phẩm
             </div>
-            <div className="p-2">
-              {featuredCategories.map((category) => (
+            <div className="py-1">
+              {featuredCategories.slice(0, 10).map((category) => (
                 <Link
                   key={category.title}
                   href={category.href}
-                  className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-slate-950"
+                  className="flex items-center justify-between border-b border-slate-100 px-4 py-3 text-[13px] font-medium text-slate-700 transition hover:bg-slate-50 hover:text-slate-950"
                 >
                   <span>{category.title}</span>
                   <span className="text-slate-300">›</span>
@@ -87,20 +82,20 @@ export default function Home() {
 
           <HeroCarousel slides={heroSlides} />
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-1">
+          <div className="grid gap-3">
             {sidePromos.map((promo) => (
               <a
                 key={promo.title}
                 href={promo.href}
-                className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm"
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
               >
-                <div className="relative aspect-[16/9] md:aspect-[7/3] xl:aspect-[5/3]">
+                <div className="relative aspect-[16/8] xl:aspect-[286/180]">
                   <Image
                     src={promo.image}
                     alt={promo.title}
                     fill
-                    sizes="(max-width: 1279px) 50vw, 320px"
-                    className="object-cover transition duration-500 group-hover:scale-105"
+                    sizes="(max-width: 1279px) 100vw, 286px"
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
               </a>
@@ -108,115 +103,80 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-          <div className="flex flex-wrap items-center gap-3">
-            {quickLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-white hover:text-slate-950"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+        <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {supportCards.map((card) => (
+            <a
+              key={card.title}
+              href={card.href}
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition hover:border-slate-300"
+            >
+              <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{card.title}</div>
+              <div className="mt-2 text-base font-semibold text-slate-950">{card.value}</div>
+            </a>
+          ))}
         </section>
 
-        <section className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-slate-950 sm:text-2xl">Danh mục nổi bật</h2>
-            <Link href="/danh-muc/dien-thoai" className="text-sm font-semibold text-sky-700">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Danh mục nổi bật</h2>
+            <Link href="/danh-muc/dien-thoai" className="text-sm font-semibold text-[#1b66d2]">
               Xem tất cả
             </Link>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {featuredCategories.map((category) => (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-10">
+            {featuredCategories.slice(0, 10).map((category) => (
               <Link
                 key={category.title}
                 href={category.href}
-                className="group rounded-[1.25rem] border border-slate-200 bg-slate-50 p-4 text-center transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
+                className="group rounded-2xl border border-slate-200 bg-white p-3 text-center transition hover:shadow-md"
               >
-                <div className="relative mx-auto h-28 w-28">
-                  <Image src={category.image} alt={category.title} fill sizes="112px" className="object-contain" />
+                <div className="relative mx-auto h-16 w-16 sm:h-20 sm:w-20">
+                  <Image src={category.image} alt={category.title} fill sizes="80px" className="object-contain" />
                 </div>
-                <h3 className="mt-3 text-sm font-semibold text-slate-950">{category.title}</h3>
+                <h3 className="mt-2 text-xs font-medium leading-5 text-slate-800">{category.title}</h3>
               </Link>
             ))}
           </div>
-        </section>
-
-        <section className="grid gap-4 md:grid-cols-2">
-          {sidePromos.map((promo) => (
-            <a
-              key={`bottom-${promo.title}`}
-              href={promo.href}
-              className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm"
-            >
-              <div className="relative aspect-[21/8]">
-                <Image
-                  src={promo.image}
-                  alt={promo.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-              </div>
-            </a>
-          ))}
-        </section>
-
-        <section className="grid gap-4 lg:grid-cols-3">
-          {serviceCards.map((card) => (
-            <a
-              key={card.title}
-              href={card.href}
-              className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{card.title}</div>
-              <div className="mt-2 text-xl font-semibold text-slate-950">{card.value}</div>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{card.description}</p>
-            </a>
-          ))}
         </section>
 
         {productSections.map((section) => (
           <ProductCarouselSection key={section.id} section={section} />
         ))}
 
-        <section className="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm sm:grid-cols-2 xl:grid-cols-4">
+        <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-2 xl:grid-cols-4">
           {storeBenefits.map((benefit) => (
-            <div key={benefit} className="rounded-[1.25rem] bg-slate-50 px-4 py-4 text-sm font-medium text-slate-700">
+            <div key={benefit} className="rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
               {benefit}
             </div>
           ))}
         </section>
 
-        <section id="tin-tuc" className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-slate-950 sm:text-2xl">Tin tức mới nhất</h2>
-            <Link href="/tin-tuc" className="text-sm font-semibold text-sky-700">
-              Xem toàn bộ tin tức
+        <section id="tin-tuc" className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Tin tức mới nhất</h2>
+            <Link href="/tin-tuc" className="text-sm font-semibold text-[#1b66d2]">
+              Xem tất cả
             </Link>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-            <article className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-50">
-              <Link href={`/tin-tuc/${featuredPost.slug}`} className="relative block aspect-[16/10]">
+          <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+            <article className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+              <Link href={`/tin-tuc/${featuredPost.slug}`} className="relative block aspect-[16/9]">
                 <Image src={featuredPost.image} alt={featuredPost.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
               </Link>
-              <div className="space-y-3 p-5">
+              <div className="space-y-2 p-4">
                 <div className="text-sm text-slate-500">
                   Ngày đăng: <span className="font-medium text-slate-700">{featuredPost.date}</span>
                 </div>
-                <Link href={`/tin-tuc/${featuredPost.slug}`} className="block text-xl font-semibold leading-tight text-slate-950 transition hover:text-sky-700 sm:text-2xl">
+                <Link href={`/tin-tuc/${featuredPost.slug}`} className="block text-lg font-semibold leading-tight text-slate-950 transition hover:text-[#1b66d2] sm:text-xl">
                   {featuredPost.title}
                 </Link>
                 <p className="text-sm leading-6 text-slate-600">{featuredPost.excerpt}</p>
               </div>
             </article>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3">
               {secondaryPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} compact />
               ))}
@@ -224,17 +184,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-slate-950 sm:text-2xl">Hướng dẫn thủ thuật</h2>
-            <Link href="/tin-tuc" className="text-sm font-semibold text-sky-700">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Hỗ trợ khách hàng</h2>
+            <Link href="/tin-tuc" className="text-sm font-semibold text-[#1b66d2]">
               Xem thêm
             </Link>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {trustBadges.map((item) => (
-              <div key={item.title} className="rounded-[1.25rem] border border-slate-200 bg-slate-50 p-5">
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                 <div className="text-base font-semibold text-slate-950">{item.title}</div>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
               </div>
