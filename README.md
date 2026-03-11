@@ -27,15 +27,18 @@ npm run start
 ## What is included right now
 
 - responsive app shell
-- header + desktop/mobile navigation scaffold
+- refined storefront-style header + desktop/mobile navigation scaffold
 - homepage hero carousel
 - featured category cards
 - reusable product carousel sections
+- routed category listing templates
+- routed product detail templates
 - blog/news section
 - video/tutorial section
-- footer with policy + link columns
+- richer footer with policy + store/support details
 - rebuild blueprint in `BLUEPRINT.md`
+- progress note in `STATUS.md`
 
 ## Notes
 
-This is a foundation pass, not a pixel-perfect clone yet. Content is seeded from mirrored homepage patterns and sample mirrored assets.
+This is no longer just the initial foundation pass. The current version now includes homepage refinement plus category/PDP templates seeded from mirrored patterns and live-site structural clues, but it still needs more polish for true pixel-level parity.

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -7,8 +7,11 @@ import 'swiper/css/navigation';
 
 import { ProductCard } from '@/components/ProductCard';
 import { SectionHeading } from '@/components/SectionHeading';
+import { getProductsBySlugs } from '@/data/siteData';
 
 export function ProductCarouselSection({ section }) {
+  const products = getProductsBySlugs(section.products);
+
   return (
     <section id={section.id} className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
       <SectionHeading
@@ -16,6 +19,7 @@ export function ProductCarouselSection({ section }) {
         title={section.title}
         description={section.description}
         actionLabel="Xem toàn bộ sản phẩm"
+        actionHref={section.actionHref}
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
@@ -31,15 +35,15 @@ export function ProductCarouselSection({ section }) {
         navigation
         spaceBetween={16}
         breakpoints={{
-          320: { slidesPerView: 1.2 },
+          320: { slidesPerView: 1.15 },
           480: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 4 },
           1280: { slidesPerView: 5 },
         }}
       >
-        {section.products.map((product) => (
-          <SwiperSlide key={product.name} className="pb-2">
+        {products.map((product) => (
+          <SwiperSlide key={product.slug} className="pb-2">
             <ProductCard product={product} />
           </SwiperSlide>
         ))}

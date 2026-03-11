@@ -1,15 +1,18 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 
 import { CategoryCard } from '@/components/CategoryCard';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { HeroCarousel } from '@/components/HeroCarousel';
+import { HomeFeatureStrip } from '@/components/HomeFeatureStrip';
 import { ProductCarouselSection } from '@/components/ProductCarouselSection';
+import { PromoBanner } from '@/components/PromoBanner';
 import { SectionHeading } from '@/components/SectionHeading';
 import {
   editorialSections,
   featuredCategories,
   heroSlides,
+  promoBanners,
   productSections,
 } from '@/data/siteData';
 
@@ -20,10 +23,24 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <Header />
 
-      <main className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <HeroCarousel slides={heroSlides} />
+      <main className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-6 sm:px-6 lg:px-8 lg:gap-10 lg:py-8">
+        <section className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)]">
+          <aside className="hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm xl:block">
+            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-600">Danh mục nổi bật</div>
+            <div className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">Lối vào nhanh</div>
+            <div className="mt-5 space-y-3">
+              {featuredCategories.map((category) => (
+                <CategoryCard key={category.title} category={category} />
+              ))}
+            </div>
+          </aside>
 
-        <section id="foundation" className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <HeroCarousel slides={heroSlides} />
+        </section>
+
+        <HomeFeatureStrip />
+
+        <section id="foundation" className="grid gap-4 md:grid-cols-2 xl:grid-cols-5 xl:hidden">
           {featuredCategories.map((category) => (
             <CategoryCard key={category.title} category={category} />
           ))}
@@ -32,50 +49,47 @@ export default function Home() {
         <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
             <SectionHeading
-              eyebrow="Detected patterns"
-              title="Responsive storefront foundation"
-              description="Mirror cho thấy homepage chia thành: mega header, slider danh mục, banner ngang, nhiều khối product carousel, blog/video grid và footer giàu CTA."
-              actionLabel="Blueprint chi tiết"
+              eyebrow="Mirror-driven refinement"
+              title="Homepage được làm dày hơn để gần nhịp thương mại điện tử gốc"
+              description="Pass này giảm cảm giác template rỗng bằng header nhiều tiện ích hơn, home có nhịp banner xen kẽ, product rails gắn route thật, card giá rõ và footer nhiều tín hiệu tin cậy hơn."
+              actionLabel="Xem danh mục điện thoại"
+              actionHref="/danh-muc/dien-thoai"
             />
             <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
               {[
-                'Header desktop + mobile menu toggle',
-                'Hero/marketing banners xen giữa product blocks',
-                'Swiper-heavy product rails với breakpoints 1–5 cột',
-                'Khối blog lớn + danh sách bài nhỏ',
-                'Footer nhiều cột + chính sách + hotline',
-                'Sẵn sàng thay seed data bằng CMS hoặc API',
+                'Header có utility strip, search và cụm hotline/store/order lookup',
+                'Hero có stats chips thay vì copy mô tả chung chung',
+                'Category entry rõ ràng hơn trên desktop và mobile',
+                'Các block sản phẩm trỏ sang category/PDP thật',
+                'Banner xen giữa section để giữ nhịp storefront giống mirror',
+                'Footer thêm thông tin cửa hàng và CTA hỗ trợ',
               ].map((item) => (
-                <div key={item} className="rounded-2xl bg-slate-50 px-4 py-3">{item}</div>
+                <div key={item} className="rounded-2xl bg-slate-50 px-4 py-3">
+                  {item}
+                </div>
               ))}
             </div>
           </div>
 
           <div className="grid gap-4">
-            {heroSlides.slice(0, 2).map((slide) => (
-              <div key={slide.title} className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-900 p-6 text-white shadow-sm">
-                <div className="absolute inset-0 opacity-30">
-                  <Image src={slide.image} alt={slide.title} fill sizes="50vw" className="object-cover" />
-                </div>
-                <div className="relative z-10 max-w-sm">
-                  <p className="text-xs uppercase tracking-[0.24em] text-sky-300">Promo block</p>
-                  <h3 className="mt-3 text-2xl font-semibold">{slide.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-300">{slide.description}</p>
-                </div>
-              </div>
+            {promoBanners.map((banner) => (
+              <PromoBanner key={banner.title} banner={banner} />
             ))}
           </div>
         </section>
 
-        {productSections.map((section) => (
-          <ProductCarouselSection key={section.id} section={section} />
+        {productSections.map((section, index) => (
+          <div key={section.id} className="space-y-8">
+            <ProductCarouselSection section={section} />
+            {promoBanners[index % promoBanners.length] ? <PromoBanner banner={promoBanners[index % promoBanners.length]} /> : null}
+          </div>
         ))}
 
         <section id="tin-tuc" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <SectionHeading
             eyebrow="Tin tức mới nhất"
-            title="Editorial section tách biệt để giữ SEO và khả năng cập nhật nội dung"
-            description="Homepage gốc dùng một bài nổi bật lớn ở trái và danh sách bài nhỏ ở phải. Bản rebuild tái hiện pattern đó bằng grid linh hoạt trên mobile và desktop."
+            title="Editorial section giữ pattern 1 lớn + danh sách nhỏ giống storefront gốc"
+            description="Khối nội dung được siết nhịp hơn: ảnh lớn, typography đậm hơn và các card nhỏ đồng đều để tránh section này trông như blog demo rời rạc."
             actionLabel="Xem toàn bộ tin tức"
           />
 
@@ -110,8 +124,8 @@ export default function Home() {
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <SectionHeading
             eyebrow="Hướng dẫn & video"
-            title="Card grid cho nội dung thủ thuật / video"
-            description="Mirror có một hàng card ngang cho chuyên mục hướng dẫn. Bản nền tảng này chuyển thành responsive grid 1–4 cột."
+            title="Grid video giữ vai trò lấp nhịp cuối homepage, tránh rơi cảm giác landing quá ngắn"
+            description="Mirror gốc có hàng card nội dung hướng dẫn khá rõ. Ở bản rebuild, phần này được giữ lại nhưng siết spacing và hover để nhìn bớt thô."
             actionLabel="Xem toàn bộ video"
           />
 
