@@ -23,7 +23,7 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at top, rgba(224, 242, 254, 0.9) 0%, rgba(248, 250, 252, 0.95) 26%, #f8fafc 58%),
+    radial-gradient(circle at top, rgba(224, 242, 254, 0.82) 0%, rgba(248, 250, 252, 0.96) 24%, #f8fafc 58%),
     linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
@@ -48,8 +48,8 @@ select {
 
 .swiper-button-prev,
 .swiper-button-next {
-  height: 44px !important;
-  width: 44px !important;
+  height: 42px !important;
+  width: 42px !important;
   border-radius: 999px;
   background: white;
   border: 1px solid #e2e8f0;
@@ -75,7 +75,8 @@ select {
 }
 
 .line-clamp-1,
-.line-clamp-2 {
+.line-clamp-2,
+.line-clamp-3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -87,4 +88,8 @@ select {
 
 .line-clamp-2 {
   -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  -webkit-line-clamp: 3;
 }

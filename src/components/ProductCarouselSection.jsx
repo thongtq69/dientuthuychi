@@ -23,8 +23,8 @@ export function ProductCarouselSection({ section }) {
       />
 
       <div className="mb-6 flex flex-wrap gap-2">
-        {section.tabs.map((tab) => (
-          <span key={tab} className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-600">
+        {section.tabs.map((tab, index) => (
+          <span key={tab} className={`rounded-full px-4 py-2 text-sm ${index === 0 ? 'bg-slate-950 text-white' : 'border border-slate-200 bg-slate-50 text-slate-600'}`}>
             {tab}
           </span>
         ))}
@@ -35,8 +35,8 @@ export function ProductCarouselSection({ section }) {
         navigation
         spaceBetween={16}
         breakpoints={{
-          320: { slidesPerView: 1.15 },
-          480: { slidesPerView: 2 },
+          320: { slidesPerView: 1.2 },
+          560: { slidesPerView: 2.1 },
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 4 },
           1280: { slidesPerView: 5 },

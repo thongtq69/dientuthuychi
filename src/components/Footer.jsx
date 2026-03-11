@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { footerColumns, siteMeta, storeBenefits, storeLocations } from '@/data/siteData';
 
 export function Footer() {
@@ -12,13 +13,13 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
+        <div className="mt-12 grid gap-10 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
           <div>
             <div className="text-2xl font-semibold text-white">{siteMeta.name}</div>
             <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">{siteMeta.address}</p>
             <p className="mt-2 text-sm text-slate-500">Hotline hỗ trợ: {siteMeta.hotline}</p>
 
-            <div className="mt-5 space-y-3 text-sm text-slate-400">
+            <div className="mt-5 grid gap-3 text-sm text-slate-400">
               {storeLocations.map((location) => (
                 <div key={location} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                   {location}
@@ -26,9 +27,14 @@ export function Footer() {
               ))}
             </div>
 
-            <a href={`tel:${siteMeta.hotline}`} className="mt-5 inline-flex rounded-full bg-sky-500 px-5 py-3 text-sm font-semibold text-white">
-              Hotline {siteMeta.hotline}
-            </a>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a href={`tel:${siteMeta.hotline}`} className="inline-flex rounded-full bg-sky-500 px-5 py-3 text-sm font-semibold text-white">
+                Hotline {siteMeta.hotline}
+              </a>
+              <Link href="/tin-tuc" className="inline-flex rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white">
+                Tin tức công nghệ
+              </Link>
+            </div>
           </div>
 
           {footerColumns.map((column) => (
@@ -47,8 +53,9 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 grid gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 p-5 text-sm text-slate-400 lg:grid-cols-[1fr_auto_auto] lg:items-center">
+        <div className="mt-10 grid gap-4 rounded-[1.5rem] border border-white/10 bg-white/5 p-5 text-sm text-slate-400 lg:grid-cols-[1.1fr_0.9fr_auto_auto] lg:items-center">
           <div>Rebuild storefront foundation for hoangkien.com · Next.js + Tailwind + Swiper.</div>
+          <div className="text-slate-300">Ưu tiên trải nghiệm mobile, category shell và tín hiệu tin cậy giống storefront thật.</div>
           <a href="#" className="rounded-full border border-white/10 px-4 py-2 text-center font-semibold text-white">
             Chính sách bảo hành
           </a>

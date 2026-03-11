@@ -1,6 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
+import { BlogCard } from '@/components/BlogCard';
 import { CategoryCard } from '@/components/CategoryCard';
+import { CommerceShell } from '@/components/CommerceShell';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { HeroCarousel } from '@/components/HeroCarousel';
@@ -11,19 +14,23 @@ import { SectionHeading } from '@/components/SectionHeading';
 import {
   editorialSections,
   featuredCategories,
+  getLatestBlogPosts,
   heroSlides,
   promoBanners,
   productSections,
 } from '@/data/siteData';
 
 export default function Home() {
-  const [featuredPost, ...secondaryPosts] = editorialSections.posts;
+  const posts = getLatestBlogPosts();
+  const [featuredPost, ...secondaryPosts] = posts;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <Header />
 
       <main className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-6 sm:px-6 lg:px-8 lg:gap-10 lg:py-8">
+        <CommerceShell />
+
         <section className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)]">
           <aside className="hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm xl:block">
             <div className="text-xs font-semibold uppercase tracking-[0.25em] text-sky-600">Danh mục nổi bật</div>
@@ -46,23 +53,23 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <SectionHeading
-              eyebrow="Mirror-driven refinement"
-              title="Homepage được làm dày hơn để gần nhịp thương mại điện tử gốc"
-              description="Pass này giảm cảm giác template rỗng bằng header nhiều tiện ích hơn, home có nhịp banner xen kẽ, product rails gắn route thật, card giá rõ và footer nhiều tín hiệu tin cậy hơn."
+              eyebrow="Commerce direction"
+              title="Homepage được kéo gần hơn nhịp storefront thật thay vì một landing demo đẹp vừa vừa"
+              description="Pass này giảm bớt text tự sự về rebuild và thay bằng những tín hiệu mua sắm dễ hiểu hơn: shell thương mại ở đầu trang, nhịp category rõ, section sản phẩm chắc tay hơn và khối editorial có lối ra thật."
               actionLabel="Xem danh mục điện thoại"
               actionHref="/danh-muc/dien-thoai"
             />
             <div className="grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
               {[
-                'Header có utility strip, search và cụm hotline/store/order lookup',
-                'Hero có stats chips thay vì copy mô tả chung chung',
-                'Category entry rõ ràng hơn trên desktop và mobile',
-                'Các block sản phẩm trỏ sang category/PDP thật',
-                'Banner xen giữa section để giữ nhịp storefront giống mirror',
-                'Footer thêm thông tin cửa hàng và CTA hỗ trợ',
+                'Header có utility strip đầy đủ hơn và menu dropdown dày hơn',
+                'Thêm commerce shell dưới header để đỡ hụt nhịp đầu trang',
+                'Homepage bớt cảm giác ghi chú nội bộ, nhiều CTA thật hơn',
+                'Khối tin tức dẫn vào listing và article page riêng',
+                'Footer rõ tín hiệu hotline, hậu mãi và lối vào nội dung',
+                'Responsive được làm chắc hơn ở mobile menu và section density',
               ].map((item) => (
                 <div key={item} className="rounded-2xl bg-slate-50 px-4 py-3">
                   {item}
@@ -88,34 +95,37 @@ export default function Home() {
         <section id="tin-tuc" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <SectionHeading
             eyebrow="Tin tức mới nhất"
-            title="Editorial section giữ pattern 1 lớn + danh sách nhỏ giống storefront gốc"
-            description="Khối nội dung được siết nhịp hơn: ảnh lớn, typography đậm hơn và các card nhỏ đồng đều để tránh section này trông như blog demo rời rạc."
+            title="Editorial section giờ có chuyên mục thật, card rõ hơn và ít cảm giác blog demo hơn"
+            description="Homepage vẫn giữ pattern 1 bài lớn + danh sách nhỏ, nhưng tất cả đã trỏ vào listing/article page để mạch nội dung liền hơn với phần còn lại của storefront."
             actionLabel="Xem toàn bộ tin tức"
+            actionHref="/tin-tuc"
           />
 
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
             <article className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-50">
-              <div className="relative aspect-[16/10]">
+              <Link href={`/tin-tuc/${featuredPost.slug}`} className="relative block aspect-[16/10]">
                 <Image src={featuredPost.image} alt={featuredPost.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
-              </div>
+              </Link>
               <div className="space-y-3 p-6">
-                <div className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">{featuredPost.date}</div>
-                <h3 className="text-2xl font-semibold tracking-tight text-slate-950">{featuredPost.title}</h3>
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
+                  <span>{featuredPost.date}</span>
+                  <span className="text-slate-300">•</span>
+                  <span>Tin công nghệ</span>
+                </div>
+                <Link href={`/tin-tuc/${featuredPost.slug}`} className="block text-2xl font-semibold tracking-tight text-slate-950 transition hover:text-sky-600">
+                  {featuredPost.title}
+                </Link>
                 <p className="text-sm leading-6 text-slate-600">{featuredPost.excerpt}</p>
+                <Link href={`/tin-tuc/${featuredPost.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition hover:text-sky-600">
+                  Đọc bài viết
+                  <span aria-hidden="true">→</span>
+                </Link>
               </div>
             </article>
 
             <div className="grid gap-4">
               {secondaryPosts.map((post) => (
-                <article key={post.title} className="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[140px_1fr] sm:items-center">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl sm:aspect-[4/3]">
-                    <Image src={post.image} alt={post.title} fill sizes="140px" className="object-cover" />
-                  </div>
-                  <div>
-                    <h4 className="text-base font-semibold text-slate-900">{post.title}</h4>
-                    <p className="mt-2 text-sm leading-6 text-slate-600">{post.excerpt}</p>
-                  </div>
-                </article>
+                <BlogCard key={post.slug} post={post} compact />
               ))}
             </div>
           </div>
@@ -124,9 +134,10 @@ export default function Home() {
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <SectionHeading
             eyebrow="Hướng dẫn & video"
-            title="Grid video giữ vai trò lấp nhịp cuối homepage, tránh rơi cảm giác landing quá ngắn"
-            description="Mirror gốc có hàng card nội dung hướng dẫn khá rõ. Ở bản rebuild, phần này được giữ lại nhưng siết spacing và hover để nhìn bớt thô."
+            title="Grid video giữ vai trò lấp nhịp cuối homepage, nhưng đã được siết lại để bớt thô"
+            description="Khối này vẫn cần nguồn dữ liệu live tốt hơn, nhưng spacing, hierarchy và hover đã ổn hơn nhiều so với kiểu card demo rời rạc."
             actionLabel="Xem toàn bộ video"
+            actionHref="/tin-tuc"
           />
 
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

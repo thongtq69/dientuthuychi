@@ -410,23 +410,30 @@ export const productSections = [
 export const editorialSections = {
   posts: [
     {
+      slug: 'ios-26-4-beta-1-co-gi-moi-iphone-nao-duoc-cap-nhat',
       title: 'iOS 26.4 beta 1 có gì mới? iPhone nào được cập nhật',
       date: '26/02/2026',
       excerpt: 'Bố cục 1 bài lớn + danh sách bài nhỏ được giữ lại vì đây là pattern rất rõ trên mirror.',
       image: 'https://bizweb.dktcdn.net/100/112/815/articles/ios-26-4-co-gi-moi-cover.jpg?v=1772075817853',
     },
     {
+      slug: 'iphone-cu-99-la-gi-dung-de-99-chi-la-loi-quang-cao',
       title: 'iPhone cũ 99% là gì? Đừng để 99% chỉ là lời quảng cáo',
+      date: '22/02/2026',
       excerpt: 'Card phụ có chiều cao gọn hơn để tránh section tin tức bị lỏng.',
       image: 'https://bizweb.dktcdn.net/100/112/815/articles/iphone-cu-99-la-gi-thumbnail.jpg?v=1769835570060',
     },
     {
+      slug: 'ios-26-3-beta-3-chinh-thuc-phat-hanh',
       title: 'iOS 26.3 beta 3 chính thức phát hành',
+      date: '19/02/2026',
       excerpt: 'Dạng content công nghệ cập nhật nhanh, hợp để tách thành collection tin tức riêng.',
       image: 'https://bizweb.dktcdn.net/100/112/815/articles/img-757edfa2.jpg?v=1769834059663',
     },
     {
+      slug: '2026-nhung-iphone-5s-van-duoc-cap-nhat-phan-mem-moi',
       title: '2026 những iPhone 5s vẫn được cập nhật phần mềm mới',
+      date: '16/02/2026',
       excerpt: 'Headline gây tò mò giúp lấp khoảng trống home sau các dải sản phẩm.',
       image: 'https://bizweb.dktcdn.net/100/112/815/articles/iphone-5s-32gb-bac-1-750x500-2.jpg?v=1769833509287',
     },
@@ -488,12 +495,115 @@ export const storeLocations = [
   'CS2: Hỗ trợ giao hàng và tiếp nhận bảo hành nhanh',
 ];
 
+export const blogPosts = [
+  {
+    slug: 'ios-26-4-beta-1-co-gi-moi-iphone-nao-duoc-cap-nhat',
+    title: 'iOS 26.4 beta 1 có gì mới? iPhone nào được cập nhật',
+    date: '26/02/2026',
+    category: 'Tin công nghệ',
+    readTime: '6 phút đọc',
+    image: 'https://bizweb.dktcdn.net/100/112/815/articles/ios-26-4-co-gi-moi-cover.jpg?v=1772075817853',
+    excerpt: 'Apple tiếp tục đẩy các bản beta theo hướng thực dụng hơn: ít màu mè, nhiều tiện ích nhỏ nhưng tác động trực tiếp tới cảm giác dùng máy mỗi ngày.',
+    intro:
+      'Bài viết này đóng vai trò làm nền cho template blog/article: headline lớn, hero image rõ, metadata gọn và phần thân bài có nhịp đọc giống một trang tin công nghệ thực sự thay vì chỉ là placeholder.',
+    sections: [
+      {
+        heading: 'Nhóm tính năng nghe nhìn và nhắn tin được ưu tiên trước',
+        paragraphs: [
+          'iOS 26.4 beta 1 không tạo cảm giác là một bản cập nhật “làm lại từ đầu”, nhưng lại khá rõ ở chỗ Apple đang sửa những điểm chạm diễn ra hằng ngày như nghe gọi, xem nội dung và luồng xử lý thông báo.',
+          'Kiểu thay đổi này rất hợp với storefront content của Hoàng Kiên: tin công nghệ ngắn, dễ đọc, tiêu đề rõ và có thể kéo người dùng từ homepage sang khu vực tin tức mà không bị đứt mạch.'
+        ]
+      },
+      {
+        heading: 'Thiết bị nào nên quan tâm',
+        paragraphs: [
+          'Nhóm iPhone đời gần vẫn là tập máy hưởng lợi rõ nhất vì hỗ trợ đầy đủ các tối ưu mới. Với người dùng máy cũ hơn, giá trị nằm ở tính ổn định và các vá lỗi nền.',
+          'Trên giao diện rebuild, phần article body được cố tình làm sạch và ít nhiễu để sau này dễ thay bằng dữ liệu scrape thật từ site live.'
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'iphone-cu-99-la-gi-dung-de-99-chi-la-loi-quang-cao',
+    title: 'iPhone cũ 99% là gì? Đừng để “99%” chỉ là lời quảng cáo',
+    date: '22/02/2026',
+    category: 'Kinh nghiệm mua máy',
+    readTime: '5 phút đọc',
+    image: 'https://bizweb.dktcdn.net/100/112/815/articles/iphone-cu-99-la-gi-thumbnail.jpg?v=1769835570060',
+    excerpt: 'Một chiếc máy được rao là 99% có thể rất đẹp bên ngoài nhưng vẫn cần kiểm tra kỹ pin, màn hình, khung sườn và lịch sử sửa chữa.',
+    intro:
+      'Nội dung kiểu tư vấn mua hàng là phần rất hợp với nhịp editorial của hoangkien.com. Vì vậy pass này thêm luôn nền tảng blog listing và article page thay vì chỉ giữ teaser ở homepage.',
+    sections: [
+      {
+        heading: '99% không phải là tiêu chuẩn kỹ thuật cố định',
+        paragraphs: [
+          'Đây chủ yếu là ngôn ngữ thị trường để mô tả độ đẹp ngoại hình. Nếu storefront muốn tạo niềm tin, phần nội dung nên đi thẳng vào các hạng mục cần kiểm: pin, màn hình, Face ID, camera, loa và lịch sử thay thế linh kiện.',
+          'Template mới hỗ trợ block metadata, ảnh lớn và các đoạn văn dài vừa phải để phù hợp cả bài tin lẫn bài tư vấn bán hàng.'
+        ]
+      },
+      {
+        heading: 'Điều người mua thật sự cần',
+        paragraphs: [
+          'Thay vì khẩu hiệu chung chung, người dùng muốn biết máy có còn zin không, tình trạng pin thế nào, bảo hành ra sao và cửa hàng xử lý hậu mãi có rõ ràng hay không.',
+          'Đó cũng là lý do footer và header trong pass này được làm giàu hơn bằng các tín hiệu hỗ trợ, hotline, chính sách và lối vào danh mục.'
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'ios-26-3-beta-3-chinh-thuc-phat-hanh',
+    title: 'iOS 26.3 beta 3 chính thức phát hành',
+    date: '19/02/2026',
+    category: 'Tin công nghệ',
+    readTime: '4 phút đọc',
+    image: 'https://bizweb.dktcdn.net/100/112/815/articles/img-757edfa2.jpg?v=1769834059663',
+    excerpt: 'Bản beta tiếp tục dọn dẹp lỗi, ưu tiên độ ổn định và hoàn thiện những thay đổi nhỏ ở cấp hệ thống.',
+    intro: 'Bài mẫu ngắn này giúp trang listing có đủ nhịp thẻ bài và article template có nhiều mức độ nội dung khác nhau.',
+    sections: [
+      {
+        heading: 'Tập trung vào ổn định thay vì phô diễn',
+        paragraphs: [
+          'Không phải bản beta nào cũng cần headline bùng nổ. Nhiều khi điều khiến người dùng quay lại website là những bài cập nhật gọn, rõ và đáng tin.',
+          'Về mặt UI, loại bài như thế này cần card sạch, ảnh rõ, tiêu đề đậm và metadata ngắn gọn — đúng những gì bản rebuild đang cố siết lại.'
+        ]
+      }
+    ]
+  },
+  {
+    slug: '2026-nhung-iphone-5s-van-duoc-cap-nhat-phan-mem-moi',
+    title: '2026 những iPhone 5s vẫn được cập nhật phần mềm mới',
+    date: '16/02/2026',
+    category: 'Câu chuyện Apple',
+    readTime: '4 phút đọc',
+    image: 'https://bizweb.dktcdn.net/100/112/815/articles/iphone-5s-32gb-bac-1-750x500-2.jpg?v=1769833509287',
+    excerpt: 'Một câu chuyện đủ gây tò mò để giữ chân người đọc ở cuối homepage và kéo sang chuyên mục tin tức.',
+    intro: 'Bài này chủ yếu giúp hoàn thiện foundation blog: có bài dài ngắn khác nhau, dễ test listing density và hierarchy.',
+    sections: [
+      {
+        heading: 'Tin nhỏ nhưng có sức kéo',
+        paragraphs: [
+          'Những bài kiểu “chuyện thật như đùa” rất hợp để tăng cảm giác sống cho storefront, miễn là card và headline không bị trình bày như một blog template chung chung.',
+          'Ở pass này, phần tin tức đã được làm sát chất e-commerce hơn: card bo mềm, metadata rõ, CTA thật và có trang đích riêng.'
+        ]
+      }
+    ]
+  }
+];
+
 export function getProductBySlug(slug) {
   return products.find((product) => product.slug === slug);
 }
 
 export function getCollectionBySlug(slug) {
   return collections.find((collection) => collection.slug === slug);
+}
+
+export function getBlogPostBySlug(slug) {
+  return blogPosts.find((post) => post.slug === slug);
+}
+
+export function getLatestBlogPosts(limit) {
+  return typeof limit === 'number' ? blogPosts.slice(0, limit) : blogPosts;
 }
 
 export function getProductsByCategory(slug) {
