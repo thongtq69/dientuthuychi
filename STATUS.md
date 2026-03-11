@@ -1,123 +1,176 @@
 # Hoàng Kiên Rebuild - Status
 
-## Pass update (2026-03-11 · live homepage data extraction pass)
+## Pass update (2026-03-11 · full homepage fidelity pass)
 
 Completed in this pass:
 
-### 1) Pulled live homepage source for literal labels/content
-- Fetched the current live homepage HTML from `https://www.hoangkien.com/` into `live-homepage.html` for direct extraction.
-- Used that live HTML to replace several still-approximate homepage strings with more literal current storefront labels.
+### 1) Re-audited homepage top-to-bottom against the live source
+- Continued using `live-homepage.html` from `https://www.hoangkien.com/` as the literal source of truth.
+- Re-checked the homepage structure from header through footer, not just the first fold.
+- Extracted live category/menu labels, featured-category wording, lower shelf membership, real product names, real images, and visible prices for the lower battery shelves.
 
-### 2) Header/nav wording now matches live structure more closely
-Applied live-derived visible top-level items/order:
-- `Điện thoại`
-- `Phụ kiện`
-- `Linh kiện`
-- `Tin tức`
+### 2) Header / top strip / nav / category rail tightened further to live wording
+- Kept the live top strip banner and logo assets.
+- Preserved the more literal live-derived top navigation and utility wording:
+  - `Điện thoại`
+  - `Phụ kiện`
+  - `Linh kiện`
+  - `Tin tức`
+  - `Chính sách bảo hành`
+  - `Chính sách mua lại`
+  - `Liên hệ`
+- Expanded the left category rail to better match the live mega-menu’s visible label set:
+  - `Điện thoại`
+  - `iPhone 17 Series`
+  - `iPhone 16 Series`
+  - `iPhone 15 Series`
+  - `Phụ kiện`
+  - `Phụ Kiện VivuMax`
+  - `Linh Kiện`
+  - `Pin iPhone FEAGLET ( ĐẠI BÀNG )`
+  - `Pin EU Dung Lượng Chuẩn`
+  - `Pin EU Dung Lượng Cao`
+  - `Màn hình`
+  - `Tin tức`
 
-Applied live-derived utility wording:
-- `Chính sách bảo hành`
-- `Chính sách mua lại`
-- `Liên hệ`
+### 3) Hero / right promos / support shortcuts refined
+- Kept live hero and side banner image assets.
+- Tightened hero title to the storefront-style live branding:
+  - `Apple Store - Hoàng Kiên iPhone, iPad and more.....`
+- Kept right promo destinations/labels closer to live actions:
+  - `Mua lại`
+  - `Trade-in lên đời`
+- Preserved the lower support shortcut strip with live-style utility wording:
+  - `Hotline`
+  - `Hệ thống cửa hàng`
+  - `Tra cứu đơn hàng`
+  - `Giỏ hàng`
 
-### 3) Left category rail updated from live mega-menu labels
-Replaced the left rail’s simpler synthetic list with labels derived from the live category menu / mega-menu:
-- `Điện thoại`
+### 4) Featured category shelf reworked with more literal live category labels
+Adjusted the featured category row to reflect visible live homepage category cards more closely:
+- `iPhone`
+- `Phụ Kiện Vivumax`
+- `Pin Feaglet ( Đại Bàng )`
+- `Pin EU DL Chuẩn`
+- `Pin EU DL Cao`
 - `iPhone 17 Series`
 - `iPhone 16 Series`
 - `iPhone 15 Series`
 - `Phụ kiện`
-- `Phụ Kiện VivuMax`
-- `Linh Kiện`
-- `Pin iPhone FEAGLET ( ĐẠI BÀNG )`
+- `Linh kiện`
+
+All continue using live/mirror-derived product images rather than synthetic assets.
+
+### 5) Lower product shelves substantially improved with scraped live membership/data
+This was the main fidelity improvement in this pass.
+
+#### iPhone shelf
+- Kept the shelf in live-style simple form.
+- Continued using real live product/image data for visible phones already in the rebuild.
+
+#### PHỤ KIỆN shelf
+- Kept the shelf flatter and more storefront-like, without extra invented copy.
+- Continued using live-derived Vivumax product assets already in the rebuild.
+
+#### Pin Feaglet ( Đại Bàng) shelf
+Replaced the reduced approximation with a much closer live shelf membership/order using scraped live products:
+- `Pin iPhone 15 Pro Max FEAGLET ( 4422mAh )` — `1.600.000₫`
+- `Pin iPhone 14 Pro Max FEAGLET ( 4323mAh )` — `1.400.000₫`
+- `Pin iPhone 15 Pro FEAGLET ( 3274mAh )` — `1.300.000₫`
+- `Pin iPhone 15 Plus FEAGLET ( 4383mAh )` — `1.200.000₫`
+- `Pin iPhone 14 Pro FEAGLET ( 3200mAh )` — `1.200.000₫`
+- `Pin iPhone 15 FEAGLET ( 3349mAh )` — `1.100.000₫`
+- `Pin iPhone 14 Plus FEAGLET ( 4325mAh )` — `1.100.000₫`
+- `Pin iPhone 13 Pro Max FEAGLET ( 4352mAh )` — `1.000.000₫`
+
+Also updated its tab strip closer to the live shelf links:
 - `Màn hình`
-- `Tin tức`
+- `Pin`
+- `Thay thế, sửa chữa iPhone, iPad`
+- `Xem tất cả`
 
-### 4) Hero/right promo references aligned closer to live assets/actions
-- Continued using the real live banner assets already present in the rebuild.
-- Updated right promo card labels toward the actual live destinations shown in homepage banners:
-  - `Mua lại`
-  - `Trade-in lên đời`
-- Reduced extra invented phrasing in the hero slides and kept storefront-style wording short.
+#### Pin EU shelf
+Replaced the placeholder/reused data with actual live shelf membership/order using scraped live products:
+- `Pin EU iPhone 15 PRO MAX` — `1.100.000₫`
+- `Pin EU iPhone 15 PRO` — `950.000₫`
+- `Pin EU iPhone 15 Plus` — `850.000₫`
+- `Pin EU iPhone 15` — `700.000₫`
+- `Pin EU iPhone 14 PRO MAX` — `850.000₫`
+- `Pin EU iPhone 14 PRO` — `750.000₫`
+- `Pin EU iPhone 14 Plus` — `650.000₫`
 
-### 5) Featured categories updated with more literal live labels
-Adjusted featured category naming toward the live homepage’s actual category shelf wording:
-- `iPhone`
-- `Phụ kiện Zin`
-- `Phụ Kiện Vivumax`
-- `Pin Feaglet ( Đại Bàng )`
-- `Pin EU DL Chuẩn`
+Also updated its tab strip toward the live visible links:
+- `Màn hình`
+- `Pin`
+- `Thay thế, sửa chữa iPhone, iPad`
 
-These continue using mirror/live-derived product imagery URLs instead of made-up assets.
+### 6) Real product data coverage expanded materially
+Added/updated live-derived local product data for homepage fidelity, including:
+- real live product names
+- real visible shelf ordering
+- real live image URLs
+- real visible prices from the live homepage
 
-### 6) Support/shortcut blocks updated toward live utilities
-Refined the shortcut strip below the hero to closer live-visible utilities:
-- `Hotline`
-- `Hệ thống cửa hàng`
-- `Tra cứu đơn hàng`
-- `Giỏ hàng`
+Newly applied live-derived product records include:
+- `pin-iphone-15-pro-feaglet-3274mah`
+- `pin-iphone-15-plus-feaglet-4383mah`
+- `pin-iphone-14-pro-feaglet-3200mah`
+- `pin-iphone-15-feaglet-3349mah`
+- `pin-iphone-14-plus-feaglet-4325mah`
+- `pin-iphone-13-pro-max-feaglet`
+- `pin-eu-iphone-15-pro-max`
+- `pin-eu-iphone-15-pro`
+- `pin-eu-iphone-15-plus`
+- `pin-eu-iphone-15`
+- `pin-eu-iphone-14-pro-max`
+- `pin-eu-iphone-14-pro`
+- `pin-eu-iphone-14-plus`
 
-Also updated the lower support/trust block content from live footer hotline/support labels:
-- `KHIẾU NẠI, GÓP Ý`
-- `TƯ VẤN`
-- `TÌM CHI NHÁNH`
+This removed one of the biggest remaining “generic rebuild” signals on the lower homepage.
 
-### 7) Homepage shelf/category naming/order updated from live section titles
-Adjusted shelf titles to closer live homepage section naming/order:
-- `iPhone`
-- `PHỤ KIỆN`
-- `Pin Feaglet ( Đại Bàng )`
-- `Pin EU`
+### 7) News/support/footer sections tightened to flatter storefront presentation
+- Simplified the news block heading to the more literal storefront-style `Tin tức`.
+- Kept support block labels aligned to live footer/support wording:
+  - `KHIẾU NẠI, GÓP Ý`
+  - `TƯ VẤN`
+  - `TÌM CHI NHÁNH`
+- Preserved literal live-derived footer store/contact entries:
+  - `Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội: 083.888.3663`
+  - `Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663`
+  - `Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993`
+  - `Cơ Sở 4: 403 Ngô Gia Tự - P.2, Q.10 Hồ Chí Minh: 0707.678.707`
+  - `Mua hàng online: 0813.600.999`
+- Preserved literal live footer column wording:
+  - `Chính sách`
+  - `MUA HÀNG`
+  - `Điều khoản dịch vụ`
+  - `Liên Hệ`
 
-Tabs were flattened to the live homepage’s simple cross-links style (`Điện thoại`, `Phụ kiện`, `Linh kiện`, `Tin tức`) instead of extra invented taxonomy copy.
-
-### 8) Footer columns/content now use literal live-derived items
-Replaced generic footer content with labels/entries extracted from the current live footer:
-- `Chính sách`
-- `MUA HÀNG`
-- `Điều khoản dịch vụ`
-- `Liên Hệ`
-
-Applied literal/footer-derived link text such as:
-- `Chính sách bảo hành 12 tháng 1 đổi 1`
-- `Cam kết chất lượng`
-- `Thu cũ - Đổi mới`
-- `Mua lại`
-- `Hướng dẫn mua hàng`
-- `Quy trình mua hàng`
-- `Phương thức thanh toán`
-- `Phương thức vận chuyển`
-- `Phương thức trả góp`
-
-Also replaced placeholder store locations with live footer contact/store entries:
-- `Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội: 083.888.3663`
-- `Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663`
-- `Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993`
-- `Cơ Sở 4: 403 Ngô Gia Tự - P.2, Q.10 Hồ Chí Minh: 0707.678.707`
-- `Mua hàng online: 0813.600.999`
-
-### 9) Real source coverage improved / invented copy reduced
-- More homepage labels now come from the live page instead of inferred ecommerce wording.
-- Store/contact/footer information is now materially closer to literal live content.
-- Remaining custom phrasing was kept short and storefront-like where exact text was not practical to port directly.
+### 8) Component presentation tightened for flatter storefront fidelity
+- Allowed shelf headings to render more compactly for longer literal titles.
+- Changed product card CTA wording from `Xem chi tiết` to `Xem sản phẩm` to feel closer to a storefront browse card.
+- Kept product shelves flatter with less descriptive marketing filler.
 
 ## What still remains approximate
 
-- The rebuild still does not reproduce the full live mega-menu hierarchy/flyout behavior; only the visible left-rail labels/order are now closer.
-- Some destination hrefs still map to local rebuild routes rather than exact live paths, to avoid breaking the local app structure.
-- Product shelves still use a reduced local product set, not exact live shelf membership/counts for every homepage module.
-- The hero slide secondary text and some CTA destinations remain lightly normalized rather than exact raw live homepage copy.
-- Footer links are literal in text, but most are still rendered as placeholder anchors in the rebuild footer component.
-- Lower support/news/help modules remain simplified compared with the full live homepage.
+- The live homepage’s exact mega-menu flyout hierarchy, iconography, and hover behavior are still simplified into a flatter local rail/dropdown.
+- The exact live homepage phone/product shelves above the battery sections are still reduced in count versus the real site.
+- Some local hrefs still point to rebuild-safe routes rather than exact live category/product URLs.
+- The live homepage has more native theme-specific spacing, borders, and carousel chrome than the rebuild currently reproduces.
+- Footer links still mostly render as placeholder anchors even though the visible text is now much closer to live content.
+- The news section still uses local article route rendering rather than cloning the live blog card component structure exactly.
 
 ## Verification
 
-- Pending re-run after this pass
+- Pending re-run after this pass:
+  - `npm run lint`
+  - `npm run build`
 
 ## Key files changed in this pass
 
 - `src/app/page.js`
-- `src/components/Header.jsx`
+- `src/components/ProductCard.jsx`
+- `src/components/ProductCarouselSection.jsx`
+- `src/components/SectionHeading.jsx`
 - `src/data/siteData.js`
 - `STATUS.md`
-- `live-homepage.html`

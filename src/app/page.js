@@ -155,9 +155,9 @@ export default function Home() {
 
         <section id="tin-tuc" className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Tin tức mới nhất</h2>
+            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Tin tức</h2>
             <Link href="/tin-tuc" className="text-sm font-semibold text-[#1b66d2]">
-              Xem toàn bộ tin tức
+              Xem tất cả
             </Link>
           </div>
 

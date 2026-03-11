@@ -18,8 +18,9 @@ export function ProductCarouselSection({ section }) {
         eyebrow={section.eyebrow}
         title={section.title}
         description={section.description}
-        actionLabel="Xem toàn bộ sản phẩm"
+        actionLabel={section.actionLabel ?? 'Xem toàn bộ sản phẩm'}
         actionHref={section.actionHref}
+        compact={section.title?.length > 18}
       />
 
       <div className="mb-4 flex flex-wrap gap-2">

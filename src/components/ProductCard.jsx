@@ -32,7 +32,7 @@ export function ProductCard({ product }) {
             <span className="rounded bg-slate-100 px-2 py-1 font-medium">{product.family}</span>
           </div>
 
-          <div className="mt-auto border-t border-slate-100 pt-2 text-[13px] font-medium text-[#1b66d2]">Xem chi tiết</div>
+          <div className="mt-auto border-t border-slate-100 pt-2 text-[13px] font-medium text-[#1b66d2]">Xem sản phẩm</div>
         </div>
       </article>
     </Link>
