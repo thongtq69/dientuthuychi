@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { featuredCategories, navItems, siteMeta, utilityLinks } from '@/data/siteData';
+import { categoryRailItems, featuredCategories, navItems, siteMeta, utilityLinks } from '@/data/siteData';
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -89,7 +89,7 @@ export function Header() {
             </div>
             <div className="pointer-events-none absolute left-0 top-full z-30 mt-1 hidden w-full opacity-0 transition group-hover:pointer-events-auto group-hover:block group-hover:opacity-100 xl:block">
               <div className="overflow-hidden rounded-b-2xl border border-slate-200 bg-white shadow-xl">
-                {featuredCategories.slice(0, 10).map((category) => (
+                {categoryRailItems.map((category) => (
                   <Link
                     key={category.title}
                     href={category.href}
@@ -131,7 +131,7 @@ export function Header() {
             <div className="mb-4 overflow-hidden rounded-2xl border border-slate-200 bg-white">
               <div className="border-b border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-900">Danh mục sản phẩm</div>
               <div className="py-1">
-                {featuredCategories.slice(0, 10).map((category) => (
+                {categoryRailItems.map((category) => (
                   <Link key={category.title} href={category.href} className="block border-b border-slate-100 px-4 py-3 text-sm text-slate-700">
                     {category.title}
                   </Link>

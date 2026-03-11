@@ -7,6 +7,7 @@ import { Header } from '@/components/Header';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { ProductCarouselSection } from '@/components/ProductCarouselSection';
 import {
+  categoryRailItems,
   featuredCategories,
   getLatestBlogPosts,
   heroSlides,
@@ -23,30 +24,30 @@ const supportCards = [
     href: `tel:${siteMeta.hotline}`,
   },
   {
-    title: 'Tra cứu đơn hàng',
-    value: 'Kiểm tra đơn hàng',
-    href: '#tra-cuu-don-hang',
-  },
-  {
     title: 'Hệ thống cửa hàng',
-    value: 'Xem thông tin cửa hàng',
+    value: 'Hệ thống cửa hàng',
     href: '#he-thong-cua-hang',
   },
   {
-    title: 'Thu cũ đổi mới',
-    value: 'Lên đời iPhone, iPad',
-    href: '/danh-muc/dien-thoai',
+    title: 'Tra cứu đơn hàng',
+    value: 'Tra cứu đơn hàng',
+    href: '#tra-cuu-don-hang',
+  },
+  {
+    title: 'Giỏ hàng',
+    value: 'Sản phẩm 0',
+    href: '#',
   },
 ];
 
 const sidePromos = [
   {
-    title: 'Thu cũ - đổi mới',
+    title: 'Mua lại',
     href: '/danh-muc/dien-thoai',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/2banner_1.jpg?1768028836881',
   },
   {
-    title: 'Phụ kiện - linh kiện',
+    title: 'Trade-in lên đời',
     href: '/danh-muc/phu-kien',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/2banner_2.jpg?1768028836881',
   },
@@ -67,7 +68,7 @@ export default function Home() {
               Danh mục sản phẩm
             </div>
             <div className="py-1">
-              {featuredCategories.slice(0, 10).map((category) => (
+              {categoryRailItems.map((category) => (
                 <Link
                   key={category.title}
                   href={category.href}
