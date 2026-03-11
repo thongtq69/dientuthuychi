@@ -14,13 +14,15 @@ export function ProductCarouselSection({ section }) {
 
   return (
     <section id={section.id} className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
-      <SectionHeading
-        eyebrow="Danh mục nổi bật"
-        title={section.title}
-        description={section.description}
-        actionLabel="Xem toàn bộ sản phẩm"
-        actionHref={section.actionHref}
-      />
+      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+        <SectionHeading
+          eyebrow="Danh mục sản phẩm"
+          title={section.title}
+          description={section.description}
+          actionLabel="Xem tất cả"
+          actionHref={section.actionHref}
+        />
+      </div>
 
       <div className="mb-6 flex flex-wrap gap-2">
         {section.tabs.map((tab, index) => (

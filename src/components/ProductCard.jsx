@@ -34,7 +34,7 @@ export function ProductCard({ product }) {
 
           <div className="mt-auto flex items-center justify-between gap-3 border-t border-slate-100 pt-3 text-sm font-semibold text-slate-900">
             <span>Xem chi tiết</span>
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true">›</span>
           </div>
         </div>
       </article>
