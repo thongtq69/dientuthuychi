@@ -13,6 +13,7 @@ import {
   heroSlides,
   productSections,
   siteMeta,
+  socialLinks,
   storeBenefits,
   trustBadges,
 } from '@/data/siteData';
@@ -61,9 +62,9 @@ export default function Home() {
     <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
       <Header />
 
-      <main className="mx-auto flex max-w-7xl flex-col gap-4 px-3 py-4 sm:px-4 lg:gap-5 lg:px-6 lg:py-5 xl:px-8">
-        <section className="grid gap-3 xl:grid-cols-[238px_minmax(0,1fr)_286px]">
-          <aside className="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm xl:block">
+      <main className="mx-auto flex max-w-7xl flex-col gap-3 px-3 py-3 sm:px-4 lg:gap-4 lg:px-6 lg:py-4 xl:px-8">
+        <section className="grid gap-3 xl:grid-cols-[220px_minmax(0,1fr)_270px]">
+          <aside className="hidden overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm xl:block">
             <div className="border-b border-slate-200 bg-[#1b66d2] px-4 py-3 text-sm font-semibold text-white">
               Danh mục sản phẩm
             </div>
@@ -88,7 +89,7 @@ export default function Home() {
               <a
                 key={promo.title}
                 href={promo.href}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+                className="group relative overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm"
               >
                 <div className="relative aspect-[16/8] xl:aspect-[286/180]">
                   <Image
@@ -109,15 +110,15 @@ export default function Home() {
             <a
               key={card.title}
               href={card.href}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition hover:border-slate-300"
+              className="rounded-sm border border-slate-200 bg-white px-4 py-3 shadow-sm transition hover:border-slate-300"
             >
               <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{card.title}</div>
-              <div className="mt-2 text-sm font-semibold text-slate-950 sm:text-base">{card.value}</div>
+              <div className="mt-1 text-sm font-semibold text-slate-950 sm:text-[15px]">{card.value}</div>
             </a>
           ))}
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <section className="rounded-sm border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Danh mục nổi bật</h2>
             <Link href="/danh-muc/dien-thoai" className="text-sm font-semibold text-[#1b66d2]">
@@ -125,17 +126,17 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-10">
-            {featuredCategories.slice(0, 10).map((category) => (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8">
+            {featuredCategories.slice(0, 8).map((category) => (
               <Link
                 key={category.title}
                 href={category.href}
-                className="group rounded-2xl border border-slate-200 bg-white p-3 text-center transition hover:shadow-md"
+                className="group rounded-xl border border-slate-200 bg-white p-4 text-center transition hover:shadow-md"
               >
-                <div className="relative mx-auto h-16 w-16 sm:h-20 sm:w-20">
-                  <Image src={category.image} alt={category.title} fill sizes="80px" className="object-contain" />
+                <div className="relative mx-auto h-20 w-20 sm:h-24 sm:w-24">
+                  <Image src={category.image} alt={category.title} fill sizes="96px" className="object-contain" />
                 </div>
-                <h3 className="mt-2 text-xs font-medium leading-5 text-slate-800">{category.title}</h3>
+                <h3 className="mt-3 text-[13px] font-medium leading-5 text-slate-800">{category.title}</h3>
               </Link>
             ))}
           </div>
@@ -153,16 +154,16 @@ export default function Home() {
           ))}
         </section>
 
-        <section id="tin-tuc" className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <section id="tin-tuc" className="rounded-sm border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Tin tức</h2>
+            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Tin tức mới nhất</h2>
             <Link href="/tin-tuc" className="text-sm font-semibold text-[#1b66d2]">
-              Xem tất cả
+              Xem toàn bộ tin tức
             </Link>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-            <article className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+          <div className="grid gap-4 lg:grid-cols-4">
+            <article className="overflow-hidden rounded-sm border border-slate-200 bg-slate-50 lg:col-span-2">
               <Link href={`/tin-tuc/${featuredPost.slug}`} className="relative block aspect-[16/9]">
                 <Image src={featuredPost.image} alt={featuredPost.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
               </Link>
@@ -177,7 +178,7 @@ export default function Home() {
               </div>
             </article>
 
-            <div className="grid gap-3">
+            <div className="grid gap-3 lg:col-span-2 lg:grid-cols-2">
               {secondaryPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} compact />
               ))}
@@ -185,21 +186,38 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Hỗ trợ khách hàng</h2>
-            <Link href="/tin-tuc" className="text-sm font-semibold text-[#1b66d2]">
-              Xem thêm
+        <section className="rounded-sm border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <h2 className="border-l-4 border-[#1b66d2] pl-3 text-lg font-extrabold uppercase text-slate-950 sm:text-[30px] sm:leading-none">Hướng Dẫn Thủ Thuật</h2>
+            <Link href="/tin-tuc" className="rounded-sm border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:border-[#1b66d2] hover:text-[#1b66d2]">
+              Xem toàn bộ video →
             </Link>
           </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {trustBadges.map((item) => (
-              <div key={item.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <div className="text-base font-semibold text-slate-950">{item.title}</div>
-                <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
-              </div>
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {secondaryPosts.map((post) => (
+              <BlogCard key={`guide-${post.slug}`} post={post} compact />
             ))}
+          </div>
+        </section>
+
+        <div className="h-12 rounded-sm border border-slate-200 bg-white" />
+
+        <section className="border-t border-black bg-black text-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-3 py-3 sm:px-4 lg:flex-row lg:items-center lg:justify-between lg:px-6 xl:px-8">
+            <form className="flex w-full max-w-xl overflow-hidden rounded-sm border border-slate-700 bg-white">
+              <input type="email" placeholder="Nhập email nhận tin khuyến mãi" className="h-10 w-full border-0 px-3 text-sm text-slate-800 outline-none" />
+              <button type="button" className="bg-[#d70018] px-5 text-sm font-bold text-white">ĐĂNG KÝ</button>
+            </form>
+            <div className="flex items-center gap-3 text-sm">
+              <span className="font-medium">Kết nối với chúng tôi:</span>
+              <div className="flex gap-2">
+                {socialLinks.map((item) => (
+                  <a key={item.title} href={item.href} className="relative h-8 w-8 overflow-hidden rounded-sm bg-white" title={item.title}>
+                    <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </main>

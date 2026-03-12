@@ -4,20 +4,14 @@ import Link from 'next/link';
 export function BlogCard({ post, compact = false }) {
   if (compact) {
     return (
-      <article className="group grid gap-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 transition hover:border-slate-300 hover:bg-white sm:grid-cols-[148px_1fr] sm:items-center">
-        <Link href={`/tin-tuc/${post.slug}`} className="relative aspect-[16/10] overflow-hidden rounded-2xl sm:aspect-[4/3]">
-          <Image src={post.image} alt={post.title} fill sizes="148px" className="object-cover transition duration-500 group-hover:scale-105" />
+      <article className="group space-y-3 transition">
+        <Link href={`/tin-tuc/${post.slug}`} className="relative block aspect-[16/10] overflow-hidden rounded-sm border border-slate-200 bg-slate-100">
+          <Image src={post.image} alt={post.title} fill sizes="240px" className="object-cover transition duration-500 group-hover:scale-105" />
         </Link>
-        <div>
-          <div className="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
-            <span>{post.category}</span>
-            <span className="text-slate-300">•</span>
-            <span>{post.date}</span>
-          </div>
-          <Link href={`/tin-tuc/${post.slug}`} className="mt-2 block text-base font-semibold text-slate-900 transition group-hover:text-sky-600">
+        <div className="space-y-1.5">
+          <Link href={`/tin-tuc/${post.slug}`} className="line-clamp-3 block text-[15px] font-medium leading-6 text-slate-900 transition group-hover:text-sky-600">
             {post.title}
           </Link>
-          <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{post.excerpt}</p>
         </div>
       </article>
     );

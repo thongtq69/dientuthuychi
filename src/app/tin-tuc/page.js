@@ -5,8 +5,8 @@ import { SectionHeading } from '@/components/SectionHeading';
 import { getLatestBlogPosts } from '@/data/siteData';
 
 export const metadata = {
-  title: 'Tin tức | Hoàng Kiên Rebuild',
-  description: 'Trang danh sách tin tức và tư vấn công nghệ theo phong cách storefront của Hoàng Kiên.',
+  title: 'Tin tức | Điện tử Thuỷ Chi',
+  description: 'Trang danh sách tin tức và tư vấn công nghệ theo phong cách storefront của Điện tử Thuỷ Chi.',
 };
 
 export default function BlogListingPage() {

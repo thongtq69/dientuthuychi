@@ -1,8 +1,8 @@
 export const siteMeta = {
-  name: 'Hoàng Kiên',
-  tagline: 'iPhone, iPad and more.....',
-  hotline: '0813600999',
-  address: 'Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, phụ kiện công nghệ các loại uy tín, chất lượng.',
+  name: 'Điện tử Thuỷ Chi',
+  tagline: 'Điện thoại, linh kiện và phụ kiện công nghệ',
+  hotline: '0899918668',
+  address: 'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội, Việt Nam.',
   supportHours: 'Mở cửa: 08:00 - 22:00 mỗi ngày',
   searchPlaceholder: 'Bạn cần tìm gì?',
 };
@@ -100,9 +100,9 @@ export const featuredCategories = [
 
 export const heroSlides = [
   {
-    eyebrow: 'Hoàng Kiên',
-    title: 'Apple Store - Hoàng Kiên iPhone, iPad and more.....',
-    description: 'Chuyên cung cấp điện thoại iphone, máy tính bảng ipad, phụ kiện công nghệ các loại uy tín, chất lượng.',
+    eyebrow: 'Điện tử Thuỷ Chi',
+    title: 'Điện tử Thuỷ Chi - điện thoại, linh kiện và phụ kiện công nghệ',
+    description: 'Chuyên cung cấp điện thoại, linh kiện sửa chữa và phụ kiện công nghệ với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
     ctaLabel: 'Xem sản phẩm',
     ctaHref: '/danh-muc/dien-thoai',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881',
@@ -115,7 +115,7 @@ export const heroSlides = [
     ctaLabel: 'Xem chính sách',
     ctaHref: '/tin-tuc',
     image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner2.jpg?1768028836881',
-    stats: ['Thu cũ - đổi mới', 'Mua lại', 'Hotline 0813600999'],
+    stats: ['Thu cũ - đổi mới', 'Mua lại', 'Hotline 0899918668'],
   },
 ];
 
@@ -824,14 +824,14 @@ export const storeBenefits = [
 ];
 
 export const trustBadges = [
-  { title: 'KHIẾU NẠI, GÓP Ý', text: '0813600999' },
-  { title: 'TƯ VẤN', text: '0813600999' },
-  { title: 'TÌM CHI NHÁNH', text: 'Hệ thống Hoàng Kiên' },
+  { title: 'KHIẾU NẠI, GÓP Ý', text: '0899918668' },
+  { title: 'TƯ VẤN', text: '0899918668' },
+  { title: 'TÌM CHI NHÁNH', text: 'Hệ thống Điện tử Thuỷ Chi' },
 ];
 
 export const footerColumns = [
   {
-    title: 'Chính sách',
+    title: 'CHÍNH SÁCH',
     links: [
       'Chính sách bảo hành 12 tháng 1 đổi 1',
       'Cam kết chất lượng',
@@ -851,27 +851,50 @@ export const footerColumns = [
     ],
   },
   {
-    title: 'Điều khoản dịch vụ',
+    title: 'ĐIỀU KHOẢN DỊCH VỤ',
     links: ['Điều khoản dịch vụ', 'Điều khoản sử dụng', 'Cam kết bảo mật', 'Giới thiệu', 'Liên hệ'],
   },
   {
-    title: 'Liên Hệ',
+    title: 'LIÊN HỆ',
     links: [
       'Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội: 083.888.3663',
       'Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663',
       'Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993',
       'Cơ Sở 4: 403 Ngô Gia Tự - P.2, Q.10 Hồ Chí Minh: 0707.678.707',
-      'Mua hàng online: 0813.600.999',
+      'Mua hàng online: 0899918668',
     ],
   },
 ];
 
 export const storeLocations = [
-  'Cơ Sở 1: 284 Xã Đàn, Q. Đống Đa, Hà Nội: 083.888.3663',
-  'Cơ Sở 2: 42 Trần Phú, Q. Hà Đông, Hà Nội: 086.888.3663',
-  'Cơ Sở 3: 48 Hồng Tiến, Q. Long Biên, Hà Nội: 090.896.3993',
-  'Cơ Sở 4: 403 Ngô Gia Tự - P.2, Q.10 Hồ Chí Minh: 0707.678.707',
-  'Mua hàng online: 0813.600.999',
+  'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội, Việt Nam',
+  'Mua hàng online: 0899918668',
+];
+
+export const supportPanels = [
+  { title: 'KHIẾU NẠI, GÓP Ý', value: '0899918668', action: '0899918668' },
+  { title: 'TƯ VẤN', value: '0899918668', action: '0899918668' },
+  { title: 'TÌM CHI NHÁNH', value: 'Hệ thống Điện tử Thuỷ Chi', action: 'Xem hệ thống' },
+];
+
+export const socialLinks = [
+  { title: 'Zalo', href: 'https://zalo.me/0899918668', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1768028836881' },
+  { title: 'Facebook', href: '#', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1768028836881' },
+  { title: 'Youtube', href: '#', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1768028836881' },
+  { title: 'Google', href: '#', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/google.png?1768028836881' },
+];
+
+export const marketplaceLinks = [
+  { title: 'Shopee', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/shopee.png?1768028836881' },
+  { title: 'Lazada', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/lazada.png?1768028836881' },
+  { title: 'Tiki', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/tiki.png?1768028836881' },
+  { title: 'Sendo', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/sendo.png?1768028836881' },
+];
+
+export const paymentBadges = [
+  { title: 'Payment 1', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_1.png?1768028836881' },
+  { title: 'Payment 2', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_2.png?1768028836881' },
+  { title: 'Payment 3', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_3.png?1768028836881' },
 ];
 
 export const blogPosts = [

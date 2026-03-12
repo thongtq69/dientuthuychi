@@ -69,7 +69,7 @@ export default async function BlogArticlePage({ params }) {
             <aside className="space-y-4 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 h-fit lg:sticky lg:top-28">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Chuyên mục</div>
-                <div className="mt-2 text-xl font-semibold tracking-tight text-slate-950">Tin tức Hoàng Kiên</div>
+                <div className="mt-2 text-xl font-semibold tracking-tight text-slate-950">Tin tức Điện tử Thuỷ Chi</div>
                 <p className="mt-3 text-sm leading-6 text-slate-600">Sidebar này giúp article page bớt trống trên desktop, gần hơn với cảm giác đọc nội dung trong một storefront thật.</p>
               </div>
               <div className="grid gap-3 text-sm text-slate-700">

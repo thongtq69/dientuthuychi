@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Hoàng Kiên | iPhone, linh kiện và phụ kiện Apple',
-  description: 'Hoàng Kiên chuyên iPhone, linh kiện sửa chữa và phụ kiện Apple với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
+  title: 'Điện tử Thuỷ Chi | Điện thoại, linh kiện và phụ kiện công nghệ',
+  description: 'Điện tử Thuỷ Chi chuyên điện thoại, linh kiện sửa chữa và phụ kiện công nghệ với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
 };
 
 export default function RootLayout({ children }) {
