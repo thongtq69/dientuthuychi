@@ -28,7 +28,7 @@ export function Header() {
       </div>
 
       <div className="border-b border-slate-900 bg-[#05030c] text-white">
-        <div className="mx-auto grid max-w-7xl gap-3 px-3 py-3 sm:px-4 lg:grid-cols-[180px_120px_minmax(0,1fr)_470px] lg:items-center lg:px-6 xl:px-8">
+        <div className="mx-auto grid max-w-7xl gap-3 px-3 py-2 sm:px-4 lg:grid-cols-[205px_132px_minmax(0,1fr)_500px] lg:items-center lg:px-6 xl:px-8">
           <div className="flex items-center gap-3">
             <button
               className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 lg:hidden"
@@ -40,7 +40,7 @@ export function Header() {
             </button>
 
             <Link href="/" className="inline-flex min-w-0 items-center gap-3">
-              <div className="relative h-[44px] w-[160px] overflow-hidden rounded-sm bg-[#05030c] sm:h-[48px] sm:w-[185px]">
+              <div className="relative h-[48px] w-[185px] overflow-hidden rounded-sm bg-[#05030c] sm:h-[52px] sm:w-[210px]">
                 <Image
                   src="/brand-logo-real.jpg"
                   alt={siteMeta.name}
@@ -54,9 +54,9 @@ export function Header() {
           </div>
 
           <div className="hidden lg:block">
-            <div className="flex h-10 items-center gap-3 rounded-sm bg-[#151515] px-4 text-sm font-medium text-white shadow-sm border border-white/10">
+            <div className="flex h-10 items-center gap-2 rounded-sm bg-[#151515] px-3 text-sm font-medium text-white shadow-sm border border-white/10">
               <span className="text-base leading-none">☰</span>
-              <span>Danh mục</span>
+              <span className="whitespace-nowrap">Danh mục</span>
             </div>
           </div>
 
@@ -71,22 +71,22 @@ export function Header() {
             </button>
           </form>
 
-          <div className="hidden lg:grid lg:grid-cols-5 lg:gap-1.5">
-            <a href={`tel:${siteMeta.hotline}`} className="rounded-sm border border-white/10 bg-[#151515] px-2 py-2 text-center shadow-sm">
-              <div className="text-[10px] uppercase text-slate-400">Hotline</div>
-              <div className="text-sm font-bold text-white">{siteMeta.hotline}</div>
+          <div className="hidden lg:grid lg:grid-cols-[124px_1fr_1fr_1fr_0.9fr] lg:gap-1">
+            <a href={`tel:${siteMeta.hotline}`} className="rounded-sm border border-white/10 bg-[#151515] px-2 py-1.5 text-center shadow-sm">
+              <div className="text-[9px] uppercase leading-3 text-slate-400">Hotline</div>
+              <div className="text-[13px] font-bold leading-4 tracking-[-0.01em] text-white">{siteMeta.hotline}</div>
             </a>
-            <a href="/he-thong-cua-hang-hoang-kien" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-2 text-center text-[11px] font-medium leading-4 text-white shadow-sm">
+            <a href="/he-thong-cua-hang-hoang-kien" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-1.5 text-center text-[10px] font-medium leading-4 text-white shadow-sm">
               Hệ thống<br/>cửa hàng
             </a>
-            <a href="/apps/kiem-tra-don-hang" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-2 text-center text-[11px] font-medium leading-4 text-white shadow-sm">
+            <a href="/apps/kiem-tra-don-hang" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-1.5 text-center text-[10px] font-medium leading-4 text-white shadow-sm">
               Tra cứu<br/>đơn hàng
             </a>
-            <a href="/cart" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-2 text-center text-[11px] font-medium leading-4 text-white shadow-sm">
+            <a href="/cart" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-1.5 text-center text-[10px] font-medium leading-4 text-white shadow-sm">
               Giỏ hàng
-              <div className="text-[10px] text-slate-400">Sản phẩm 0</div>
+              <div className="text-[9px] leading-3 text-slate-400">Sản phẩm 0</div>
             </a>
-            <a href="#" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-2 text-center text-[11px] font-medium leading-4 text-white shadow-sm">
+            <a href="#" className="rounded-sm border border-white/10 bg-[#151515] px-2 py-1.5 text-center text-[10px] font-medium leading-4 text-white shadow-sm">
               Thông tin
             </a>
           </div>
@@ -94,7 +94,7 @@ export function Header() {
       </div>
 
       <div className="border-b border-slate-200 bg-white">
-        <div className="mx-auto hidden max-w-7xl grid-cols-[220px_minmax(0,1fr)_260px] items-center gap-4 px-4 py-2 lg:grid lg:px-6 xl:px-8">
+        <div className="mx-auto hidden max-w-7xl grid-cols-[220px_minmax(0,1fr)_260px] items-center gap-4 px-4 py-1.5 lg:grid lg:px-6 xl:px-8">
           <div className="group relative">
             <div className="flex h-9 items-center justify-between rounded-sm bg-[#1b66d2] px-3 text-sm font-semibold text-white">
               <span>Danh mục sản phẩm</span>

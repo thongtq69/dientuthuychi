@@ -8,9 +8,11 @@ import { HeroCarousel } from '@/components/HeroCarousel';
 import { ProductCarouselSection } from '@/components/ProductCarouselSection';
 import {
   categoryRailItems,
+  editorialSections,
   featuredCategories,
   getLatestBlogPosts,
   heroSlides,
+  midPageBanners,
   productSections,
   siteMeta,
   socialLinks,
@@ -57,6 +59,7 @@ const sidePromos = [
 export default function Home() {
   const posts = getLatestBlogPosts();
   const [featuredPost, ...secondaryPosts] = posts;
+  const guideVideos = editorialSections.videos;
 
   return (
     <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
@@ -118,32 +121,50 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="rounded-sm border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+        <section className="rounded-sm border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold text-slate-950 sm:text-xl">Danh mục nổi bật</h2>
+            <h2 className="border-l-4 border-[#1b66d2] pl-3 text-xl font-extrabold uppercase text-slate-950 sm:text-[22px]">Danh mục nổi bật</h2>
             <Link href="/danh-muc/dien-thoai" className="text-sm font-semibold text-[#1b66d2]">
               Xem tất cả
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-8">
-            {featuredCategories.slice(0, 8).map((category) => (
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {featuredCategories.slice(0, 4).map((category) => (
               <Link
                 key={category.title}
                 href={category.href}
-                className="group rounded-xl border border-slate-200 bg-white p-4 text-center transition hover:shadow-md"
+                className="group rounded-sm border border-slate-300 bg-white p-3 shadow-sm transition hover:shadow-md"
               >
-                <div className="relative mx-auto h-20 w-20 sm:h-24 sm:w-24">
-                  <Image src={category.image} alt={category.title} fill sizes="96px" className="object-contain" />
+                <div className="relative aspect-[1/1] overflow-hidden rounded-sm border border-[#d8c27a] bg-white">
+                  <Image src={category.image} alt={category.title} fill sizes="300px" className="object-contain p-2" />
                 </div>
-                <h3 className="mt-3 text-[13px] font-medium leading-5 text-slate-800">{category.title}</h3>
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <h3 className="text-[18px] font-semibold text-slate-900">{category.title}</h3>
+                  <span className="text-xl text-slate-400">›</span>
+                </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {productSections.map((section) => (
-          <ProductCarouselSection key={section.id} section={section} />
+        {productSections.map((section, index) => (
+          <div key={section.id} className="space-y-3">
+            {index === 1 && midPageBanners[0] ? (
+              <a href={midPageBanners[0].href} className="group relative block overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
+                <div className="relative aspect-[1170/210]">
+                  <Image
+                    src={midPageBanners[0].image}
+                    alt={midPageBanners[0].title}
+                    fill
+                    sizes="100vw"
+                    className="object-cover transition duration-500 group-hover:scale-[1.01]"
+                  />
+                </div>
+              </a>
+            ) : null}
+            <ProductCarouselSection section={section} />
+          </div>
         ))}
 
         <section className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-2 xl:grid-cols-4">
@@ -194,8 +215,15 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {secondaryPosts.map((post) => (
-              <BlogCard key={`guide-${post.slug}`} post={post} compact />
+            {guideVideos.map((video) => (
+              <article key={video.title} className="group space-y-3 transition">
+                <div className="relative block aspect-[16/10] overflow-hidden rounded-sm border border-slate-200 bg-slate-100">
+                  <Image src={video.image} alt={video.title} fill sizes="240px" className="object-cover transition duration-500 group-hover:scale-105" />
+                </div>
+                <div className="space-y-1.5">
+                  <div className="line-clamp-3 text-[15px] font-medium leading-6 text-slate-900">{video.title}</div>
+                </div>
+              </article>
             ))}
           </div>
         </section>

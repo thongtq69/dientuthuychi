@@ -98,6 +98,14 @@ export const featuredCategories = [
   },
 ];
 
+export const midPageBanners = [
+  {
+    title: 'Banner bảo hành',
+    href: '/tin-tuc',
+    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881',
+  },
+];
+
 export const heroSlides = [
   {
     eyebrow: 'Điện tử Thuỷ Chi',
@@ -874,7 +882,7 @@ export const storeLocations = [
 export const supportPanels = [
   { title: 'KHIẾU NẠI, GÓP Ý', value: '0899918668', action: '0899918668' },
   { title: 'TƯ VẤN', value: '0899918668', action: '0899918668' },
-  { title: 'TÌM CHI NHÁNH', value: 'Hệ thống Điện tử Thuỷ Chi', action: 'Xem hệ thống' },
+  { title: 'TÌM CHI NHÁNH', value: 'Hệ thống cửa hàng', action: 'Xem hệ thống' },
 ];
 
 export const socialLinks = [

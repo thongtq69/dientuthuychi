@@ -58,14 +58,14 @@ export function Footer() {
               ))}
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-3 sm:items-start">
               {supportPanels.map((panel, index) => (
-                <div key={panel.title} className="space-y-2">
+                <div key={panel.title} className="space-y-2 min-w-0">
                   <div className="flex items-center gap-2 text-[13px] font-bold text-[#2058aa]">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2058aa] text-xs text-white">{panelIcons[index]}</span>
-                    <span>{panel.title}</span>
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#2058aa] text-xs text-white">{panelIcons[index]}</span>
+                    <span className="truncate">{panel.title}</span>
                   </div>
-                  <div className="rounded-sm bg-[#0d63d8] px-3 py-2 text-center text-sm font-bold text-white">{panel.value}</div>
+                  <div className="flex min-h-[56px] items-center justify-center rounded-sm bg-[#0d63d8] px-3 py-2 text-center text-sm font-bold text-white">{panel.value}</div>
                 </div>
               ))}
             </div>
