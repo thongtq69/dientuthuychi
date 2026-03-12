@@ -54,16 +54,8 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Danh mục button (desktop) */}
-          <div className="hidden shrink-0 lg:block">
-            <div className="flex h-10 items-center gap-2 rounded bg-[#1a1a1a] border border-white/10 px-3 text-sm font-bold text-white">
-              <span>☰</span>
-              <span>Danh mục</span>
-            </div>
-          </div>
-
           {/* Search bar */}
-          <form className="flex h-10 min-w-0 flex-1 items-center overflow-hidden rounded bg-white">
+          <form className="flex h-10 min-w-0 flex-1 items-center overflow-hidden rounded bg-white lg:flex-[1.35]">
             <input
               type="text"
               placeholder={siteMeta.searchPlaceholder}
@@ -104,13 +96,10 @@ export function Header() {
               <span className="text-[9px] text-slate-400 font-semibold">Giỏ hàng</span>
               <span className="text-[10px] font-bold text-white">Sản phẩm 0</span>
             </a>
-            <a
-              href="#"
-              className="flex min-h-[56px] min-w-[140px] flex-col items-center justify-center rounded border border-white/10 bg-[#1a1a1a] px-3 py-1.5 text-center transition hover:bg-white/10"
-            >
+            <div className="flex min-h-[56px] min-w-[140px] flex-col items-center justify-center rounded border border-white/10 bg-[#1a1a1a] px-3 py-1.5 text-center">
               <span className="text-[9px] text-slate-400 font-semibold">Xem thêm</span>
               <span className="text-[10px] font-bold text-white">Thông tin</span>
-            </a>
+            </div>
           </div>
         </div>
       </div>

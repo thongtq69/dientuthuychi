@@ -79,9 +79,7 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5 text-[15px] leading-7 text-slate-800">
                 {column.links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="transition hover:text-[#0d63d8]">
-                      {link}
-                    </a>
+                    <span>{link}</span>
                   </li>
                 ))}
               </ul>

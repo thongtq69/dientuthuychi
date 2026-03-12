@@ -57,16 +57,28 @@ export default async function ProductDetailPage({ params }) {
                 <div className="text-sm font-semibold text-slate-900">Phiên bản</div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {product.variants.map((variant, index) => (
-                    <a
-                      key={`${variant.label}-${variant.price}`}
-                      href={variant.href}
-                      className={`rounded-2xl border px-4 py-3 text-sm transition ${
-                        index === 0 ? 'border-slate-950 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
-                      }`}
-                    >
-                      <div className="font-semibold">{variant.label}</div>
-                      <div className="mt-1 text-xs opacity-80">{variant.price}</div>
-                    </a>
+                    variant.href && variant.href !== '#' ? (
+                      <a
+                        key={`${variant.label}-${variant.price}`}
+                        href={variant.href}
+                        className={`rounded-2xl border px-4 py-3 text-sm transition ${
+                          index === 0 ? 'border-slate-950 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
+                        }`}
+                      >
+                        <div className="font-semibold">{variant.label}</div>
+                        <div className="mt-1 text-xs opacity-80">{variant.price}</div>
+                      </a>
+                    ) : (
+                      <div
+                        key={`${variant.label}-${variant.price}`}
+                        className={`rounded-2xl border px-4 py-3 text-sm ${
+                          index === 0 ? 'border-slate-950 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <div className="font-semibold">{variant.label}</div>
+                        <div className="mt-1 text-xs opacity-80">{variant.price}</div>
+                      </div>
+                    )
                   ))}
                 </div>
 
@@ -87,12 +99,12 @@ export default async function ProductDetailPage({ params }) {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                <a href="#" className="inline-flex items-center justify-center rounded-full bg-sky-500 px-6 py-4 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-400">
+                <button type="button" className="inline-flex items-center justify-center rounded-full bg-sky-500 px-6 py-4 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-400">
                   Mua ngay
-                </a>
-                <a href="#" className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-4 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
+                </button>
+                <button type="button" className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-4 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
                   Tư vấn nhanh
-                </a>
+                </button>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">

@@ -225,9 +225,15 @@ export default function Home() {
               <span className="font-semibold">Kết nối với chúng tôi:</span>
               <div className="flex gap-2">
                 {socialLinks.map((item) => (
-                  <a key={item.title} href={item.href} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
-                    <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
-                  </a>
+                  item.href && item.href !== '#' ? (
+                    <a key={item.title} href={item.href} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
+                      <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
+                    </a>
+                  ) : (
+                    <div key={item.title} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
+                      <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
+                    </div>
+                  )
                 ))}
               </div>
             </div>

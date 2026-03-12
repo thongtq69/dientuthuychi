@@ -10,9 +10,9 @@ export function ProductRail({ title, products = [] }) {
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Gợi ý thêm</p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{title}</h2>
         </div>
-        <a href="#" className="text-sm font-semibold text-slate-900 transition hover:text-sky-600">
+        <span className="text-sm font-semibold text-slate-900">
           Xem thêm →
-        </a>
+        </span>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
