@@ -23,7 +23,6 @@ import {
   siteMeta,
   socialLinks,
   storeBenefits,
-  supportPanels,
 } from '@/data/siteData';
 
 const sidePromos = [
@@ -96,22 +95,6 @@ export default function Home() {
             </a>
           ))}
         </div>
-
-        {/* ============= SUPPORT PANELS ============= */}
-        <section className="mt-3 grid gap-3 sm:grid-cols-3 xl:grid-cols-4">
-          {supportPanels.map((panel) => (
-            <div
-              key={panel.title}
-              className="flex items-center gap-3 rounded border border-slate-200 bg-white p-3 shadow-sm"
-            >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1b66d2] text-sm font-bold text-white">?</span>
-              <div className="min-w-0">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{panel.title}</div>
-                <div className="truncate text-[15px] font-black text-slate-900">{panel.value}</div>
-              </div>
-            </div>
-          ))}
-        </section>
 
         {/* ============= FEATURED CATEGORIES ============= */}
         <section className="mt-3 rounded border border-slate-200 bg-white p-4 shadow-sm sm:p-5">

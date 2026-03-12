@@ -20,11 +20,12 @@ export function HeroCarousel({ slides }) {
         style={{ height: '100%' }}
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} style={{ height: '100%' }}>
             <a
               href={slide.ctaHref}
-              className="relative block aspect-[730/460] w-full"
+              className="relative block h-full min-h-[280px] sm:min-h-[360px] xl:min-h-0 xl:aspect-auto"
               title={slide.title}
+              style={{ aspectRatio: '730/460' }}
             >
               <Image
                 src={slide.image}
