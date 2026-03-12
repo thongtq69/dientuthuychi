@@ -1,19 +1,22 @@
 export const siteMeta = {
   name: 'Điện tử Thuỷ Chi',
-  tagline: 'Điện thoại, linh kiện và phụ kiện công nghệ',
-  hotline: '0899918668',
+  tagline: 'Apple Store - Thuỷ Chi iPhone, iPad and more.....',
+  hotline: '0899.918.668',
   address: 'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội, Việt Nam.',
   supportHours: 'Mở cửa: 08:00 - 22:00 mỗi ngày',
-  searchPlaceholder: 'Bạn cần tìm gì?',
+  searchPlaceholder: 'Bạn cần tìm gì...',
+  email: 'thuychi@gmail.com',
 };
 
 export const utilityLinks = [
   { label: 'Chính sách bảo hành', href: '/chinh-sach-bao-hanh-12-thang-1-doi-1' },
-  { label: 'Chính sách mua lại', href: '/mua-lai' },
+  { label: 'Cam kết chất lượng', href: '/cam-ket-chat-luong' },
+  { label: 'Mua lại', href: '/mua-lai' },
   { label: 'Liên hệ', href: '/lien-he' },
 ];
 
 export const navItems = [
+  { label: 'Trang chủ', href: '/' },
   { label: 'Điện thoại', href: '/danh-muc/dien-thoai' },
   { label: 'Phụ kiện', href: '/danh-muc/phu-kien' },
   { label: 'Linh kiện', href: '/danh-muc/linh-kien' },
@@ -108,22 +111,19 @@ export const midPageBanners = [
 
 export const heroSlides = [
   {
-    eyebrow: 'Điện tử Thuỷ Chi',
-    title: 'Điện tử Thuỷ Chi - điện thoại, linh kiện và phụ kiện công nghệ',
-    description: 'Chuyên cung cấp điện thoại, linh kiện sửa chữa và phụ kiện công nghệ với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
-    ctaLabel: 'Xem sản phẩm',
-    ctaHref: '/danh-muc/dien-thoai',
-    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881',
-    stats: ['Điện thoại', 'Phụ kiện', 'Linh kiện', 'Tin tức'],
+    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_1.jpg?1768028836881',
+    ctaHref: '/chinh-sach-bao-hanh-12-thang-1-doi-1',
+    title: 'Bảo hành 12 tháng 1 đổi 1',
   },
   {
-    eyebrow: 'Chính sách',
-    title: 'Bảo hành 12 tháng 1 đổi 1',
-    description: 'Thu cũ - đổi mới, mua lại và hỗ trợ mua hàng nhanh qua hotline.',
-    ctaLabel: 'Xem chính sách',
-    ctaHref: '/tin-tuc',
-    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner2.jpg?1768028836881',
-    stats: ['Thu cũ - đổi mới', 'Mua lại', 'Hotline 0899918668'],
+    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_2.jpg?1768028836881',
+    ctaHref: '/cam-ket-chat-luong',
+    title: 'Cam kết chất lượng',
+  },
+  {
+    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/slider_3.jpg?1768028836881',
+    ctaHref: '/mua-lai',
+    title: 'Chính sách mua lại',
   },
 ];
 

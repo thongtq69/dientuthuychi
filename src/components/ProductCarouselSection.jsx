@@ -4,50 +4,61 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import Link from 'next/link';
 
 import { ProductCard } from '@/components/ProductCard';
-import { SectionHeading } from '@/components/SectionHeading';
 import { getProductsBySlugs } from '@/data/siteData';
 
 export function ProductCarouselSection({ section }) {
-  const products = getProductsBySlugs(section.products);
+  const items = getProductsBySlugs(section.products);
+
+  if (!items.length) return null;
 
   return (
-    <section id={section.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-      <SectionHeading
-        eyebrow={section.eyebrow}
-        title={section.title}
-        description={section.description}
-        actionLabel={section.actionLabel ?? 'Xem toàn bộ sản phẩm'}
-        actionHref={section.actionHref}
-        compact={section.title?.length > 18}
-      />
-
-      <div className="mb-4 flex flex-wrap gap-2">
-        {section.tabs.map((tab, index) => (
-          <span
-            key={tab}
-            className={`rounded-lg px-3 py-2 text-sm ${index === 0 ? 'bg-[#1b66d2] text-white' : 'border border-slate-200 bg-slate-50 text-slate-600'}`}
-          >
-            {tab}
-          </span>
-        ))}
+    <section className="rounded-sm border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h2 className="border-l-4 border-[#1b66d2] pl-3 text-xl font-black uppercase tracking-tight text-slate-950 sm:text-[22px]">
+          {section.title}
+        </h2>
+        <Link
+          href={section.actionHref}
+          className="rounded-sm border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 transition hover:border-[#1b66d2] hover:text-[#1b66d2]"
+        >
+          {section.actionLabel} →
+        </Link>
       </div>
+
+      {section.tabs && section.tabs.length > 0 && (
+        <div className="mb-4 flex flex-wrap gap-2">
+          {section.tabs.map((tab, i) => (
+            <button
+              key={tab}
+              className={`rounded-sm px-3 py-1.5 text-[13px] font-bold transition ${
+                i === 0
+                  ? 'bg-[#1b66d2] text-white'
+                  : 'border border-slate-200 bg-white text-slate-600 hover:border-[#1b66d2] hover:text-[#1b66d2]'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      )}
 
       <Swiper
         modules={[Navigation]}
         navigation
-        spaceBetween={12}
+        spaceBetween={16}
+        slidesPerView={1.3}
         breakpoints={{
-          320: { slidesPerView: 2.1 },
-          560: { slidesPerView: 2.6 },
-          768: { slidesPerView: 3.2 },
-          1024: { slidesPerView: 4.2 },
-          1280: { slidesPerView: 5.2 },
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1280: { slidesPerView: 5 },
         }}
       >
-        {products.map((product) => (
-          <SwiperSlide key={product.slug} className="pb-2">
+        {items.map((product) => (
+          <SwiperSlide key={product.slug}>
             <ProductCard product={product} />
           </SwiperSlide>
         ))}

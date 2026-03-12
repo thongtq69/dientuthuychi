@@ -2,22 +2,42 @@
 
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
 export function HeroCarousel({ slides }) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <Swiper modules={[Pagination, Autoplay]} pagination={{ clickable: true }} autoplay={{ delay: 5000 }} loop>
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.title}>
-            <a href={slide.ctaHref} className="relative block min-h-[220px] sm:min-h-[260px] lg:min-h-[320px]">
-              <Image src={slide.image} alt={slide.title} fill sizes="100vw" className="object-cover" priority />
+    <div className="overflow-hidden rounded border border-slate-200 bg-white shadow-sm h-full">
+      <Swiper
+        modules={[Pagination, Autoplay, EffectFade]}
+        effect="fade"
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        loop
+        className="h-full"
+        style={{ height: '100%' }}
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <a
+              href={slide.ctaHref}
+              className="relative block aspect-[730/460] w-full"
+              title={slide.title}
+            >
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                sizes="(max-width: 1280px) 100vw, (max-width: 1024px) 70vw, 900px"
+                className="object-cover"
+                priority={index === 0}
+              />
             </a>
           </SwiperSlide>
         ))}
       </Swiper>
-    </section>
+    </div>
   );
 }
