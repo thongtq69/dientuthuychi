@@ -42,16 +42,14 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
-            <div className="relative h-[48px] w-[140px] sm:w-[180px] overflow-hidden">
-              <Image
-                src="/brand-logo-real.jpg"
-                alt={siteMeta.name}
-                fill
-                priority
-                sizes="180px"
-                className="object-contain object-left"
-              />
-            </div>
+            <Image
+              src="/brand-logo-real.jpg"
+              alt={siteMeta.name}
+              width={48}
+              height={48}
+              priority
+              className="h-[48px] w-auto object-contain"
+            />
           </Link>
 
           {/* Category Button (Giá Kho Style: Yellow button) */}
