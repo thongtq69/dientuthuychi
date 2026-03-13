@@ -47,75 +47,89 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
+      {/* Sky Banners - Exact Gia Kho Banners */}
+      <div className="fixed left-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
+         <div className="relative aspect-[1/4] w-full">
+            <Image 
+              src="https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg" 
+              alt="Sky Left" 
+              fill 
+              className="object-contain"
+            />
+         </div>
+      </div>
+      <div className="fixed right-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
+         <div className="relative aspect-[1/5] w-full">
+            <Image 
+              src="https://cdn.dienthoaigiakho.vn/photos/1773022062519-s26-pre-roll-1.jpg" 
+              alt="Sky Right" 
+              fill 
+              className="object-contain"
+            />
+         </div>
+      </div>
+
       <Header />
 
       <main className="mx-auto max-w-[1270px] px-3 py-3 sm:px-4 lg:py-4">
         
         {/* ============= HERO SECTION ============= */}
-        <section className="grid gap-3 lg:grid-cols-[220px_minmax(0,1fr)_250px] xl:grid-cols-[250px_minmax(0,1fr)_270px]">
+        <section className="grid gap-3 lg:grid-cols-[220px_minmax(0,1fr)_280px] xl:grid-cols-[240px_minmax(0,1fr)_310px]">
           
           {/* Left Category Sidebar */}
-          <div className="hidden lg:block bg-white rounded border border-slate-200 overflow-hidden shadow-sm">
+          <div className="hidden lg:block bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm">
               <div className="flex flex-col">
-                {categoryRailItems.slice(0, 10).map((cat) => (
+                {categoryRailItems.map((cat) => (
                   <Link
                     key={cat.title}
                     href={cat.href}
-                    className="flex items-center gap-2 border-b border-slate-100 last:border-0 px-4 py-3 text-[13px] font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[#0b63f5]"
+                    className="group flex items-center gap-3 border-b border-slate-50 last:border-0 px-4 py-[10px] text-[13.5px] font-medium text-slate-700 transition hover:bg-slate-50"
                   >
-                    <span>{cat.title}</span>
+                    {cat.icon && (
+                      <div className="relative h-6 w-6 shrink-0">
+                        <Image src={cat.icon} alt={cat.title} fill className="object-contain" />
+                      </div>
+                    )}
+                    <span className="truncate group-hover:text-[#d70018]">{cat.title}</span>
+                    {cat.title === 'Thu Cũ Đổi Mới' && (
+                       <span className="ml-auto rounded-full bg-red-500 px-1.5 py-0.5 text-[9px] font-bold text-white animate-pulse">HOT</span>
+                    )}
                   </Link>
                 ))}
             </div>
           </div>
 
           {/* Center slider */}
-          <div className="h-full w-full relative z-0">
+          <div className="w-full relative z-0">
              <HeroCarousel slides={heroSlides} />
           </div>
 
-          {/* Right side promos */}
-          <div className="hidden gap-3 lg:flex lg:flex-col h-full">
-            {sidePromos.map((promo) => (
-              <a
-                key={promo.title}
-                href={promo.href}
-                className="group relative flex-1 block overflow-hidden rounded border border-slate-200 bg-white shadow-sm"
-              >
-                <div className="relative h-full min-h-[170px]">
-                  <Image
-                    src={promo.image}
-                    alt={promo.title}
-                    fill
-                    sizes="280px"
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-              </a>
-            ))}
+          {/* Right side promo (Standard Vertical S26 Promo) */}
+          <div className="hidden lg:block relative h-full">
+            <Link href="/danh-muc/dien-thoai" className="group block h-full overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white">
+                <Image
+                  src="https://cdn.dienthoaigiakho.vn/photos/1773022062519-s26-pre-roll-1.jpg"
+                  alt="Side Promo"
+                  fill
+                  className="object-contain transition duration-500 group-hover:scale-105"
+                />
+            </Link>
           </div>
         </section>
 
-        {/* Mobile-only side promos */}
-        <div className="mt-3 grid grid-cols-2 gap-3 lg:hidden">
-          {sidePromos.map((promo) => (
-            <a
-              key={promo.title}
-              href={promo.href}
-              className="group relative block overflow-hidden rounded border border-slate-200 bg-white shadow-sm"
-            >
-              <div className="relative aspect-[16/10]">
-                <Image
-                  src={promo.image}
-                  alt={promo.title}
-                  fill
-                  sizes="50vw"
-                  className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
-            </a>
-          ))}
-        </div>
+        {/* ============= CATEGORY ICON BAR ============= */}
+        <section className="mt-5 rounded-xl border border-slate-50 bg-white p-4 shadow-sm">
+           <div className="grid grid-cols-5 gap-y-6 gap-x-2 sm:grid-cols-10">
+              {categoryRailItems.map((item) => (
+                 <Link key={item.title} href={item.href} className="group flex flex-col items-center gap-2">
+                    <div className="relative h-[60px] w-[60px] overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
+                       <Image src={item.icon || ''} alt={item.title} fill className="object-contain p-3 transition duration-300 group-hover:scale-110" />
+                    </div>
+                    <span className="text-center text-[12px] font-bold text-slate-800 leading-tight line-clamp-2 h-7 flex items-center">{item.title}</span>
+                 </Link>
+              ))}
+           </div>
+        </section>
 
         {/* ============= TOP COLLECTIONS ============= */}
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">

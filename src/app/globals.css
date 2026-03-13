@@ -32,6 +32,11 @@ img {
   height: auto;
 }
 
+/* Fix Next.js Image fill mode bị override bởi rule img height:auto */
+img[data-nimg] {
+  height: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;

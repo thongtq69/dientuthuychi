@@ -10,11 +10,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
-      {/* Top Banner - slim strip */}
-      <div className="hidden bg-[#05030c] md:block">
+      {/* Top Banner - slim strip - desktop only */}
+      <div className="hidden md:block bg-[#05030c]">
         <div className="mx-auto max-w-[1270px]">
           <Link href="/" className="block">
-            <div className="relative h-[33px] w-full">
+            <div className="relative h-[33px] w-full overflow-hidden">
               <Image
                 src="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner_top.jpg?1768028836881"
                 alt="Banner top"
@@ -42,7 +42,7 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
-            <div className="relative h-[48px] w-[180px]">
+            <div className="relative h-[48px] w-[140px] sm:w-[180px] overflow-hidden">
               <Image
                 src="/brand-logo-real.jpg"
                 alt={siteMeta.name}

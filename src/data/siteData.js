@@ -86,14 +86,9 @@ export const midPageBanners = [
 
 export const heroSlides = [
   {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772418166043-main.jpg',
-    ctaHref: '/danh-muc/dien-thoai',
-    title: 'Siêu Deal S26',
-  },
-  {
     image: 'https://cdn.dienthoaigiakho.vn/photos/1773117620989-1968x790-main-banner-S26-1.jpg',
     ctaHref: '/danh-muc/dien-thoai',
-    title: 'Samsung Galaxy S26',
+    title: 'Samsung Galaxy S26 Series',
   },
   {
     image: 'https://cdn.dienthoaigiakho.vn/photos/1772779971500-mainbanner-ipad-air-m4.png',
@@ -101,7 +96,7 @@ export const heroSlides = [
     title: 'iPad Air M4',
   },
   {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1773126631993-Main-banner-17e-.jpg',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773300966031-Main-banner-17e-1.png',
     ctaHref: '/danh-muc/dien-thoai',
     title: 'iPhone 17e Mới',
   },
@@ -109,6 +104,11 @@ export const heroSlides = [
     image: 'https://cdn.dienthoaigiakho.vn/photos/1772693262926-Main-Banner-iphone-17.jpg',
     ctaHref: '/danh-muc/dien-thoai',
     title: 'iPhone 17 Series',
+  },
+  {
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773215461393-984x395_Main-Banner-samsung-s25-1.jpg',
+    ctaHref: '/danh-muc/dien-thoai',
+    title: 'Samsung Galaxy S25',
   },
 ];
 
