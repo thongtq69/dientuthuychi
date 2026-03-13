@@ -74,7 +74,7 @@ export default function Home() {
       <main className="mx-auto max-w-[1270px] px-3 py-3 sm:px-4 lg:py-4">
         
         {/* ============= HERO SECTION ============= */}
-        <section className="grid gap-3 lg:grid-cols-[220px_minmax(0,1fr)_280px] xl:grid-cols-[240px_minmax(0,1fr)_310px]">
+        <section className="grid gap-3 lg:grid-cols-[250px_minmax(0,1fr)_182px] xl:grid-cols-[250px_minmax(0,1fr)_182px]">
           
           {/* Left Category Sidebar */}
           <div className="hidden lg:block bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm">
@@ -100,21 +100,24 @@ export default function Home() {
           </div>
 
           {/* Center slider */}
-          <div className="w-full relative z-0">
+          <div className="relative z-0 w-full min-w-0">
              <HeroCarousel slides={heroSlides} />
-          </div>
+           </div>
 
-          {/* Right side promo (Standard Vertical S26 Promo) */}
-          <div className="hidden lg:block relative h-full">
-            <Link href="/danh-muc/dien-thoai" className="group block h-full overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white">
+           {/* Right side promo (Standard Vertical S26 Promo) */}
+           <div className="relative hidden lg:block">
+             <Link href="/danh-muc/dien-thoai" className="group block overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
+                <div className="relative w-full" style={{ aspectRatio: '182 / 476' }}>
                 <Image
                   src="https://cdn.dienthoaigiakho.vn/photos/1773022062519-s26-pre-roll-1.jpg"
                   alt="Side Promo"
                   fill
-                  className="object-contain transition duration-500 group-hover:scale-105"
+                  sizes="182px"
+                  className="object-cover transition duration-500 group-hover:scale-[1.02]"
                 />
-            </Link>
-          </div>
+                </div>
+             </Link>
+           </div>
         </section>
 
         {/* ============= CATEGORY ICON BAR ============= */}
@@ -184,6 +187,31 @@ export default function Home() {
               Xem tất cả <span className="text-[18px]">›</span>
             </Link>
           </div>
+
+          {/* 2 Mid-page Horizontal Banners */}
+          <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <Link href="/danh-muc/tablet" className="group block overflow-hidden rounded-xl border border-slate-50 shadow-sm">
+                <div className="relative aspect-[595/214] w-full">
+                    <Image
+                        src="https://cdn.dienthoaigiakho.vn/photos/1770690260094-Android-Adapt-xiaomi-reedmi-pad-2-pro-1.jpg"
+                        alt="Left Mid Banner"
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                    />
+                </div>
+            </Link>
+            <Link href="/danh-muc/tablet" className="group block overflow-hidden rounded-xl border border-slate-50 shadow-sm">
+                <div className="relative aspect-[595/214] w-full">
+                    <Image
+                        src="https://cdn.dienthoaigiakho.vn/photos/1770626742764-595x214_Section-Banner-Macbook.jpg"
+                        alt="Right Mid Banner"
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                    />
+                </div>
+            </Link>
+          </div>
+
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
             {products.filter(p => (p.category || '').toLowerCase().includes('tablet')).slice(0, 10).map((product, idx) => (
                <ProductCard key={`${product.id}-${idx}`} product={product} /> 

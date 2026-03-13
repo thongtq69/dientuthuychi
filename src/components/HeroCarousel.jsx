@@ -9,10 +9,11 @@ import 'swiper/css/effect-fade';
 
 export function HeroCarousel({ slides }) {
   return (
-    <div className="overflow-hidden rounded border border-slate-200 bg-white shadow-sm w-full">
+    <div className="w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
       <Swiper
         modules={[Pagination, Autoplay, EffectFade]}
         effect="fade"
+        fadeEffect={{ crossFade: true }}
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         loop
@@ -24,13 +25,13 @@ export function HeroCarousel({ slides }) {
               href={slide.ctaHref}
               className="relative block w-full"
               title={slide.title}
-              style={{ aspectRatio: '730/460' }}
+              style={{ aspectRatio: '1184 / 476' }}
             >
               <Image
                 src={slide.image}
                 alt={slide.title}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 900px"
+                sizes="(max-width: 767px) 100vw, (max-width: 1279px) 58vw, 760px"
                 className="object-cover"
                 priority={index === 0}
               />
