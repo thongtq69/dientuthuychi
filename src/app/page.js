@@ -7,6 +7,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+import { ProductCard } from '@/components/ProductCard';
 import { BlogCard } from '@/components/BlogCard';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -20,6 +21,7 @@ import {
   heroSlides,
   midPageBanners,
   productSections,
+  products,
   siteMeta,
   socialLinks,
   storeBenefits,
@@ -27,14 +29,14 @@ import {
 
 const sidePromos = [
   {
-    title: 'Mua lại',
-    href: '/mua-lai',
-    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/2banner_1.jpg?1768028836881',
+    title: 'iPhone 17 Pre-order',
+    href: '/danh-muc/dien-thoai',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1771985295667-390x490_Top-collection-banner-ip17-PM.jpg',
   },
   {
-    title: 'Trade-in lên đời',
-    href: '/cam-ket-chat-luong',
-    image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/2banner_2.jpg?1768028836881',
+    title: 'Máy Cũ Giá Rẻ',
+    href: '/danh-muc/hang-cu',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1772792984416-top-colection-may-cu-1.jpg',
   },
 ];
 
@@ -48,20 +50,39 @@ export default function Home() {
       <Header />
 
       <main className="mx-auto max-w-[1270px] px-3 py-3 sm:px-4 lg:py-4">
+        
         {/* ============= HERO SECTION ============= */}
-        <section className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_320px]">
+        <section className="grid gap-3 lg:grid-cols-[220px_minmax(0,1fr)_250px] xl:grid-cols-[250px_minmax(0,1fr)_270px]">
+          
+          {/* Left Category Sidebar */}
+          <div className="hidden lg:block bg-white rounded border border-slate-200 overflow-hidden shadow-sm">
+              <div className="flex flex-col">
+                {categoryRailItems.slice(0, 10).map((cat) => (
+                  <Link
+                    key={cat.title}
+                    href={cat.href}
+                    className="flex items-center gap-2 border-b border-slate-100 last:border-0 px-4 py-3 text-[13px] font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-[#0b63f5]"
+                  >
+                    <span>{cat.title}</span>
+                  </Link>
+                ))}
+            </div>
+          </div>
+
           {/* Center slider */}
-          <HeroCarousel slides={heroSlides} />
+          <div className="h-full w-full relative z-0">
+             <HeroCarousel slides={heroSlides} />
+          </div>
 
           {/* Right side promos */}
-          <div className="hidden gap-3 lg:flex lg:flex-col">
+          <div className="hidden gap-3 lg:flex lg:flex-col h-full">
             {sidePromos.map((promo) => (
               <a
                 key={promo.title}
                 href={promo.href}
                 className="group relative flex-1 block overflow-hidden rounded border border-slate-200 bg-white shadow-sm"
               >
-                <div className="relative h-full min-h-[200px]">
+                <div className="relative h-full min-h-[170px]">
                   <Image
                     src={promo.image}
                     alt={promo.title}
@@ -96,61 +117,80 @@ export default function Home() {
           ))}
         </div>
 
-        {/* ============= FEATURED CATEGORIES ============= */}
-        <section className="mt-3 rounded border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="border-l-4 border-[#1b66d2] pl-3 text-[18px] font-black uppercase text-slate-900">Danh mục nổi bật</h2>
-            <Link href="/danh-muc/dien-thoai" className="text-[12px] font-bold uppercase text-[#1b66d2] hover:underline">
-              Xem tất cả →
+        {/* ============= TOP COLLECTIONS ============= */}
+        <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Top Collection</h2>
+            <Link href="/danh-muc/dien-thoai" className="text-[14px] font-bold text-slate-400 hover:text-[#d70018] flex items-center gap-1 transition-colors">
+              Xem tất cả <span className="text-[18px]">›</span>
             </Link>
           </div>
 
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            navigation
-            autoplay={{ delay: 3000 }}
-            spaceBetween={16}
-            slidesPerView={3}
-            breakpoints={{
-              640: { slidesPerView: 5 },
-              1024: { slidesPerView: 6 },
-              1280: { slidesPerView: 8 },
-            }}
-          >
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 xl:gap-4">
             {featuredCategories.map((cat) => (
-              <SwiperSlide key={cat.title}>
-                <Link href={cat.href} className="group flex flex-col items-center">
-                  <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-slate-100 bg-white transition group-hover:border-[#1b66d2] group-hover:shadow-md">
-                    <Image src={cat.image} alt={cat.title} fill sizes="80px" className="object-contain p-2 transition duration-500 group-hover:scale-110" />
+              <Link key={cat.title} href={cat.href} className="group block overflow-hidden rounded-lg">
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <Image
+                    src={cat.image}
+                    alt={cat.title}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 16vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pt-10">
+                    <p className="text-[14px] font-bold text-white line-clamp-1">{cat.title}</p>
                   </div>
-                  <h3 className="mt-2 text-center text-[11px] font-bold leading-tight text-slate-700 transition group-hover:text-[#1b66d2]">
-                    {cat.title}
-                  </h3>
-                </Link>
-              </SwiperSlide>
+                </div>
+              </Link>
             ))}
-          </Swiper>
+          </div>
         </section>
 
-        {/* ============= PRODUCT SECTIONS ============= */}
-        {productSections.map((section, index) => (
-          <div key={section.id} className="mt-3 space-y-3">
-            {index === 1 && midPageBanners[0] && (
-              <a href={midPageBanners[0].href} className="group relative block overflow-hidden rounded border border-slate-200 bg-white shadow-sm">
-                <div className="relative aspect-[1170/210]">
-                  <Image
-                    src={midPageBanners[0].image}
-                    alt={midPageBanners[0].title}
-                    fill
-                    sizes="100vw"
-                    className="object-cover transition duration-500 group-hover:scale-[1.01]"
-                  />
-                </div>
-              </a>
-            )}
-            <ProductCarouselSection section={section} />
+        
+        {/* ============= IPHONE PRODUCTS ============= */}
+        <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Điện Thoại Giá Kho</h2>
+            <Link href="/danh-muc/dien-thoai" className="text-[14px] font-bold text-slate-400 hover:text-[#d70018] flex items-center gap-1 transition-colors">
+              Xem tất cả <span className="text-[18px]">›</span>
+            </Link>
           </div>
-        ))}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
+            {products.slice(0, 10).map((product, idx) => (
+               <ProductCard key={`${product.id}-${idx}`} product={product} /> 
+            ))}
+          </div>
+        </section>
+
+        {/* ============= TABLET ============= */}
+        <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Máy Tính Bảng / iPad</h2>
+            <Link href="/danh-muc/tablet" className="text-[14px] font-bold text-slate-400 hover:text-[#d70018] flex items-center gap-1 transition-colors">
+              Xem tất cả <span className="text-[18px]">›</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
+            {products.filter(p => (p.category || '').toLowerCase().includes('tablet')).slice(0, 10).map((product, idx) => (
+               <ProductCard key={`${product.id}-${idx}`} product={product} /> 
+            ))}
+          </div>
+        </section>
+
+        {/* ============= PHỤ KIỆN ============= */}
+        <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Phụ Kiện Công Nghệ</h2>
+            <Link href="/danh-muc/phu-kien" className="text-[14px] font-bold text-slate-400 hover:text-[#d70018] flex items-center gap-1 transition-colors">
+              Xem tất cả <span className="text-[18px]">›</span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
+            {products.filter(p => (p.category || '').toLowerCase().includes('phụ kiện')).slice(0, 10).map((product, idx) => (
+               <ProductCard key={`${product.id}-${idx}`} product={product} /> 
+            ))}
+          </div>
+        </section>
 
         {/* ============= STORE BENEFITS ============= */}
         <section className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
