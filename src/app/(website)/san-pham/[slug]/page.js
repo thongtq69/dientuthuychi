@@ -9,12 +9,12 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { ProductGallery } from '@/components/ProductGallery';
 import { ProductRail } from '@/components/ProductRail';
+import { ProductHighlights } from '@/components/ProductHighlights';
 import { PromotionBox } from '@/components/PromotionBox';
 import { StickyActionBar } from '@/components/StickyActionBar';
 import { SpecificationsTable } from '@/components/SpecificationsTable';
 import { ProductInfoBox } from '@/components/ProductInfoBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
-import { SmartImage } from '@/components/SmartImage';
 import { ProductCTA } from '@/components/ProductCTA';
 import { accessoryProducts, getProductBySlug, getRelatedProducts, products } from '@/data/siteData';
 
@@ -32,7 +32,7 @@ function formatPrice(price) {
 
 function getExtendedProductData(slug) {
   try {
-    const pagesDir = '/Users/bephi/thuychi/pages-json/';
+    const pagesDir = path.join(process.cwd(), 'pages-json');
     const filePath = path.join(pagesDir, `${slug}.json`);
     if (fs.existsSync(filePath)) return JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const files = fs.readdirSync(pagesDir);
@@ -121,9 +121,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
   let product = {
     ...(baseProduct || {}),
     ...normalized,
-    technical_specifications: extendedData?.technical_specifications || baseProduct?.technical_specifications,
+    technical_specifications: extendedData?.technical_specifications || baseProduct?.technical_specifications || baseProduct?.specs,
     text_content: extendedData?.text || baseProduct?.text_content,
-    images_list: extendedData?.images || baseProduct?.images_list,
+    images_list: extendedData?.images || baseProduct?.images_list || baseProduct?.gallery,
     faqs: (() => {
       try {
         const sd = extendedData?.structured_data;
@@ -132,7 +132,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
         return faqStr ? JSON.parse(faqStr).mainEntity || [] : [];
       } catch { return []; }
     })(),
-    featured_highlights: extendedData?.featured_highlights || normalized?.featured_highlights || []
+    featured_highlights: extendedData?.featured_highlights || normalized?.featured_highlights || baseProduct?.featured_highlights || baseProduct?.highlights || []
   };
 
   // Handle SKU specific product data if provided
@@ -147,7 +147,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
 
   const { promotions, coupons } = extractPromotionsFromText(product.text_content);
   const richSections = product.featured_highlights.length > 0
-    ? product.featured_highlights
+    ? product.featured_highlights.map((item) => (typeof item === 'string' ? { heading: '', content: item } : item))
     : extractDetailsFromText(product.text_content);
 
   const gallery = filterGallery(product.images_list, product.primary_image || product.image);
@@ -285,54 +285,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
             <ProductInfoBox />
 
             {/* Featured Highlights */}
-            {richSections.length > 0 && (
-              <div className="rounded-xl bg-white shadow-sm border border-slate-200/60 overflow-hidden">
-                <div className="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50">
-                  <h2 className="text-[16px] sm:text-[18px] font-extrabold text-slate-900 flex items-center gap-3">
-                    <span className="h-6 w-1 bg-red-600 rounded-full"></span>
-                    Đặc điểm nổi bật
-                  </h2>
-                </div>
-
-                <div className="p-4 sm:p-6 space-y-8 max-h-[600px] overflow-hidden relative" id="highlights-content">
-                  {richSections.map((sec, i) => {
-                    const sectionImages = sec.images?.filter(img => img && typeof img === 'string') || [];
-                    return (
-                      <div key={i} className="space-y-4">
-                        {sec.heading && sec.heading !== "Giới thiệu" && (
-                          <h3 className="text-[15px] sm:text-[16px] font-extrabold text-slate-800 leading-snug">
-                            {sec.heading}
-                          </h3>
-                        )}
-                        {sec.content && (
-                          <div className="text-[14px] leading-relaxed text-slate-600 whitespace-pre-wrap">
-                            {sec.content}
-                          </div>
-                        )}
-                        {sectionImages.length > 0 && (
-                          <div className={`grid gap-3 ${sectionImages.length >= 3 ? 'grid-cols-1 sm:grid-cols-3' : sectionImages.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
-                            {sectionImages.map((img, idx) => (
-                              <div key={idx} className="rounded-lg overflow-hidden border border-slate-100 bg-white">
-                                <SmartImage src={img} alt={`${sec.heading} - ${idx}`} className="w-full h-auto object-contain" hideOnError={true} />
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                  {/* Gradient overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
-                </div>
-
-                <div className="p-4 flex justify-center border-t border-slate-100">
-                  <button className="flex items-center gap-2 rounded-lg border border-sky-500 bg-white px-8 py-2.5 text-[13px] font-bold text-sky-600 hover:bg-sky-50 transition">
-                    Xem thêm
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 9l-7 7-7-7"></path></svg>
-                  </button>
-                </div>
-              </div>
-            )}
+            <ProductHighlights sections={richSections} />
 
             {/* FAQ */}
             <FAQAccordion faqs={product.faqs} />

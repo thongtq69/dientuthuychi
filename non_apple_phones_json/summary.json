@@ -1,0 +1,13 @@
+{
+  "total_non_apple_phones": 296,
+  "samsung_phones": 169,
+  "other_non_apple_phones": 127,
+  "brands": {
+    "Khác": 1,
+    "OPPO": 40,
+    "Samsung": 169,
+    "Xiaomi": 66,
+    "realme": 20
+  },
+  "output_dir": "/Users/bephi/data/scrape_exports/phan_loai_ro_rang/dienthoaigiakho/non_apple_phones_json"
+}

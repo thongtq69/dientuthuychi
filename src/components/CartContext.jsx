@@ -34,11 +34,14 @@ export const CartProvider = ({ children }) => {
     }
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, status } = useAuth();
+  const isInitialized = React.useRef(false);
 
-  // Sync with localStorage
+  // Sync with localStorage ALWAYS for persistence
   useEffect(() => {
-    localStorage.setItem('thuychi_cart', JSON.stringify(cartItems));
+    if (cartItems.length > 0 || isInitialized.current) {
+        localStorage.setItem('thuychi_cart', JSON.stringify(cartItems));
+    }
   }, [cartItems]);
 
   // Server Sync Logic
@@ -65,13 +68,17 @@ export const CartProvider = ({ children }) => {
     }
   }, [user]);
 
-  // Merge logic when user logs in
+  // Initial load and merge when user LOGS IN
   useEffect(() => {
-    if (user) {
-      const fetchServerCart = async () => {
+    if (status === 'authenticated' && user && !isInitialized.current) {
+      const fetchAndMergeCart = async () => {
         try {
           const res = await fetch(`/api/carts?where[customer][equals]=${user.id}`);
+          if (!res.ok) return;
           const data = await res.json();
+          
+          let finalItems = [...cartItems];
+          
           if (data.docs && data.docs.length > 0) {
             const serverItems = data.docs[0].items.map(item => ({
               id: `${item.productSlug}-${item.variant || 'default'}`,
@@ -83,27 +90,28 @@ export const CartProvider = ({ children }) => {
               image: item.image,
             }));
             
-            // Basic merge: server items take priority for same ID, plus local items not on server
-            setCartItems(prev => {
-              const merged = [...serverItems];
-              prev.forEach(localItem => {
-                if (!merged.find(m => m.id === localItem.id)) {
-                  merged.push(localItem);
-                }
-              });
-              return merged;
+            // Merge: server items + local items not on server
+            const merged = [...serverItems];
+            cartItems.forEach(localItem => {
+              if (!merged.find(m => m.id === localItem.id)) {
+                merged.push(localItem);
+              }
             });
-          } else {
-            // No server cart, upload local one
-            syncWithServer(cartItems);
+            finalItems = merged;
           }
+          
+          setCartItems(finalItems);
+          syncWithServer(finalItems);
+          isInitialized.current = true;
         } catch (err) {
-          console.error('Failed to fetch server cart:', err);
+          console.error('Failed to fetch/merge server cart:', err);
         }
       };
-      fetchServerCart();
+      fetchAndMergeCart();
+    } else if (status === 'unauthenticated') {
+      isInitialized.current = false;
     }
-  }, [cartItems, user, syncWithServer]);
+  }, [status, user, syncWithServer]); // Remove cartItems dependency
 
   const addItem = (product, quantity = 1, variant = null) => {
     const cartId = `${product.slug}-${variant || 'default'}`;
@@ -126,7 +134,7 @@ export const CartProvider = ({ children }) => {
           quantity: quantity,
         }];
       }
-      syncWithServer(newItems);
+      if (user) syncWithServer(newItems);
       return newItems;
     });
     setIsCartOpen(true);

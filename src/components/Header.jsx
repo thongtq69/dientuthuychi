@@ -106,6 +106,16 @@ export function Header() {
               </div>
             </a>
             
+            <Link href="/tra-cuu-don-hang" className="flex items-center gap-2 hover:opacity-80 transition">
+              <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+              </div>
+              <div className="flex flex-col items-start text-left">
+                <span className="text-[11px] text-slate-400 font-semibold">Theo dõi</span>
+                <span className="text-[13px] font-bold text-white">đơn hàng</span>
+              </div>
+            </Link>
+
             {/* Account Block */}
             <div className="relative group">
               {user ? (
@@ -208,6 +218,13 @@ export function Header() {
                   {item.title}
                 </Link>
               ))}
+              <Link
+                href="/tra-cuu-don-hang"
+                className="px-4 py-3 text-[15px] font-bold text-red-600 border-b border-slate-100 hover:bg-slate-50 transition"
+                onClick={() => setMobileOpen(false)}
+              >
+                TRA CỨU ĐƠN HÀNG
+              </Link>
             </nav>
           </div>
         </div>

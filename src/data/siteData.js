@@ -55,10 +55,53 @@ function getProductImage(product) {
   return product.image;
 }
 
-function prepareProducts(rawProducts) {
-  const seen = new Set();
+function getProductRichnessScore(product) {
+  let score = 0;
 
-  return rawProducts.reduce((accumulator, product) => {
+  if (product.technical_specifications && Object.keys(product.technical_specifications).length > 0) score += 6;
+  if (Array.isArray(product.gallery) && product.gallery.length > 0) score += 5;
+  if (Array.isArray(product.highlights) && product.highlights.length > 0) score += 4;
+  if (Array.isArray(product.description) && product.description.length > 1) score += 3;
+  if (Array.isArray(product.inventory) && product.inventory.length > 0) score += 2;
+  if (product.warranty) score += 2;
+  if (Array.isArray(product.specs) && product.specs.length > 4) score += 2;
+  if (Array.isArray(product.variants) && product.variants.length > 1) score += 1;
+
+  return score;
+}
+
+function mergeProductData(existingProduct, nextProduct) {
+  const preferredProduct = getProductRichnessScore(nextProduct) >= getProductRichnessScore(existingProduct) ? nextProduct : existingProduct;
+  const secondaryProduct = preferredProduct === nextProduct ? existingProduct : nextProduct;
+
+  return {
+    ...secondaryProduct,
+    ...preferredProduct,
+    description:
+      Array.isArray(preferredProduct.description) && preferredProduct.description.length > 0
+        ? preferredProduct.description
+        : secondaryProduct.description,
+    specs:
+      Array.isArray(preferredProduct.specs) && preferredProduct.specs.length > 0
+        ? preferredProduct.specs
+        : secondaryProduct.specs,
+    gallery:
+      Array.isArray(preferredProduct.gallery) && preferredProduct.gallery.length > 0
+        ? preferredProduct.gallery
+        : secondaryProduct.gallery,
+    variants:
+      Array.isArray(preferredProduct.variants) && preferredProduct.variants.length > 0
+        ? preferredProduct.variants
+        : secondaryProduct.variants,
+    technical_specifications:
+      preferredProduct.technical_specifications && Object.keys(preferredProduct.technical_specifications).length > 0
+        ? preferredProduct.technical_specifications
+        : secondaryProduct.technical_specifications,
+  };
+}
+
+function prepareProducts(rawProducts) {
+  const groupedProducts = rawProducts.reduce((accumulator, product) => {
     if (isAppleProduct(product) || isHiddenProduct(product)) {
       return accumulator;
     }
@@ -66,19 +109,20 @@ function prepareProducts(rawProducts) {
     const displayCategory = getDisplayCategory(product);
     const listingKey = `${displayCategory.tagName}:${product.productGroup || product.slug}`;
 
-    if (seen.has(listingKey)) {
-      return accumulator;
-    }
-
-    seen.add(listingKey);
-    accumulator.push({
+    const preparedProduct = {
       ...product,
       image: getProductImage(product),
       category: displayCategory.title,
       categorySlug: displayCategory.tagName,
-    });
+    };
+
+    const existingProduct = accumulator.get(listingKey);
+    accumulator.set(listingKey, existingProduct ? mergeProductData(existingProduct, preparedProduct) : preparedProduct);
+
     return accumulator;
-  }, []);
+  }, new Map());
+
+  return [...groupedProducts.values()];
 }
 
 function getFeaturedSlugs(categorySlug, limit = 3) {
