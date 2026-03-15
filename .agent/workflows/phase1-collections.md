@@ -1,369 +1,380 @@
 ---
-description: Phase 1 - Tạo Payload Collections cho e-commerce (Customers, Orders, Carts)
+description: Phase 1 - Thiết kế chi tiết Payload Collections cho toàn bộ hệ thống
 ---
 
-# Phase 1: Tạo Payload Collections
+# Phase 1: Payload Collections — Thiết kế dữ liệu
 
 ## Mục tiêu
-Tạo 3 collections mới trong Payload CMS: `Customers` (khách hàng), `Orders` (đơn hàng), `Carts` (giỏ hàng server-side). Đăng ký vào `payload.config.js` để Payload tự tạo REST API + Admin UI.
-
-## Yêu cầu trước khi bắt đầu
-- MongoDB Atlas đang chạy (kiểm tra MONGODB_URI trong `.env`)
-- Dev server có thể khởi động (`npm run dev`)
+Thiết kế và đăng ký tất cả collections cần thiết trong Payload CMS 3 để quản lý toàn bộ website. Sau phase này, admin truy cập `/admin` sẽ thấy đầy đủ các mục quản lý.
 
 ---
 
-## Bước 1: Tạo file `src/collections/Customers.js`
+## 1. Collection: Customers (Khách hàng)
 
-Tạo file mới tại `src/collections/Customers.js` với nội dung:
+### Vai trò
+Lưu trữ thông tin khách hàng đăng ký trên website. Đây là collection có `auth: true` — Payload tự động xử lý:
+- Trường `email` (unique, bắt buộc)
+- Trường `password` (hash bcrypt, không trả về qua API)
+- JWT token khi login
+- Endpoints: `/api/customers/login`, `/api/customers/logout`, `/api/customers/me`
 
-```js
-export const Customers = {
-  slug: 'customers',
-  auth: true,
-  admin: {
-    useAsTitle: 'fullName',
-    group: 'Khách hàng',
-    description: 'Tài khoản khách hàng đăng ký mua hàng',
-  },
-  access: {
-    // Khách hàng chỉ đọc được thông tin của chính mình
-    read: ({ req: { user } }) => {
-      if (!user) return false;
-      if (user.collection === 'users') return true; // Admin đọc tất cả
-      return { id: { equals: user.id } };
-    },
-    // Khách hàng chỉ sửa được thông tin của chính mình
-    update: ({ req: { user } }) => {
-      if (!user) return false;
-      if (user.collection === 'users') return true;
-      return { id: { equals: user.id } };
-    },
-    // Ai cũng có thể đăng ký (create)
-    create: () => true,
-    // Chỉ admin mới xóa được
-    delete: ({ req: { user } }) => {
-      return user?.collection === 'users';
-    },
-  },
-  fields: [
-    {
-      name: 'fullName',
-      type: 'text',
-      required: true,
-      label: 'Họ và tên',
-    },
-    {
-      name: 'phone',
-      type: 'text',
-      required: true,
-      label: 'Số điện thoại',
-      validate: (val) => {
-        if (val && !/^0\d{9}$/.test(val)) {
-          return 'Số điện thoại không hợp lệ (VD: 0899918668)';
-        }
-        return true;
-      },
-    },
-    {
-      name: 'address',
-      type: 'textarea',
-      label: 'Địa chỉ chi tiết',
-      admin: { description: 'Số nhà, tên đường, tòa nhà...' },
-    },
-    {
-      name: 'city',
-      type: 'text',
-      label: 'Tỉnh/Thành phố',
-    },
-    {
-      name: 'district',
-      type: 'text',
-      label: 'Quận/Huyện',
-    },
-    {
-      name: 'ward',
-      type: 'text',
-      label: 'Phường/Xã',
-    },
-  ],
-  timestamps: true,
-};
+### Các trường dữ liệu
+
+| Tên trường | Kiểu | Bắt buộc | Mô tả |
+|-----------|------|:---:|-------|
+| email | text | ✅ | Payload tự thêm khi `auth: true` |
+| password | text | ✅ | Payload tự thêm, tự hash |
+| fullName | text | ✅ | Họ và tên khách hàng |
+| phone | text | ✅ | SĐT, validate format 10 số VN (bắt đầu bằng 0) |
+| address | textarea | | Số nhà, tên đường |
+| city | text | | Tỉnh / Thành phố |
+| district | text | | Quận / Huyện |
+| ward | text | | Phường / Xã |
+
+### Phân quyền
+- **Tạo mới**: Ai cũng được (cho phép đăng ký)
+- **Đọc**: Admin đọc hết; Customer chỉ đọc bản ghi mình
+- **Sửa**: Admin sửa hết; Customer chỉ sửa bản ghi mình
+- **Xóa**: Chỉ Admin
+
+### Admin Panel
+- Nhóm: **"Khách hàng"**
+- useAsTitle: `fullName`
+- Cột hiển thị mặc định: fullName, email, phone, createdAt
+
+---
+
+## 2. Collection: Orders (Đơn hàng)
+
+### Vai trò
+Lưu trữ toàn bộ đơn hàng. Mỗi đơn gắn với 1 customer và chứa danh sách sản phẩm đã mua (snapshot tại thời điểm đặt).
+
+### Các trường dữ liệu
+
+| Tên trường | Kiểu | Bắt buộc | Mô tả |
+|-----------|------|:---:|-------|
+| orderCode | text (unique) | ✅ | Mã đơn hàng. Tự sinh bằng hook `beforeChange`. Format: `DH-YYYYMMDD-NNN` (VD: DH-20260315-001) |
+| customer | relationship → customers | ✅ | Khách đặt hàng |
+| items | array | ✅ | Danh sách sản phẩm (chi tiết bên dưới) |
+| total | number | ✅ | Tổng tiền đơn hàng (VNĐ) |
+| shippingAddress | group | | Địa chỉ giao (chi tiết bên dưới) |
+| paymentMethod | select | | `cod` / `bank` / `installment` |
+| status | select | ✅ | Trạng thái đơn (chi tiết bên dưới) |
+| note | textarea | | Ghi chú khách hàng |
+| adminNote | textarea | | Ghi chú nội bộ (chỉ admin thấy) |
+
+### Chi tiết trường `items` (array)
+
+Mỗi item trong đơn hàng lưu **snapshot** — không reference sang Products collection, vì giá/tên có thể thay đổi sau khi đặt.
+
+| Trường con | Kiểu | Bắt buộc | Mô tả |
+|-----------|------|:---:|-------|
+| productSlug | text | ✅ | Slug SP để tạo link về trang SP |
+| productName | text | ✅ | Tên SP tại thời điểm đặt |
+| variant | text | | Phiên bản/Màu sắc đã chọn |
+| price | number | ✅ | Đơn giá tại thời điểm đặt |
+| quantity | number | ✅ | Số lượng (min: 1) |
+| image | text | | URL ảnh SP |
+
+### Chi tiết trường `shippingAddress` (group)
+
+| Trường con | Kiểu | Mô tả |
+|-----------|------|-------|
+| fullName | text | Tên người nhận (có thể khác tên tài khoản) |
+| phone | text | SĐT người nhận |
+| address | textarea | Địa chỉ chi tiết |
+| city | text | Tỉnh/TP |
+| district | text | Quận/Huyện |
+| ward | text | Phường/Xã |
+
+### Chi tiết trường `status` (select)
+
+| Giá trị | Nhãn hiển thị | Ai đổi | Mô tả |
+|---------|---------------|--------|-------|
+| `pending` | ⏳ Chờ xác nhận | Hệ thống (mặc định) | Khách vừa đặt, chưa ai xử lý |
+| `confirmed` | ✅ Đã xác nhận | Admin | Nhân viên đã xác nhận đơn |
+| `shipping` | 🚚 Đang giao | Admin | Đã chuyển cho đơn vị vận chuyển |
+| `delivered` | 📦 Đã giao | Admin | Giao thành công |
+| `cancelled` | ❌ Đã hủy | Admin | Đơn bị hủy (kèm lý do trong adminNote) |
+
+### Hooks nghiệp vụ
+
+1. **`beforeChange` (operation: create)** → Tự sinh `orderCode`:
+   - Lấy ngày hiện tại → format `YYYYMMDD`
+   - Đếm số đơn đã tạo trong ngày → +1 → pad 3 chữ số
+   - Kết quả: `DH-20260315-001`
+
+2. **`afterChange` (operation: create)** → Gửi thông báo:
+   - Gửi Telegram cho Admin (nếu đã cấu hình bot)
+   - Có thể gửi email xác nhận cho khách (tương lai)
+
+3. **`beforeChange` (operation: update, field: status)** → Log lịch sử:
+   - Khi Admin đổi status → ghi timestamp vào mảng `statusHistory` (mở rộng sau)
+
+### Phân quyền
+- **Tạo**: Customer đã login (khi checkout)
+- **Đọc**: Admin đọc tất cả; Customer chỉ đọc đơn có `customer = mình`
+- **Sửa**: Chỉ Admin (đổi status, thêm adminNote)
+- **Xóa**: Chỉ Admin
+
+### Admin Panel
+- Nhóm: **"Đơn hàng"**
+- useAsTitle: `orderCode`
+- Cột mặc định: orderCode, customer (fullName), total, status, paymentMethod, createdAt
+- Sidebar: orderCode, total, status, paymentMethod
+
+---
+
+## 3. Collection: Carts (Giỏ hàng server)
+
+### Vai trò
+Lưu giỏ hàng trên server cho khách đã đăng nhập. Mỗi customer chỉ có **1 cart** (unique trên trường `customer`). Cart tự xóa items sau khi checkout thành công.
+
+### Các trường dữ liệu
+
+| Tên trường | Kiểu | Bắt buộc | Mô tả |
+|-----------|------|:---:|-------|
+| customer | relationship → customers (unique) | ✅ | Chủ giỏ hàng |
+| items | array | | Danh sách SP trong giỏ |
+
+### Chi tiết `items` (array) — giống items trong Orders
+
+| Trường con | Kiểu | Bắt buộc |
+|-----------|------|:---:|
+| productSlug | text | ✅ |
+| productName | text | |
+| variant | text | |
+| price | number | |
+| quantity | number | ✅ (min: 1) |
+| image | text | |
+
+### Cơ chế hoạt động
+- Khách **chưa login** → Giỏ hàng lưu ở `localStorage` (frontend tự quản lý)
+- Khách **login** → Giỏ hàng local **merge** vào giỏ server:
+  - SP trùng (cùng slug + variant) → cộng dồn quantity
+  - SP mới → thêm vào
+- Sau khi **checkout thành công** → Xóa toàn bộ items trong cart
+- Khách **logout** → Giữ nguyên giỏ server (để lần login sau còn)
+
+### Phân quyền
+- Customer chỉ CRUD giỏ của mình
+- Admin CRUD tất cả (debug, hỗ trợ khách)
+
+---
+
+## 4. Mở rộng Collection: Products (Sản phẩm)
+
+### Hiện tại đã có
+name, slug, price, originalPrice, category, mainImage, description, family
+
+### Cần bổ sung thêm
+
+| Tên trường | Kiểu | Mô tả |
+|-----------|------|-------|
+| sku | text (unique) | Mã SKU sản phẩm |
+| stock | number | Số lượng tồn kho (0 = hết hàng) |
+| isActive | checkbox | Hiển thị trên website hay không |
+| gallery | array of upload (Media) | Bộ ảnh sản phẩm |
+| variants | array | Các phiên bản (màu, dung lượng) |
+| specifications | json/group | Thông số kỹ thuật |
+| brand | text | Thương hiệu |
+| tags | array of text | Tags để lọc/tìm kiếm |
+| seoTitle | text | Tiêu đề SEO |
+| seoDescription | textarea | Mô tả SEO |
+| featured | checkbox | Sản phẩm nổi bật (hiện trang chủ) |
+
+### Chi tiết `variants` (array)
+
+| Trường con | Kiểu | Mô tả |
+|-----------|------|-------|
+| name | text | Tên phiên bản ("Đen 128GB", "Xanh 256GB") |
+| sku | text | Mã SKU phiên bản |
+| price | number | Giá riêng (nếu khác giá gốc) |
+| stock | number | Tồn kho riêng |
+| image | upload (Media) | Ảnh riêng |
+| color | text | Mã màu hoặc tên màu |
+
+### Hooks
+- **`beforeChange`** → Tự sinh `slug` từ `name` nếu chưa có
+- **`afterChange`** → Invalidate cache danh mục (nếu dùng ISR)
+
+---
+
+## 5. Mở rộng Collection: Categories (Danh mục)
+
+### Cần bổ sung
+
+| Tên trường | Kiểu | Mô tả |
+|-----------|------|-------|
+| slug | text (unique) | URL-friendly slug |
+| parent | relationship → categories (self) | Danh mục cha (hỗ trợ cây phân cấp) |
+| image | upload (Media) | Ảnh đại diện danh mục |
+| description | textarea | Mô tả danh mục |
+| order | number | Thứ tự hiển thị |
+| isActive | checkbox | Hiển thị hay ẩn |
+
+---
+
+## 6. Collection mới: Posts (Tin tức / Blog)
+
+### Vai trò
+Quản lý bài viết tin tức, blog, review sản phẩm. Hỗ trợ SEO và content marketing.
+
+| Tên trường | Kiểu | Bắt buộc | Mô tả |
+|-----------|------|:---:|-------|
+| title | text | ✅ | Tiêu đề |
+| slug | text (unique) | ✅ | URL slug |
+| excerpt | textarea | | Tóm tắt bài viết |
+| content | richText (Lexical) | | Nội dung đầy đủ |
+| featuredImage | upload (Media) | | Ảnh đại diện |
+| category | select | | tin-tuc / review / khuyen-mai / huong-dan |
+| author | relationship → users | | Người viết |
+| publishedDate | date | | Ngày xuất bản |
+| status | select | | draft / published |
+| seoTitle | text | | |
+| seoDescription | textarea | | |
+| tags | array of text | | |
+
+### Admin Panel
+- Nhóm: **"Nội dung"**
+- Cột mặc định: title, category, status, publishedDate
+
+---
+
+## 7. Collection mới: Pages (Trang tĩnh)
+
+### Vai trò
+Quản lý các trang nội dung tĩnh: Giới thiệu, Chính sách bảo hành, Chính sách đổi trả, Liên hệ...
+
+| Tên trường | Kiểu | Bắt buộc | Mô tả |
+|-----------|------|:---:|-------|
+| title | text | ✅ | Tiêu đề trang |
+| slug | text (unique) | ✅ | URL: /trang/gioi-thieu |
+| content | richText (Lexical) | | Nội dung |
+| seoTitle | text | | |
+| seoDescription | textarea | | |
+
+### Admin Panel
+- Nhóm: **"Nội dung"**
+
+---
+
+## 8. Global: SiteSettings (Cấu hình chung)
+
+### Vai trò
+Lưu các thông tin cấu hình toàn site. Global khác Collection ở chỗ: chỉ có **1 bản ghi duy nhất**, không có danh sách.
+
+| Tên trường | Kiểu | Mô tả |
+|-----------|------|-------|
+| siteName | text | Tên website |
+| logo | upload (Media) | Logo |
+| phone | text | SĐT liên hệ chính |
+| hotline | text | Hotline tư vấn |
+| email | text | Email liên hệ |
+| address | textarea | Địa chỉ cửa hàng |
+| workingHours | text | "8h00 - 21h00 hàng ngày" |
+| facebookUrl | text | Link FB |
+| zaloUrl | text | Link Zalo |
+| youtubeUrl | text | Link YouTube |
+| tiktokUrl | text | Link TikTok |
+| footerText | richText | Nội dung chân trang |
+| seoTitle | text | Tiêu đề SEO mặc định |
+| seoDescription | textarea | Mô tả SEO mặc định |
+| seoImage | upload (Media) | Ảnh OG mặc định |
+| topBarText | text | Dòng chữ chạy trên thanh top (VD: "CAM KẾT KHÔNG ZIN TẶNG MÁY") |
+| freeShipThreshold | number | Đơn tối thiểu được freeship |
+| telegramBotToken | text | Token bot Telegram nhận thông báo đơn |
+| telegramChatId | text | Chat ID Telegram |
+
+### Truy cập từ Frontend
+- Gọi `payload.findGlobal({ slug: 'site-settings' })` để lấy cấu hình
+- Truyền vào Header, Footer, SEO metadata
+
+---
+
+## 9. Global: Promotions (Khuyến mãi)
+
+### Vai trò
+Quản lý thông tin khuyến mãi hiển thị toàn site.
+
+| Tên trường | Kiểu | Mô tả |
+|-----------|------|-------|
+| activePromotion | checkbox | Bật/tắt chương trình KM |
+| promotionTitle | text | "Sinh nhật Giá Kho — Sale tới 50%" |
+| promotionBanner | upload (Media) | Banner KM |
+| couponCodes | array | Danh sách mã giảm giá |
+| couponCodes.code | text | Mã (VD: AND50) |
+| couponCodes.discount | number | Số tiền giảm |
+| couponCodes.minOrder | number | Đơn tối thiểu |
+| couponCodes.expiryDate | date | Hạn dùng |
+| couponCodes.isActive | checkbox | Còn hoạt động? |
+
+---
+
+## 10. Cấu trúc Admin Panel sau khi hoàn thành
+
+```
+/admin
+├── 📊 Dashboard (tổng quan)
+│
+├── 📦 Sản phẩm
+│   ├── Products (danh sách SP, CRUD)
+│   ├── Categories (danh mục, cây phân cấp)
+│   └── Media (quản lý ảnh/video)
+│
+├── 👤 Khách hàng
+│   ├── Customers (danh sách khách, xem thông tin)
+│   └── Carts (xem giỏ hàng, debug/hỗ trợ)
+│
+├── 📋 Đơn hàng
+│   └── Orders (xem, đổi trạng thái, in đơn)
+│
+├── 📝 Nội dung
+│   ├── Posts (tin tức, blog, review)
+│   ├── Pages (trang tĩnh)
+│   └── Banners (banner quảng cáo)
+│
+├── ⚙️ Cài đặt
+│   ├── Site Settings (thông tin cửa hàng)
+│   └── Promotions (khuyến mãi, mã giảm giá)
+│
+└── 🔐 Quản trị
+    └── Users (tài khoản admin)
 ```
 
-**Giải thích:**
-- `auth: true` → Payload tự động thêm trường `email` + `password`, xử lý hash, tạo JWT
-- `access` → Phân quyền: Admin (collection `users`) đọc hết, customer chỉ đọc/sửa bản ghi của mình
-- `validate` trên `phone` → Kiểm tra format SĐT Việt Nam (10 số, bắt đầu bằng 0)
+---
+
+## 11. Đăng ký vào payload.config.js
+
+### Collections cần đăng ký (theo thứ tự)
+1. Users (giữ nguyên — admin auth)
+2. Customers (mới — customer auth)
+3. Media (giữ nguyên)
+4. Categories (mở rộng)
+5. Products (mở rộng)
+6. Banners (giữ nguyên)
+7. Orders (mới)
+8. Carts (mới)
+9. Posts (mới)
+10. Pages (mới)
+
+### Globals cần đăng ký
+1. SiteSettings (mới)
+2. Promotions (mới)
+
+### Cấu hình admin
+- `admin.user` → giữ `users` (chỉ admin login vào /admin)
+- `admin.meta.titleSuffix` → " — Điện Tử Thụy Chi Admin"
 
 ---
 
-## Bước 2: Tạo file `src/collections/Orders.js`
+## 12. Kiểm tra sau khi hoàn thành Phase 1
 
-Tạo file mới tại `src/collections/Orders.js`:
-
-```js
-export const Orders = {
-  slug: 'orders',
-  admin: {
-    useAsTitle: 'orderCode',
-    group: 'Đơn hàng',
-    description: 'Quản lý đơn hàng của khách',
-    defaultColumns: ['orderCode', 'customer', 'total', 'status', 'createdAt'],
-  },
-  access: {
-    // Khách chỉ đọc đơn của mình, admin đọc hết
-    read: ({ req: { user } }) => {
-      if (!user) return false;
-      if (user.collection === 'users') return true;
-      return { customer: { equals: user.id } };
-    },
-    // Chỉ tạo đơn khi đã đăng nhập
-    create: ({ req: { user } }) => !!user,
-    // Chỉ admin mới sửa/xóa đơn
-    update: ({ req: { user } }) => user?.collection === 'users',
-    delete: ({ req: { user } }) => user?.collection === 'users',
-  },
-  hooks: {
-    beforeChange: [
-      // Tự động sinh mã đơn hàng khi tạo mới
-      async ({ data, operation, req }) => {
-        if (operation === 'create' && !data.orderCode) {
-          const now = new Date();
-          const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
-          const prefix = `DH-${dateStr}-`;
-
-          // Đếm số đơn trong ngày
-          const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-          const result = await req.payload.find({
-            collection: 'orders',
-            where: { createdAt: { greater_than: startOfDay.toISOString() } },
-            limit: 0,
-          });
-          const seq = String(result.totalDocs + 1).padStart(3, '0');
-          data.orderCode = prefix + seq;
-        }
-        return data;
-      },
-    ],
-  },
-  fields: [
-    {
-      name: 'orderCode',
-      type: 'text',
-      required: true,
-      unique: true,
-      label: 'Mã đơn hàng',
-      admin: { readOnly: true, position: 'sidebar' },
-    },
-    {
-      name: 'customer',
-      type: 'relationship',
-      relationTo: 'customers',
-      required: true,
-      label: 'Khách hàng',
-    },
-    {
-      name: 'items',
-      type: 'array',
-      required: true,
-      label: 'Sản phẩm',
-      minRows: 1,
-      fields: [
-        { name: 'productSlug', type: 'text', required: true, label: 'Slug SP' },
-        { name: 'productName', type: 'text', required: true, label: 'Tên SP' },
-        { name: 'variant', type: 'text', label: 'Phiên bản/Màu' },
-        { name: 'price', type: 'number', required: true, label: 'Đơn giá', min: 0 },
-        { name: 'quantity', type: 'number', required: true, label: 'SL', min: 1 },
-        { name: 'image', type: 'text', label: 'Ảnh SP' },
-      ],
-    },
-    {
-      name: 'total',
-      type: 'number',
-      required: true,
-      label: 'Tổng tiền',
-      min: 0,
-      admin: { position: 'sidebar' },
-    },
-    {
-      name: 'shippingAddress',
-      type: 'group',
-      label: 'Địa chỉ giao hàng',
-      fields: [
-        { name: 'fullName', type: 'text', label: 'Người nhận' },
-        { name: 'phone', type: 'text', label: 'SĐT' },
-        { name: 'address', type: 'textarea', label: 'Địa chỉ' },
-        { name: 'city', type: 'text', label: 'Tỉnh/TP' },
-        { name: 'district', type: 'text', label: 'Quận/Huyện' },
-        { name: 'ward', type: 'text', label: 'Phường/Xã' },
-      ],
-    },
-    {
-      name: 'paymentMethod',
-      type: 'select',
-      label: 'Thanh toán',
-      defaultValue: 'cod',
-      options: [
-        { label: 'COD - Thanh toán khi nhận hàng', value: 'cod' },
-        { label: 'Chuyển khoản ngân hàng', value: 'bank' },
-        { label: 'Trả góp 0%', value: 'installment' },
-      ],
-      admin: { position: 'sidebar' },
-    },
-    {
-      name: 'status',
-      type: 'select',
-      label: 'Trạng thái',
-      defaultValue: 'pending',
-      options: [
-        { label: '⏳ Chờ xác nhận', value: 'pending' },
-        { label: '✅ Đã xác nhận', value: 'confirmed' },
-        { label: '🚚 Đang giao hàng', value: 'shipping' },
-        { label: '📦 Đã giao', value: 'delivered' },
-        { label: '❌ Đã hủy', value: 'cancelled' },
-      ],
-      admin: { position: 'sidebar' },
-    },
-    {
-      name: 'note',
-      type: 'textarea',
-      label: 'Ghi chú khách hàng',
-    },
-  ],
-  timestamps: true,
-};
-```
-
-**Giải thích:**
-- Hook `beforeChange` → Tự động tạo mã đơn `DH-20260315-001` khi tạo đơn mới
-- `customer` relation → Liên kết đơn hàng với tài khoản khách
-- `items` array → Lưu snapshot sản phẩm tại thời điểm mua (giá có thể thay đổi sau)
-- `shippingAddress` group → Địa chỉ giao hàng riêng (có thể khác địa chỉ mặc định)
-
----
-
-## Bước 3: Tạo file `src/collections/Carts.js`
-
-Tạo file mới tại `src/collections/Carts.js`:
-
-```js
-export const Carts = {
-  slug: 'carts',
-  admin: {
-    group: 'Khách hàng',
-    description: 'Giỏ hàng server-side (sync khi đăng nhập)',
-  },
-  access: {
-    read: ({ req: { user } }) => {
-      if (!user) return false;
-      if (user.collection === 'users') return true;
-      return { customer: { equals: user.id } };
-    },
-    create: ({ req: { user } }) => !!user,
-    update: ({ req: { user } }) => {
-      if (!user) return false;
-      if (user.collection === 'users') return true;
-      return { customer: { equals: user.id } };
-    },
-    delete: ({ req: { user } }) => {
-      if (!user) return false;
-      if (user.collection === 'users') return true;
-      return { customer: { equals: user.id } };
-    },
-  },
-  fields: [
-    {
-      name: 'customer',
-      type: 'relationship',
-      relationTo: 'customers',
-      required: true,
-      unique: true,
-      label: 'Khách hàng',
-    },
-    {
-      name: 'items',
-      type: 'array',
-      label: 'Sản phẩm trong giỏ',
-      fields: [
-        { name: 'productSlug', type: 'text', required: true },
-        { name: 'productName', type: 'text' },
-        { name: 'variant', type: 'text' },
-        { name: 'price', type: 'number', min: 0 },
-        { name: 'quantity', type: 'number', required: true, min: 1 },
-        { name: 'image', type: 'text' },
-      ],
-    },
-  ],
-  timestamps: true,
-};
-```
-
----
-
-## Bước 4: Đăng ký collections vào `payload.config.js`
-
-Sửa file `src/payload.config.js`, thêm import và đăng ký:
-
-```js
-import { buildConfig } from 'payload'
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-import { Users } from './collections/Users';
-import { Media } from './collections/Media';
-import { Categories } from './collections/Categories';
-import { Products } from './collections/Products';
-import { Banners } from './collections/Banners';
-import { Customers } from './collections/Customers';
-import { Orders } from './collections/Orders';
-import { Carts } from './collections/Carts';
-
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-
-export default buildConfig({
-  admin: {
-    user: Users.slug,
-  },
-  collections: [Users, Media, Categories, Products, Banners, Customers, Orders, Carts],
-  editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET,
-  db: mongooseAdapter({
-    url: process.env.MONGODB_URI,
-  }),
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
-  graphQL: {
-    schemaOutputFile: path.resolve(dirname, 'generated-schema.graphql'),
-  },
-});
-```
-
----
-
-## Bước 5: Kiểm tra
-
-// turbo
-1. Khởi động dev server: `npm run dev`
-2. Truy cập `/admin` → Đăng nhập bằng admin account
-3. Xác nhận thấy 3 nhóm mới trong sidebar:
-   - Khách hàng → Customers, Carts
-   - Đơn hàng → Orders
-4. Thử tạo 1 customer test qua Admin UI
-5. Thử tạo 1 order test qua Admin UI
-
-## Kết quả mong đợi
-- ✅ 3 collections xuất hiện trong Payload Admin
-- ✅ REST API tự động có sẵn: `GET/POST /api/customers`, `GET/POST /api/orders`, `GET/POST /api/carts`
-- ✅ Auth endpoint cho customers: `POST /api/customers/login`, `POST /api/customers/logout`, `GET /api/customers/me`
-- ✅ MongoDB Atlas có thêm 3 collections mới
-
-## File đã thay đổi
-- `src/collections/Customers.js` ← MỚI
-- `src/collections/Orders.js` ← MỚI
-- `src/collections/Carts.js` ← MỚI
-- `src/payload.config.js` ← SỬA (thêm 3 imports + đăng ký)
+- [ ] Dev server chạy không lỗi
+- [ ] Truy cập `/admin` → thấy đầy đủ menu nhóm
+- [ ] Thử tạo 1 Customer qua Admin
+- [ ] Thử tạo 1 Order qua Admin (chọn customer, thêm items)
+- [ ] Thử edit status Order  
+- [ ] Thử truy cập `/api/customers` → thấy REST API hoạt động
+- [ ] Thử truy cập `/api/orders` → thấy REST API hoạt động
+- [ ] Settings global editable tại Admin

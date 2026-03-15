@@ -9,6 +9,14 @@ import { Media } from './collections/Media';
 import { Categories } from './collections/Categories';
 import { Products } from './collections/Products';
 import { Banners } from './collections/Banners';
+import { Customers } from './collections/Customers';
+import { Orders } from './collections/Orders';
+import { Carts } from './collections/Carts';
+import { Posts } from './collections/Posts';
+import { Pages } from './collections/Pages';
+
+import { SiteSettings } from './globals/SiteSettings';
+import { Promotions } from './globals/Promotions';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -16,8 +24,26 @@ const dirname = path.dirname(filename);
 export default buildConfig({
   admin: {
     user: Users.slug,
+    meta: {
+      titleSuffix: ' — Điện Tử Thụy Chi Admin',
+    },
   },
-  collections: [Users, Media, Categories, Products, Banners],
+  collections: [
+    Users, 
+    Customers, 
+    Media, 
+    Categories, 
+    Products, 
+    Banners, 
+    Orders, 
+    Carts, 
+    Posts, 
+    Pages
+  ],
+  globals: [
+    SiteSettings,
+    Promotions
+  ],
   editor: lexicalEditor({}),
   secret: process.env.PAYLOAD_SECRET,
   db: mongooseAdapter({
