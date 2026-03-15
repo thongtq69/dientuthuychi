@@ -42,7 +42,7 @@ export function Footer() {
                 {footerContactInfo.map((item) => (
                   <p key={item.label}>
                     <span className="font-bold text-slate-900">{item.label}:</span>{' '}
-                    <span className="font-extrabold text-[#1d4ed8]">{item.value}</span>{' '}
+                    <span className={item.label === 'Hotline' ? 'font-extrabold text-[#d70018]' : item.label === 'Email' ? 'font-semibold text-[#1d4ed8]' : 'text-slate-600'}>{item.value}</span>{' '}
                     {item.note ? <span className="text-slate-500">{item.note}</span> : null}
                   </p>
                 ))}

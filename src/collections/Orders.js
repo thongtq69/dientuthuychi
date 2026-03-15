@@ -12,7 +12,7 @@ export const Orders = {
       if (user.collection === 'users') return true;
       return { customer: { equals: user.id } };
     },
-    create: ({ req }) => !!req?.user,
+    create: () => true, // Allow guest checkout
     update: ({ req }) => req?.user?.collection === 'users',
     delete: ({ req }) => req?.user?.collection === 'users',
   },
@@ -34,10 +34,49 @@ export const Orders = {
             },
             limit: 0,
           });
-          const seq = String(result.totalDocs + 1).padStart(3, '0');
+          const seq = String((result.totalDocs || 0) + 1).padStart(3, '0');
           data.orderCode = prefix + seq;
         }
         return data;
+      },
+    ],
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        if (operation === 'create') {
+          try {
+            const settings = await req.payload.findGlobal({
+              slug: 'site-settings',
+            });
+
+            const { telegramBotToken, telegramChatId } = settings || {};
+            if (telegramBotToken && telegramChatId) {
+              const { sendTelegramMessage } = await import('../lib/telegram');
+              
+              const itemsList = doc.items.map(item => `• ${item.productName} x${item.quantity} (${new Intl.NumberFormat('vi-VN').format(item.price)}đ)`).join('\n');
+              
+              const message = `
+<b>🛍 ĐƠN HÀNG MỚI!</b>
+<b>Mã đơn:</b> #${doc.orderCode}
+<b>Tổng:</b> ${new Intl.NumberFormat('vi-VN').format(doc.total)}đ
+<b>Thanh toán:</b> ${doc.paymentMethod.toUpperCase()}
+
+<b>📍 Khách hàng:</b>
+- Tên: ${doc.shippingAddress.fullName}
+- SĐT: ${doc.shippingAddress.phone}
+- ĐC: ${doc.shippingAddress.address}, ${doc.shippingAddress.district}, ${doc.shippingAddress.city}
+
+<b>🛒 Sản phẩm:</b>
+${itemsList}
+
+<i>Hệ thống quản lý: <a href="${process.env.NEXT_PUBLIC_SERVER_URL}/admin/collections/orders/${doc.id}">Xem chi tiết</a></i>
+              `;
+
+              await sendTelegramMessage(message, telegramBotToken, telegramChatId);
+            }
+          } catch (err) {
+            console.error('Telegram notification error:', err);
+          }
+        }
       },
     ],
   },
@@ -54,7 +93,7 @@ export const Orders = {
       name: 'customer',
       type: 'relationship',
       relationTo: 'customers',
-      required: true,
+      required: false, // Optional for guest checkout
       label: 'Khách hàng',
     },
     {

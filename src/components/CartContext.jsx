@@ -16,21 +16,25 @@ const CartContext = createContext({
 });
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    if (typeof window === 'undefined') {
+      return [];
+    }
+
+    const savedCart = window.localStorage.getItem('thuychi_cart');
+
+    if (!savedCart) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(savedCart);
+    } catch {
+      return [];
+    }
+  });
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { user } = useAuth();
-
-  // Load from localStorage on init
-  useEffect(() => {
-    const savedCart = localStorage.getItem('thuychi_cart');
-    if (savedCart) {
-      try {
-        setCartItems(JSON.parse(savedCart));
-      } catch (e) {
-        console.error('Failed to parse cart from localStorage');
-      }
-    }
-  }, []);
 
   // Sync with localStorage
   useEffect(() => {
@@ -99,7 +103,7 @@ export const CartProvider = ({ children }) => {
       };
       fetchServerCart();
     }
-  }, [user, syncWithServer]);
+  }, [cartItems, user, syncWithServer]);
 
   const addItem = (product, quantity = 1, variant = null) => {
     const cartId = `${product.slug}-${variant || 'default'}`;
