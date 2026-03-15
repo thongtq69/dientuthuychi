@@ -10,22 +10,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
-      {/* Top Banner - slim strip - desktop only */}
-      <div className="hidden md:block bg-[#05030c]">
-        <div className="mx-auto max-w-[1270px]">
-          <Link href="/" className="block">
-            <div className="relative h-[33px] w-full overflow-hidden">
-              <Image
-                src="https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner_top.jpg?1768028836881"
-                alt="Banner top"
-                fill
-                priority
-                sizes="1270px"
-                className="object-contain"
-              />
-            </div>
-          </Link>
-        </div>
+      {/* Top Commitment Bar */}
+      <div className="bg-[#05030c] text-center py-1">
+        <span className="text-[12px] font-black text-[#fdd100] uppercase tracking-widest">
+           Cam kết không zin tặng máy
+        </span>
       </div>
 
       {/* Main Header Bar - Black */}

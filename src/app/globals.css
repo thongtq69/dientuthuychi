@@ -96,3 +96,30 @@ select {
 .line-clamp-3 {
   -webkit-line-clamp: 3;
 }
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes move-up {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+.animate-move-up {
+  animation: move-up 0.5s ease-out forwards;
+}
+
+@keyframes move-down {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-move-down {
+  animation: move-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

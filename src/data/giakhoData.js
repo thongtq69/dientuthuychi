@@ -19,6 +19,176 @@ export const categories = [
 
 export const products = [
   {
+    "id": "1757660662",
+    "name": "Samsung Galaxy Tab S11 Ultra 5G 12GB/256GB Chính Hãng",
+    "slug": "samsung-galaxy-tab-s11-ultra-5g-12gb256gb-1757660662",
+    "image": "https://cdn.dienthoaigiakho.vn/photos/1769585329659-Samsung-galaxy-tab-s11-ultra-2.png",
+    "category": "Tablet",
+    "price": 29990000,
+    "originalPrice": 34990000,
+    "labels": ["Chính Hãng", "Mỏng nhẹ", "Galaxy AI"],
+    "brand": "Samsung",
+    "sku": "TBssTs11U5W256GrMB4",
+    "productGroup": "TAB_S11_ULTRA",
+    "highlights": [
+      "Thiết kế siêu mỏng chỉ 5,1 mm – mỏng nhất dòng Galaxy Tab.",
+      "Màn hình Dynamic AMOLED 2X 14.6 inch, sáng rõ ngoài trời.",
+      "Hiệu năng chuẩn Ultra với chip mới, tối ưu AI mạnh mẽ.",
+      "Pin lớn hơn 11.000 mAh, xem video đến 23 giờ.",
+      "Khung Armor Aluminum, kháng nước bụi IP68, bút S Pen đi kèm."
+    ],
+    "description": [
+       "Samsung Galaxy Tab S11 Ultra 5G 12GB 256GB chính thức ra mắt, mang đến trải nghiệm “chuẩn Ultra” trong một thiết kế mỏng chỉ 5,1mm – thế hệ Galaxy Tab mỏng nhất từ trước đến nay.",
+       "Dù mỏng nhẹ nhưng máy vẫn chứa đựng sức mạnh vượt trội với màn hình Dynamic AMOLED 2X siêu sáng, hiệu năng bứt phá và loạt tính năng AI tiên tiến.",
+       "Với độ mỏng chỉ 5,1 mm, Galaxy Tab S11 Ultra là thế hệ tablet mỏng nhất từ trước đến nay của Samsung. Thiết kế gọn nhẹ này mang lại sự thoải mái khi sử dụng lâu dài, đồng thời tạo cảm giác sang trọng ở mọi góc nhìn.",
+       "Màn hình Dynamic AMOLED 2X 14.6 inch với độ sáng lên tới 1.600 nits, cho trải nghiệm hiển thị rực rỡ ngay cả dưới ánh nắng gắt.",
+       "Dung lượng pin lớn cùng khả năng sạc siêu tốc giúp thiết bị duy trì năng lượng cả ngày dài. Người dùng có thể phát video liên tục đến 23 giờ."
+    ],
+    "specs": [
+      ["Màn hình", "14.6 inch, Dynamic AMOLED 2X, 120Hz"],
+      ["CPU", "MediaTek Dimensity 9400+ 8 nhân"],
+      ["RAM", "12GB"],
+      ["Bộ nhớ", "256GB"],
+      ["Pin", "11600 mAh, Sạc nhanh"],
+      ["HĐH", "Android 16, One UI 8"],
+      ["Trọng lượng", "695g"],
+      ["Độ dày", "5.1 mm"]
+    ],
+    "technical_specifications": {
+      "Màn Hình": {
+        "Công nghệ màn hình": "Dynamic AMOLED 2X, 120Hz, HDR10+",
+        "Kích thước màn hình (inch)": "14.6\"",
+        "Độ phân giải": "1848 x 2960 Pixels",
+        "Tính năng màn hình": "Tần số quét 120Hz"
+      },
+      "Hệ điều hành - CPU": {
+        "Hệ điều hành": "Android 16, One UI 8",
+        "Chipset (CPU)": "MediaTek Dimensity 9400+ 8 nhân",
+        "Chip đồ họa (GPU)": "Immortalis-G925"
+      },
+      "Pin & Sạc": {
+        "Dung lượng pin (mAh)": "11600 mAh",
+        "Công nghệ pin": "Sạc pin nhanh, Tiết kiệm pin"
+      }
+    },
+    "variants": [
+       { "label": "Xám", "price": 29990000, "slug": "samsung-galaxy-tab-s11-ultra-5g-12gb256gb-xam", "image": "https://cdn.dienthoaigiakho.vn/photos/1769585329659-Samsung-galaxy-tab-s11-ultra-2.png" },
+       { "label": "Bạc", "price": 29990000, "slug": "samsung-galaxy-tab-s11-ultra-5g-12gb256gb-bac", "image": "https://cdn.dienthoaigiakho.vn/photos/1769585329660-Samsung-galaxy-tab-s11-ultra-wh-1.png" }
+    ],
+    "warranty": {
+      "title": "BẢO HÀNH TIÊU CHUẨN (4512)",
+      "highlights": [
+        "45 ngày 1 đổi 1",
+        "Bảo hành phần cứng 12 tháng",
+        "Bảo hành nhanh chỉ với số điện thoại"
+      ]
+    },
+    "gallery": [
+      "https://cdn.dienthoaigiakho.vn/photos/1758278174768-Tab-S11-Ultra.png",
+      "https://cdn.dienthoaigiakho.vn/photos/1758278174767-Tab-S11-Ultra-4.png",
+      "https://cdn.dienthoaigiakho.vn/photos/1769585329659-Samsung-galaxy-tab-s11-ultra-2.png",
+      "https://cdn.dienthoaigiakho.vn/photos/1768212944770-galaxy-tab-s11-ultra-2.png",
+      "https://cdn.dienthoaigiakho.vn/photos/1758278174765-Tab-S11-Ultra-2.png"
+    ]
+  },
+  {
+    "id": "1768373087",
+    "name": "OPPO Reno13 5G 12GB/256GB Likenew Fullbox",
+    "slug": "oppo-reno13-5g-12gb256gb-likenew-fullbox",
+    "image": "https://cdn.dienthoaigiakho.vn/photos/1735895938210-Oppo-Reno13-5G-BL.jpg",
+    "category": "Điện Thoại",
+    "price": 7390000,
+    "originalPrice": 15790000,
+    "labels": ["Likenew", "Fullbox", "Giao nhanh"],
+    "brand": "OPPO",
+    "sku": "DTopRe13256BLCN2V",
+    "productGroup": "RENO13_SERIES_LKN",
+    "warranty": {
+      "title": "BẢO HÀNH OPPO (4503)",
+      "highlights": [
+        "45 ngày 1 đổi 1, dùng thử 168 giờ",
+        "Bảo hành phần cứng 3 tháng",
+        "Bảo hành nhanh chỉ với số điện thoại"
+      ]
+    },
+    "condition": "Máy đã qua sử dụng. Ngoại hình thẩm mỹ đẹp, chính hãng Likenew. Máy nguyên hộp và đầy đủ phụ kiện, đã qua sử dụng. Chưa qua sửa chữa.",
+    "colors": ["Xanh Dương", "Trắng"],
+    "variants": [
+       { "label": "Xanh Dương", "price": 7390000, "slug": "oppo-reno13-5g-12gb256gb-likenew-fullbox-xanh", "image": "https://cdn.dienthoaigiakho.vn/photos/1735895938210-Oppo-Reno13-5G-BL.jpg", "availability": "InStock" },
+       { "label": "Trắng", "price": 7390000, "slug": "oppo-reno13-5g-12gb256gb-likenew-fullbox-trang", "image": "https://cdn.dienthoaigiakho.vn/photos/1735895938212-Oppo-Reno13-5G-Wh.jpg", "availability": "SoldOut" }
+    ],
+    "highlights": [
+      "Thiết kế mỏng nhẹ với khung viền nhôm chuẩn hàng không",
+      "Màn hình OLED 6.59 inch 120Hz mượt mà, sống động",
+      "Hệ thống Camera 50MP, quay video 4K sắc nét",
+      "Dimensity 8350 nâng cao hiệu suất, tiết kiệm năng lượng",
+      "Loạt tính năng AI ấn tượng: Live Photo, trợ lý chỉnh ảnh AI"
+    ],
+    "description": [
+       "Mới đây, Oppo đã chính thức ra mắt mẫu smartphone mới mang tên OPPO Reno13 5G, hứa hẹn sẽ trở thành một trong những lựa chọn hàng đầu trong phân khúc tầm trung. Với thiết kế tinh tế, hiệu năng mạnh mẽ và hệ thống camera nổi bật, OPPO Reno13 5G 12GB 256GB không chỉ thu hút ánh nhìn mà còn đáp ứng nhu cầu sử dụng đa dạng của người dùng.",
+       "OPPO Reno 13 nổi bật với thiết kế thời trang và tinh tế, mang đến cảm giác sang trọng ngay từ cái nhìn đầu tiên. Với độ dày chỉ khoảng 7.24mm và trọng lượng nhẹ 181g, chiếc điện thoại này dễ dàng vừa vặn trong tay và thoải mái khi sử dụng.",
+       "Màn hình OLED 6.59 inch mang lại chất lượng hình ảnh tuyệt vời với độ phân giải FHD+ và tỷ lệ màn hình so với thân máy lên đến 93.4%. Tần số quét 120Hz giúp các chuyển động trên màn hình trở nên mượt mà.",
+       "Camera chính 50MP được trang bị công nghệ OIS (chống rung quang học), người dùng có thể chụp ảnh sắc nét ngay cả trong điều kiện ánh sáng yếu. Camera selfie 50MP giúp người dùng tự tin ghi lại những khoảnh khắc đáng nhớ.",
+       "Vi xử lý MediaTek Dimensity 8350 (4nm) mạnh mẽ xử lý mọi tác vụ nặng chỉ trong tích tắc. Viên pin 5600mAh cùng sạc nhanh SuperVOOC 80W giúp bạn luôn tràn đầy năng lượng cả ngày dài."
+    ],
+    "specs": [
+      ["Màn hình", "6.59 inch, OLED, 120Hz, FHD+"],
+      ["CPU", "MediaTek Dimensity 8350 (4nm)"],
+      ["RAM", "12GB LPDDR5X"],
+      ["Camera sau", "50MP (OIS) + 8MP"],
+      ["Camera trước", "50MP"],
+      ["Pin", "5600 mAh, Sạc nhanh 80W"],
+      ["HĐH", "ColorOS 15 (Android 15)"],
+      ["Kháng nước", "IP69"],
+      ["Trọng lượng", "181g"]
+    ],
+    "inventory": [
+      { "location": "947 Quang Trung, P. An Hội Tây, TP.HCM", "status": "Còn hàng" },
+      { "location": "1247 Đường 3 Tháng 2, P. Minh Phụng, TP.HCM", "status": "Còn hàng" },
+      { "location": "121 Chu Văn An, P. Bình Thạnh, TP.HCM", "status": "Còn hàng" }
+    ],
+    "gallery": [
+      "https://cdn.dienthoaigiakho.vn/photos/1735895938210-Oppo-Reno13-5G-BL.jpg",
+      "https://cdn.dienthoaigiakho.vn/photos/1735895938212-Oppo-Reno13-5G-Wh.jpg",
+      "https://cdn.dienthoaigiakho.vn/photos/1735898358382-Oppo-Reno13-F-Media.jpg",
+      "https://cdn.dienthoaigiakho.vn/photos/1735898358382-Oppo-Reno13-F-Media-1.jpg",
+      "https://cdn.dienthoaigiakho.vn/photos/1735898358383-Oppo-Reno13-F-Media2.jpg"
+    ]
+  },
+  {
+    "id": "OPPO-RENO-13-512",
+    "name": "OPPO Reno13 5G 12GB/512GB Likenew Fullbox",
+    "slug": "oppo-reno13-5g-12gb512gb-likenew-fullbox",
+    "image": "https://cdn.dienthoaigiakho.vn/photos/1733220317513-oppo-reno-13-4.jpg",
+    "category": "Điện Thoại",
+    "price": 9990000,
+    "originalPrice": 11990000,
+    "labels": ["Likenew", "Fullbox"],
+    "brand": "OPPO",
+    "productGroup": "RENO13_SERIES",
+    "colors": ["Tím", "Xanh", "Đen"],
+    "variants": [
+       { "label": "12GB/256GB", "price": 8990000, "href": "/san-pham/oppo-reno13-5g-12gb256gb-likenew-fullbox" },
+       { "label": "12GB/512GB", "price": 9990000, "href": "/san-pham/oppo-reno13-5g-12gb512gb-likenew-fullbox" }
+    ],
+    "specs": [
+      ["Màn hình", "6.59 inch, OLED, 120Hz, FHD+"],
+      ["CPU", "MediaTek Dimensity 8350 (4nm)"],
+      ["RAM", "12GB LPDDR5X"],
+      ["Bộ nhớ trong", "512GB"],
+      ["Camera sau", "50MP (OIS) + 8MP (Siêu rộng)"],
+      ["Camera trước", "50MP"],
+      ["Pin", "5600 mAh, Sạc nhanh 80W"],
+      ["HĐH", "ColorOS 15 (Android 15)"],
+      ["Kháng nước", "IP69"],
+      ["Trọng lượng", "181g"]
+    ],
+    "gallery": [
+      "https://cdn.dienthoaigiakho.vn/photos/1733220317513-oppo-reno-13-4.jpg",
+      "https://cdn.dienthoaigiakho.vn/photos/1733220317514-oppo-reno-13-5.jpg"
+    ]
+  },
+  {
     "id": "GK601492",
     "name": "Bộ Sạc Nhanh UGREEN PD 20W C To Lightning MFI CD137 - Trắng",
     "slug": "bo-sac-nhanh-ugreen-pd-20w-c-to-lightning-mfi-cd137-trang-gk601492",

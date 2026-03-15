@@ -11,7 +11,7 @@ import { ProductRail } from '@/components/ProductRail';
 import { getCollectionBySlug, getProductsByCategory, getProductsBySlugs } from '@/data/siteData';
 
 export function generateStaticParams() {
-  return ['dien-thoai', 'phu-kien', 'linh-kien'].map((slug) => ({ slug }));
+  return ['dien-thoai', 'tablet', 'phu-kien', 'linh-kien'].map((slug) => ({ slug }));
 }
 
 export default async function CollectionPage({ params }) {

@@ -1,181 +1,355 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
+import fs from 'fs';
+import path from 'path';
 
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { ProductGallery } from '@/components/ProductGallery';
-import { ProductInfoTabs } from '@/components/ProductInfoTabs';
 import { ProductRail } from '@/components/ProductRail';
-import { categories, getProductBySlug, getRelatedProducts, products } from '@/data/siteData';
+import { PromotionBox } from '@/components/PromotionBox';
+import { StickyActionBar } from '@/components/StickyActionBar';
+import { SpecificationsTable } from '@/components/SpecificationsTable';
+import { ProductInfoBox } from '@/components/ProductInfoBox';
+import { FAQAccordion } from '@/components/FAQAccordion';
+import { SmartImage } from '@/components/SmartImage';
+import { accessoryProducts, getProductBySlug, getRelatedProducts, products } from '@/data/siteData';
 
+/* ── Helpers ── */
 function formatPrice(price) {
-  if (typeof price === 'string') return price;
-  if (!price) return 'Liên hệ';
-
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  if (typeof price === 'string') {
+    const n = parseInt(price.replace(/\D/g, ''));
+    if (n && n > 0) return new Intl.NumberFormat('vi-VN').format(n) + 'đ';
+    if (n === 0 || !price.trim()) return 'Liên hệ';
+    return price;
+  }
+  if (!price || price <= 0) return 'Liên hệ';
+  return new Intl.NumberFormat('vi-VN').format(price) + 'đ';
 }
 
-function getCategoryHref(category) {
-  if (!category) return undefined;
-
-  const matchedCategory = categories.find((item) => item.title === category || item.tagName === category);
-
-  return matchedCategory ? `/danh-muc/${matchedCategory.tagName}` : undefined;
+function getExtendedProductData(slug) {
+  try {
+    const pagesDir = '/Users/bephi/thuychi/pages-json/';
+    const filePath = path.join(pagesDir, `${slug}.json`);
+    if (fs.existsSync(filePath)) return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const files = fs.readdirSync(pagesDir);
+    const match = files.find(f => f.startsWith(slug) && f.endsWith('.json'));
+    if (match) return JSON.parse(fs.readFileSync(path.join(pagesDir, match), 'utf8'));
+  } catch (err) {}
+  return null;
 }
 
-export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
+function extractPromotionsFromText(text) {
+  if (!text) return { promotions: [], coupons: [] };
+  const coupons = [];
+  const promotions = [];
+  const couponRegex = /Nhập mã:\s*([A-Z0-9]+)\s*Giảm\s*([\d.]+đ?k?)\s*HSD:\s*([\d/]+)/gi;
+  let match;
+  while ((match = couponRegex.exec(text)) !== null) {
+    coupons.push({ code: match[1], description: `Giảm ${match[2]}`, hsd: match[3] });
+  }
+  const promoMatch = text.match(/Ưu đãi đặc biệt.*?(?:Quà tặng và ưu đãi khác|Thông tin sản phẩm|Còn hàng)/s);
+  if (promoMatch) {
+    const bullets = promoMatch[0].match(/•\s*.*?(?=•|$)/g);
+    if (bullets) bullets.forEach(b => promotions.push({ text: b.replace('•', '').trim() }));
+  }
+  return { promotions, coupons };
 }
 
+function extractDetailsFromText(text) {
+  if (!text) return [];
+  const start = text.indexOf("Đặc điểm nổi bật");
+  const review = text.indexOf("Review");
+  const s = start !== -1 ? start + 16 : (review !== -1 ? review : 0);
+  const e = text.lastIndexOf("Xem thêm") > s ? text.lastIndexOf("Xem thêm") : text.length;
+  const meat = text.substring(s, e).trim();
+  if (!meat || meat.toLowerCase().includes("đang cập nhật")) return [];
+  const headings = ["Thiết kế", "Màn hình", "Chipset", "Hiệu năng", "Camera", "Pin", "AI", "S-Pen", "Bảo mật", "Snapdragon", "Dynamic AMOLED"];
+  const sections = [];
+  meat.split(/\n\n+/).forEach(p => {
+    const c = p.trim();
+    if (c.length < 20) return;
+    const isH = (c.length < 70 && headings.some(h => c.includes(h))) || (c.length < 50 && c === c.toUpperCase());
+    if (isH) sections.push({ heading: c, content: "" });
+    else if (sections.length) sections[sections.length - 1].content += (sections[sections.length - 1].content ? "\n\n" : "") + c;
+    else sections.push({ heading: "Giới thiệu", content: c });
+  });
+  return sections.filter(s => s.content.length > 30);
+}
+
+/* ── Image Filter ── */
+const EXCLUDE = ['icon','logo','home-credit','kredivo','warranty','warehouse','banner','hero-badge','coupon','payment','he-thong','gio-hang','menu-bar','thong-tin','hot.svg','shield','badge','back-ground','u-u-dai','giakho','facebook','youtube','tiktok','zalo','messenger','instagram','authentic','instalment','fast-delivery','free-return','Subbaner','SUB-BANNER','align-price'];
+
+function filterGallery(images, primary) {
+  const filtered = (images || []).filter(img =>
+    img && typeof img === 'string' &&
+    !EXCLUDE.some(k => img.toLowerCase().includes(k.toLowerCase())) &&
+    img.includes('cdn.dienthoaigiakho.vn') &&
+    (img.endsWith('.jpg') || img.endsWith('.png') || img.endsWith('.jpeg') || img.endsWith('.webp'))
+  );
+  if (filtered.length > 0) return filtered.slice(0, 15);
+  if (primary) return [primary];
+  return [];
+}
+
+/* ── Metadata ── */
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const data = getExtendedProductData(slug);
+  if (!data) return { title: 'Sản phẩm' };
+  return {
+    title: data.title || data.h1,
+    description: data.meta_description,
+    alternates: { canonical: data.canonical },
+    openGraph: { title: data.h1, description: data.meta_description, images: [data.normalized_product?.primary_image] }
+  };
+}
+
+/* ── Page ── */
 export default async function ProductDetailPage({ params }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const baseProduct = getProductBySlug(slug);
+  const extendedData = getExtendedProductData(slug);
+  if (!baseProduct && !extendedData) notFound();
 
-  if (!product) notFound();
-
-  const categoryHref = getCategoryHref(product.category);
-  const breadcrumbSource = Array.isArray(product.breadcrumbs)
-    ? product.breadcrumbs
-    : ['Trang chủ', product.category || 'Sản phẩm'];
-  const detailProduct = {
-    ...product,
-    badge: product.badge || product.labels?.[0] || product.brand || 'Sản phẩm nổi bật',
-    shortName: product.shortName || product.name,
-    excerpt: product.excerpt || `Thông tin chi tiết và giá bán mới nhất của ${product.name} tại Thuỷ Chi.`,
-    oldPrice: product.oldPrice || (product.originalPrice ? formatPrice(product.originalPrice) : null),
-    price: formatPrice(product.price),
-    status: product.status || 'Sẵn hàng',
-    family: product.family || product.brand || product.category || 'Thuỷ Chi',
-    gallery: Array.isArray(product.gallery) && product.gallery.length ? product.gallery : [product.image].filter(Boolean),
-    variants: Array.isArray(product.variants) && product.variants.length
-      ? product.variants
-      : [{ label: product.name, price: formatPrice(product.price), href: '#' }],
-    colors: Array.isArray(product.colors) && product.colors.length ? product.colors : ['Liên hệ cửa hàng'],
-    highlights: Array.isArray(product.highlights) && product.highlights.length
-      ? product.highlights
-      : [
-          product.labels?.[0] || 'Mới nguyên seal',
-          product.brand || 'Hàng chính hãng',
-          'Hỗ trợ giao hàng tận nơi',
-        ],
-    description: Array.isArray(product.description) && product.description.length
-      ? product.description
-      : [
-          `${product.name} hiện có sẵn tại Thuỷ Chi với mức giá minh bạch, phù hợp nhu cầu mua mới hoặc thay thế nhanh.`,
-          'Liên hệ cửa hàng để được tư vấn tình trạng hàng, phiên bản phù hợp và chương trình ưu đãi hiện tại.',
-        ],
-    specs: Array.isArray(product.specs) && product.specs.length
-      ? product.specs
-      : [
-          ['Danh mục', product.category || 'Đang cập nhật'],
-          ['Thương hiệu', product.brand || 'Đang cập nhật'],
-          ['Tình trạng', product.labels?.join(', ') || 'Đang cập nhật'],
-          ['Mã sản phẩm', product.id || 'Đang cập nhật'],
-        ],
+  const normalized = extendedData?.normalized_product || {};
+  const product = {
+    ...(baseProduct || {}),
+    ...normalized,
+    technical_specifications: extendedData?.technical_specifications || baseProduct?.technical_specifications,
+    text_content: extendedData?.text || baseProduct?.text_content,
+    images_list: extendedData?.images || baseProduct?.images_list,
+    faqs: (() => {
+      try {
+        const sd = extendedData?.structured_data;
+        if (!sd) return [];
+        const faqStr = sd.find(s => s?.includes('FAQPage'));
+        return faqStr ? JSON.parse(faqStr).mainEntity || [] : [];
+      } catch { return []; }
+    })(),
+    featured_highlights: extendedData?.featured_highlights || normalized?.featured_highlights || []
   };
-  const relatedProducts = getRelatedProducts(product, 4);
-  const breadcrumbItems = [...breadcrumbSource, detailProduct.shortName].map((label, index) => ({
+
+  const { promotions, coupons } = extractPromotionsFromText(product.text_content);
+  const richSections = product.featured_highlights.length > 0
+    ? product.featured_highlights
+    : extractDetailsFromText(product.text_content);
+
+  const gallery = filterGallery(product.images_list, product.primary_image || product.image);
+
+  const breadcrumbItems = (product.breadcrumbs || ['Trang chủ', 'Sản phẩm', product.name]).map((label, i) => ({
     label,
-    href: index === 0 ? '/' : index === 1 ? categoryHref : undefined,
+    href: i === 0 ? '/' : undefined,
   }));
 
+  const uiVariants = (product.variants || []).map(v => ({
+    label: v.color || v.name?.split('-').pop().trim() || 'Mặc định',
+    price: v.price,
+    href: `/san-pham/${slug}?sku=${v.sku}`,
+    slug: v.sku,
+    image: v.image || product.primary_image || product.image,
+  }));
+
+  const price = parseInt(String(product.price || 0).replace(/\D/g, ''));
+  const originalPrice = parseInt(String(product.originalPrice || 0).replace(/\D/g, ''));
+  const discount = originalPrice > 0 && price > 0 && price < originalPrice
+    ? Math.round((1 - price / originalPrice) * 100)
+    : 0;
+
+  const related = getRelatedProducts(product, 10);
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen bg-[#f0f2f5] font-sans antialiased">
       <Header />
-      <main className="mx-auto flex max-w-7xl flex-col gap-5 px-3 py-4 sm:px-6 sm:py-6 lg:px-8 lg:gap-8">
-        <section className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[2rem] sm:p-6 lg:p-8">
-          <Breadcrumbs items={breadcrumbItems} />
 
-          <div className="mt-5 grid gap-6 lg:mt-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-8">
-            <ProductGallery images={detailProduct.gallery} alt={detailProduct.name} />
+      <main className="mx-auto max-w-[1260px] px-3 py-2 pb-24">
+        <Breadcrumbs items={breadcrumbItems} />
 
-            <div className="space-y-5">
-              <div>
-                <div className="inline-flex max-w-full rounded-full bg-slate-950 px-3 py-1 text-xs font-semibold text-white">{detailProduct.badge}</div>
-                <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">{detailProduct.name}</h1>
-                <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">{detailProduct.excerpt}</p>
-              </div>
+        {/* ═══ TOP SECTION: Gallery + Sidebar ═══ */}
+        <div className="mt-3 flex flex-col lg:flex-row gap-4 items-start">
 
-              <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 sm:rounded-[1.75rem] sm:p-5">
-                <div className="flex flex-wrap items-end gap-x-4 gap-y-2">
-                  <div className="text-3xl font-bold text-sky-600">{detailProduct.price}</div>
-                  {detailProduct.oldPrice ? <div className="text-base text-slate-400 line-through">{detailProduct.oldPrice}</div> : null}
-                </div>
-                <div className="mt-3 flex flex-wrap gap-2 text-sm">
-                  <span className="rounded-full bg-emerald-50 px-3 py-2 font-semibold text-emerald-700">{detailProduct.status}</span>
-                  <span className="rounded-full bg-white px-3 py-2 font-medium text-slate-600">{detailProduct.family}</span>
-                  <span className="rounded-full bg-white px-3 py-2 font-medium text-slate-600">Giao hàng tận nơi</span>
-                </div>
-              </div>
+          {/* LEFT: Gallery */}
+          <div className="w-full lg:w-[58%]">
+            <div className="rounded-xl bg-white p-3 sm:p-4 shadow-sm border border-slate-200/60">
+              <ProductGallery
+                images={gallery.length > 0 ? gallery : ["https://cdn.dienthoaigiakho.vn/photos/1731313707122-Samsung-Galaxy-S25-Ultra-Den.jpg"]}
+                alt={product.name}
+              />
+            </div>
+          </div>
 
-              <div className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[1.75rem] sm:p-5">
-                <div className="text-sm font-semibold text-slate-900">Phiên bản</div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {detailProduct.variants.map((variant, index) => (
-                    variant.href && variant.href !== '#' ? (
-                      <a
-                        key={`${variant.label}-${variant.price}`}
-                        href={variant.href}
-                        className={`w-full min-w-0 rounded-2xl border px-4 py-3 text-sm transition sm:w-auto ${
-                          index === 0 ? 'border-slate-950 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
-                        }`}
-                      >
-                        <div className="break-words font-semibold">{variant.label}</div>
-                        <div className="mt-1 text-xs opacity-80">{variant.price}</div>
-                      </a>
-                    ) : (
-                      <div
-                        key={`${variant.label}-${variant.price}`}
-                        className={`w-full min-w-0 rounded-2xl border px-4 py-3 text-sm sm:w-auto ${
-                          index === 0 ? 'border-slate-950 bg-slate-950 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
-                        }`}
-                      >
-                        <div className="break-words font-semibold">{variant.label}</div>
-                        <div className="mt-1 text-xs opacity-80">{variant.price}</div>
-                      </div>
-                    )
-                  ))}
+          {/* RIGHT: Product Info Sidebar */}
+          <div className="w-full lg:w-[42%]">
+            <div className="lg:sticky lg:top-4 space-y-4">
+
+              {/* Product Name */}
+              <div className="rounded-xl bg-white p-4 sm:p-5 shadow-sm border border-slate-200/60">
+                <h1 className="text-[18px] sm:text-[20px] font-extrabold leading-snug text-slate-900">
+                  {product.name}
+                </h1>
+                <div className="mt-2 flex items-center gap-3 text-[13px] text-slate-400">
+                  <div className="flex text-amber-400 text-[12px]">★★★★★</div>
+                  <span className="font-semibold">(4 đánh giá)</span>
+                  <span>|</span>
+                  <span className="font-semibold">100+ đã bán</span>
                 </div>
 
-                <div className="mt-5 text-sm font-semibold text-slate-900">Màu sắc</div>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {detailProduct.colors.map((color, index) => (
-                    <button
-                      key={color}
-                      type="button"
-                      className={`rounded-full border px-4 py-2 text-sm ${
-                        index === 0 ? 'border-sky-500 bg-sky-50 text-sky-700' : 'border-slate-200 bg-white text-slate-600'
-                      }`}
-                    >
-                      {color}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-2">
-                <button type="button" className="inline-flex items-center justify-center rounded-full bg-sky-500 px-6 py-4 text-sm font-semibold text-white shadow-lg transition hover:bg-sky-400">
-                  Mua ngay
-                </button>
-                <button type="button" className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-4 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
-                  Tư vấn nhanh
-                </button>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3">
-                {detailProduct.highlights.map((item) => (
-                  <div key={item} className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-medium text-slate-700 shadow-sm">
-                    {item}
+                {/* Price Box */}
+                <div className="mt-4 rounded-lg bg-gradient-to-r from-red-50 to-orange-50 border border-red-100 p-4">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-[26px] sm:text-[28px] font-black text-red-600 tracking-tight">
+                      {formatPrice(price || product.price)}
+                    </span>
+                    {discount > 0 && (
+                      <>
+                        <span className="text-[14px] text-slate-400 line-through font-semibold">
+                          {formatPrice(originalPrice)}
+                        </span>
+                        <span className="rounded bg-red-600 px-1.5 py-0.5 text-[11px] font-bold text-white">
+                          -{discount}%
+                        </span>
+                      </>
+                    )}
                   </div>
-                ))}
+                </div>
+              </div>
+
+              {/* Color Variants */}
+              {uiVariants.length > 0 && (
+                <div className="rounded-xl bg-white p-4 sm:p-5 shadow-sm border border-slate-200/60">
+                  <h3 className="text-[13px] font-bold text-slate-700 mb-3">Chọn màu để xem giá và tình trạng hàng</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {uiVariants.map(v => (
+                      <Link
+                        key={v.slug}
+                        href={v.href}
+                        className="flex items-center gap-2.5 rounded-lg border-2 border-slate-200 p-2.5 hover:border-red-400 transition-colors bg-white"
+                      >
+                        <div className="relative h-10 w-10 shrink-0 rounded-md overflow-hidden bg-slate-50 border border-slate-100">
+                          <Image src={v.image} alt={v.label} fill sizes="40px" className="object-contain p-0.5" />
+                        </div>
+                        <div>
+                          <div className="text-[12px] font-bold text-slate-800">{v.label}</div>
+                          <div className="text-[13px] font-extrabold text-red-600">{formatPrice(v.price)}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Promotions */}
+              <PromotionBox promotions={promotions} coupons={coupons} />
+
+              {/* CTA Buttons */}
+              <div className="space-y-2.5">
+                <button className="w-full h-[52px] rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-bold text-[16px] shadow-md shadow-red-200/50 active:scale-[0.98]">
+                  MUA NGAY
+                </button>
+                <div className="grid grid-cols-2 gap-2">
+                  <button className="h-11 rounded-lg bg-sky-600 text-white font-bold text-[12px] hover:bg-sky-700 transition shadow-sm">
+                    TRẢ GÓP 0%
+                  </button>
+                  <button className="h-11 rounded-lg bg-emerald-600 text-white font-bold text-[12px] hover:bg-emerald-700 transition shadow-sm">
+                    THU CŨ ĐỔI MỚI
+                  </button>
+                </div>
+                <p className="text-center text-[11px] text-slate-400 font-medium">
+                  Gọi <span className="font-bold text-red-600">0899.918.668</span> để được tư vấn
+                </p>
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        <ProductInfoTabs product={detailProduct} />
-        <ProductRail title="Sản phẩm liên quan" products={relatedProducts} />
+        {/* ═══ MIDDLE SECTION: Info + Specs ═══ */}
+        <div className="mt-4 flex flex-col lg:flex-row gap-4 items-start">
+
+          {/* LEFT: Product Info + Highlights */}
+          <div className="w-full lg:w-[58%] space-y-4">
+            <ProductInfoBox />
+
+            {/* Featured Highlights */}
+            {richSections.length > 0 && (
+              <div className="rounded-xl bg-white shadow-sm border border-slate-200/60 overflow-hidden">
+                <div className="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50">
+                  <h2 className="text-[16px] sm:text-[18px] font-extrabold text-slate-900 flex items-center gap-3">
+                    <span className="h-6 w-1 bg-red-600 rounded-full"></span>
+                    Đặc điểm nổi bật
+                  </h2>
+                </div>
+
+                <div className="p-4 sm:p-6 space-y-8 max-h-[600px] overflow-hidden relative" id="highlights-content">
+                  {richSections.map((sec, i) => {
+                    const sectionImages = sec.images?.filter(img => img && typeof img === 'string') || [];
+                    return (
+                      <div key={i} className="space-y-4">
+                        {sec.heading && sec.heading !== "Giới thiệu" && (
+                          <h3 className="text-[15px] sm:text-[16px] font-extrabold text-slate-800 leading-snug">
+                            {sec.heading}
+                          </h3>
+                        )}
+                        {sec.content && (
+                          <div className="text-[14px] leading-relaxed text-slate-600 whitespace-pre-wrap">
+                            {sec.content}
+                          </div>
+                        )}
+                        {sectionImages.length > 0 && (
+                          <div className={`grid gap-3 ${sectionImages.length >= 3 ? 'grid-cols-1 sm:grid-cols-3' : sectionImages.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'}`}>
+                            {sectionImages.map((img, idx) => (
+                              <div key={idx} className="rounded-lg overflow-hidden border border-slate-100 bg-white">
+                                <SmartImage src={img} alt={`${sec.heading} - ${idx}`} className="w-full h-auto object-contain" hideOnError={true} />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {/* Gradient overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                </div>
+
+                <div className="p-4 flex justify-center border-t border-slate-100">
+                  <button className="flex items-center gap-2 rounded-lg border border-sky-500 bg-white px-8 py-2.5 text-[13px] font-bold text-sky-600 hover:bg-sky-50 transition">
+                    Xem thêm
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 9l-7 7-7-7"></path></svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* FAQ */}
+            <FAQAccordion faqs={product.faqs} />
+          </div>
+
+          {/* RIGHT: Specifications */}
+          <div className="w-full lg:w-[42%]">
+            <div className="lg:sticky lg:top-4">
+              <div className="rounded-xl bg-white shadow-sm border border-slate-200/60 overflow-hidden">
+                <div className="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50">
+                  <h2 className="text-[16px] sm:text-[18px] font-extrabold text-slate-900 flex items-center gap-3">
+                    <span className="h-6 w-1 bg-sky-600 rounded-full"></span>
+                    Thông số kỹ thuật
+                  </h2>
+                </div>
+                <div className="p-3 sm:p-4">
+                  <SpecificationsTable technical_specifications={product.technical_specifications} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ═══ BOTTOM: Related Products ═══ */}
+        <div className="mt-8">
+          <ProductRail title="Sản phẩm tương tự" products={related} />
+        </div>
       </main>
+
+      <StickyActionBar product={product} />
       <Footer />
     </div>
   );

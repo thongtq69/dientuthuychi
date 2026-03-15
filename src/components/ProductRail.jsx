@@ -1,23 +1,22 @@
+'use client';
+
 import { ProductCard } from '@/components/ProductCard';
 
 export function ProductRail({ title, products = [] }) {
   if (!products.length) return null;
 
   return (
-    <section className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[2rem] sm:p-6">
-      <div className="mb-5 flex flex-col items-start gap-2 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Gợi ý thêm</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{title}</h2>
-        </div>
-        <span className="text-sm font-semibold text-slate-900">
-          Xem thêm →
-        </span>
+    <section className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">{title}</h2>
+        <button className="text-sm font-bold text-sky-600 hover:underline">
+          Xem tất cả ›
+        </button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.slug} product={product} />
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-6">
+        {products.map((product, idx) => (
+          <ProductCard key={`${product.slug}-${idx}`} product={product} />
         ))}
       </div>
     </section>

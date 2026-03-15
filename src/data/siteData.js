@@ -1,7 +1,106 @@
-import { products as giakhoProducts, categories as giakhoCategories } from './giakhoData';
+import { products as giakhoProducts } from './giakhoData';
+import { nonApplePhonesProducts } from './nonApplePhonesData';
+import { nonAppleTabletsProducts } from './nonAppleTabletsData';
+
+const APPLE_PRODUCT_PATTERN = /(^|[^a-z])(apple|iphone|ipad|macbook|airpods|watch|lightning|magsafe|airtag|phone air)([^a-z]|$)/i;
+const HIDDEN_PRODUCT_PATTERN = /\btest\b/i;
+const ACCESSORY_PATTERN = /(sac|sạc|cap|cáp|tai nghe|op lung|ốp|bao da|mieng dan|miếng dán|cuong luc|cường lực|pin sac du phong|pin sạc dự phòng|ban phim|bàn phím|chuot|chuột|adapter|dock|hub|camera|but cam ung|bút cảm ứng|stylus|case|cover|strap|day deo|dây đeo|charger|power bank|powerstation|combo|ppf)/i;
+const PHONE_BRAND_PATTERN = /(samsung|galaxy|xiaomi|redmi|oppo|realme|vivo|nokia|tecno|infinix|honor|huawei|poco)/i;
+const TABLET_PATTERN = /(tablet|galaxy tab|xiaomi pad|redmi pad|matepad|oppo pad|lenovo tab|honor pad)/i;
+const INVALID_IMAGE_PATTERN = /(via\.placeholder\.com\/300x300|\/km_product\d+\.png)/i;
+
+const DISPLAY_CATEGORIES = {
+  'dien-thoai': { tagName: 'dien-thoai', title: 'Điện Thoại', type: 'Brand' },
+  tablet: { tagName: 'tablet', title: 'Tablet', type: 'Brand' },
+  'phu-kien': { tagName: 'phu-kien', title: 'Phụ Kiện', type: 'Brand' },
+};
+
+function isAppleProduct(product) {
+  const lookup = `${product.name || ''} ${product.slug || ''}`;
+  return APPLE_PRODUCT_PATTERN.test(lookup);
+}
+
+function isHiddenProduct(product) {
+  const lookup = `${product.name || ''} ${product.slug || ''}`;
+  return HIDDEN_PRODUCT_PATTERN.test(lookup);
+}
+
+function getDisplayCategory(product) {
+  const lookup = `${product.name || ''} ${product.slug || ''}`;
+
+  if ((product.category === 'Tablet' || TABLET_PATTERN.test(lookup)) && ACCESSORY_PATTERN.test(lookup)) {
+    return DISPLAY_CATEGORIES['phu-kien'];
+  }
+
+  if (product.category === 'Tablet' || TABLET_PATTERN.test(lookup)) {
+    return DISPLAY_CATEGORIES.tablet;
+  }
+
+  if (PHONE_BRAND_PATTERN.test(lookup) && !ACCESSORY_PATTERN.test(lookup)) {
+    return DISPLAY_CATEGORIES['dien-thoai'];
+  }
+
+  if (product.category === 'Điện Thoại' && ACCESSORY_PATTERN.test(lookup)) {
+    return DISPLAY_CATEGORIES['phu-kien'];
+  }
+
+  return Object.values(DISPLAY_CATEGORIES).find((item) => item.title === product.category) || DISPLAY_CATEGORIES['phu-kien'];
+}
+
+function getProductImage(product) {
+  if (!product.image || INVALID_IMAGE_PATTERN.test(product.image)) {
+    return null;
+  }
+
+  return product.image;
+}
+
+function prepareProducts(rawProducts) {
+  const seen = new Set();
+
+  return rawProducts.reduce((accumulator, product) => {
+    if (isAppleProduct(product) || isHiddenProduct(product)) {
+      return accumulator;
+    }
+
+    const displayCategory = getDisplayCategory(product);
+    const listingKey = `${displayCategory.tagName}:${product.productGroup || product.slug}`;
+
+    if (seen.has(listingKey)) {
+      return accumulator;
+    }
+
+    seen.add(listingKey);
+    accumulator.push({
+      ...product,
+      image: getProductImage(product),
+      category: displayCategory.title,
+      categorySlug: displayCategory.tagName,
+    });
+    return accumulator;
+  }, []);
+}
+
+function getFeaturedSlugs(categorySlug, limit = 3) {
+  return products
+    .filter((product) => product.categorySlug === categorySlug)
+    .slice(0, limit)
+    .map((product) => product.slug);
+}
+
+export const products = prepareProducts([...nonApplePhonesProducts, ...nonAppleTabletsProducts, ...giakhoProducts]);
+export const categories = Object.values(DISPLAY_CATEGORIES);
+export const phoneProducts = products.filter((product) => product.categorySlug === 'dien-thoai');
+export const tabletProducts = products.filter((product) => product.categorySlug === 'tablet');
+export const accessoryProducts = products.filter((product) => product.categorySlug === 'phu-kien');
+
+const phoneFeaturedSlugs = getFeaturedSlugs('dien-thoai');
+const tabletFeaturedSlugs = getFeaturedSlugs('tablet');
+const accessoryFeaturedSlugs = getFeaturedSlugs('phu-kien');
+
 export const siteMeta = {
   name: 'Điện tử Thuỷ Chi',
-  tagline: 'Apple Store - Thuỷ Chi iPhone, iPad and more.....',
+  tagline: 'Chuyên điện thoại Android, tablet và phụ kiện công nghệ chính hãng.',
   hotline: '0899.918.668',
   address: 'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội, Việt Nam.',
   supportHours: 'Mở cửa: 08:00 - 22:00 mỗi ngày',
@@ -28,21 +127,21 @@ export const categoryRailItems = [
   { title: 'Điện Thoại', href: '/danh-muc/dien-thoai', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769087669-icon-phone.png' },
   { title: 'Tablet', href: '/danh-muc/tablet', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095133-icon-tablet.png' },
   { title: 'Máy Cũ Giá Rẻ', href: '/danh-muc/hang-cu', icon: 'https://cdn.dienthoaigiakho.vn/photos/1751947216189-icon-used-products.png' },
-  { title: 'Thu Cũ Đổi Mới', href: '/thu-cu-doi-moi', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715854857719-thu-cu-.gif' },
+  { title: 'Thu Cũ Đổi Mới', href: '/danh-muc/thu-cu-doi-moi', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715854857719-thu-cu-.gif' },
   { title: 'Phụ Kiện', href: '/danh-muc/phu-kien', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769087666-icon-accessory1.png' },
   { title: 'Âm Thanh', href: '/danh-muc/am-thanh', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095133-icon-sound.png' },
   { title: 'Đồng Hồ', href: '/danh-muc/smartwatch', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095134-icon-watch.png' },
-  { title: 'Macbook', href: '/danh-muc/macbook', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769087668-icon-laptop.png' },
+  { title: 'Laptop', href: '/danh-muc/laptop', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769087668-icon-laptop.png' },
   { title: 'Gia Dụng Thông Minh', href: '/danh-muc/gia-dung', icon: 'https://cdn.dienthoaigiakho.vn/photos/1744598068328-icw-do-gia-dung.png' },
-  { title: 'Khuyến Mãi', href: '/khuyen-mai', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095132-icon-promotion.png' },
+  { title: 'Khuyến Mãi', href: '/danh-muc/khuyen-mai', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095132-icon-promotion.png' },
 ];
 
 export const featuredCategories = [
   {
-    title: 'iPhone 17 Series',
+    title: 'Galaxy S26 Series',
     href: '/danh-muc/dien-thoai',
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1771985295667-390x490_Top-collection-banner-ip17-PM.jpg',
-    description: 'iPhone 17 Series',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg',
+    description: 'Galaxy S26 Series',
   },
   {
     title: 'Máy Cũ Giá Rẻ',
@@ -57,22 +156,22 @@ export const featuredCategories = [
     description: 'Galaxy A Series',
   },
   {
-    title: 'Macbook M3 New',
-    href: '/danh-muc/macbook',
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772764078245-macbook-neo.jpg',
-    description: 'Macbook M3 New',
+    title: 'Tablet Android',
+    href: '/danh-muc/tablet',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg',
+    description: 'Tablet Android',
   },
   {
     title: 'Thu Cũ Đổi Mới',
-    href: '/thu-cu-doi-moi',
+    href: '/danh-muc/thu-cu-doi-moi',
     image: 'https://cdn.dienthoaigiakho.vn/photos/1765439122070-390x490_Top-Collection-Banner_thu-cu-doi-moi-new.jpg',
     description: 'Thu Cũ Đổi Mới',
   },
   {
-    title: 'Galaxy Tab Tab',
-    href: '/danh-muc/tablet',
+    title: 'Phụ kiện công nghệ',
+    href: '/danh-muc/phu-kien',
     image: 'https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg',
-    description: 'Galaxy Tab Tab',
+    description: 'Phụ kiện công nghệ',
   },
 ];
 
@@ -91,19 +190,19 @@ export const heroSlides = [
     title: 'Samsung Galaxy S26 Series',
   },
   {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772779971500-mainbanner-ipad-air-m4.png',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg',
     ctaHref: '/danh-muc/tablet',
-    title: 'iPad Air M4',
+    title: 'Galaxy Tab',
   },
   {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1773300966031-Main-banner-17e-1.png',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg',
     ctaHref: '/danh-muc/dien-thoai',
-    title: 'iPhone 17e Mới',
+    title: 'Deal Android nổi bật',
   },
   {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772693262926-Main-Banner-iphone-17.jpg',
-    ctaHref: '/danh-muc/dien-thoai',
-    title: 'iPhone 17 Series',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1772792984416-top-colection-may-cu-1.jpg',
+    ctaHref: '/danh-muc/hang-cu',
+    title: 'Máy cũ giá tốt',
   },
   {
     image: 'https://cdn.dienthoaigiakho.vn/photos/1773215461393-984x395_Main-Banner-samsung-s25-1.jpg',
@@ -112,76 +211,270 @@ export const heroSlides = [
   },
 ];
 
-export const products = giakhoProducts;
-export const categories = giakhoCategories;
+function getProductLookup(product) {
+  return `${product.name || ''} ${product.slug || ''} ${product.brand || ''} ${product.category || ''}`.toLowerCase();
+}
+
+function hasValidDiscount(product) {
+  return Number(product.originalPrice) > Number(product.price) && Number(product.price) > 0;
+}
+
+function getSortedDiscountProducts(sourceProducts) {
+  return [...sourceProducts].sort((left, right) => {
+    const leftRatio = hasValidDiscount(left) ? 1 - Number(left.price) / Number(left.originalPrice) : 0;
+    const rightRatio = hasValidDiscount(right) ? 1 - Number(right.price) / Number(right.originalPrice) : 0;
+    return rightRatio - leftRatio;
+  });
+}
+
+function getCollectionProductsBySlug(slug) {
+  if (slug === 'dien-thoai' || slug === 'tablet' || slug === 'phu-kien') {
+    return getProductsByCategory(slug);
+  }
+
+  if (slug === 'hang-cu' || slug === 'thu-cu-doi-moi') {
+    const usedProducts = getSortedDiscountProducts([...phoneProducts, ...tabletProducts]).filter(
+      (product) => hasValidDiscount(product) || /(cu|cũ|likenew|99|used|doi moi|đổi mới)/i.test(getProductLookup(product)),
+    );
+
+    return (usedProducts.length ? usedProducts : [...phoneProducts, ...tabletProducts]).slice(0, 18);
+  }
+
+  if (slug === 'am-thanh') {
+    const audioProducts = accessoryProducts.filter((product) => /(tai nghe|loa|micro|sound|buds|airpods)/i.test(getProductLookup(product)));
+    return (audioProducts.length ? audioProducts : accessoryProducts).slice(0, 18);
+  }
+
+  if (slug === 'smartwatch') {
+    const watchProducts = accessoryProducts.filter((product) => /(watch|đồng hồ|dong ho|strap|dây đeo|day deo)/i.test(getProductLookup(product)));
+    return (watchProducts.length ? watchProducts : accessoryProducts).slice(0, 18);
+  }
+
+  if (slug === 'laptop') {
+    return [...tabletProducts, ...phoneProducts].slice(0, 18);
+  }
+
+  if (slug === 'gia-dung') {
+    const smartHomeProducts = accessoryProducts.filter((product) => /(camera|robot|hút bụi|hut bui|gia dụng|gia dung|đèn|den|smart home)/i.test(getProductLookup(product)));
+    return (smartHomeProducts.length ? smartHomeProducts : accessoryProducts).slice(0, 18);
+  }
+
+  if (slug === 'khuyen-mai') {
+    const promoProducts = getSortedDiscountProducts(products).filter((product) => hasValidDiscount(product));
+    return (promoProducts.length ? promoProducts : products).slice(0, 18);
+  }
+
+  return [];
+}
 export const collections = [
   {
     slug: 'dien-thoai',
     title: 'Điện thoại',
     eyebrow: 'Danh mục sản phẩm',
-    description: 'Tổng hợp iPhone mới, iPhone 99% đẹp và các phiên bản bán chạy tại cửa hàng.',
+    description: 'Điện thoại Android và các mẫu Samsung, Xiaomi, OPPO dễ chọn theo nhu cầu phổ thông.',
     heroImage: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881',
     breadcrumb: ['Trang chủ', 'Điện thoại'],
     filters: {
       price: ['Dưới 15 triệu', '15 - 25 triệu', '25 - 35 triệu', 'Trên 35 triệu'],
-      brand: ['Apple'],
-      type: ['iPhone mới', 'iPhone 99%', 'Pro / Pro Max'],
+      brand: ['Samsung', 'Xiaomi', 'OPPO'],
+      type: ['Android phổ thông', 'Máy mới', 'Máy nổi bật'],
     },
     sortOptions: ['Tên A-Z', 'Tên Z-A', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
-    featuredSlugs: ['iphone-17-pro-max-256gb-chinh-hang', 'iphone-16-pro-max-512gb', 'apple-iphone-15-128gb'],
-    contentTitle: 'Điện thoại iPhone mới và iPhone đẹp, giá rõ ràng, dễ chọn nhanh',
+    featuredSlugs: phoneFeaturedSlugs,
+    contentTitle: 'Điện thoại Android nổi bật, giá rõ ràng và dễ chọn nhanh',
     contentBody:
-      'Trang danh mục ưu tiên tiêu đề rõ, bộ lọc dễ dùng và lưới sản phẩm gọn mắt để khách xem nhanh model, giá bán và tình trạng hàng.',
+      'Trang danh mục ưu tiên model Android phổ biến, bộ lọc ngắn gọn và phần hiển thị rõ giá bán để khách xem nhanh tình trạng hàng.',
   },
   {
     slug: 'phu-kien',
     title: 'Phụ kiện',
     eyebrow: 'Danh mục sản phẩm',
-    description: 'Sạc, cáp, tai nghe và phụ kiện Apple/Vivumax bán chạy cho nhu cầu dùng hằng ngày.',
+    description: 'Sạc, cáp, pin dự phòng, bàn phím và phụ kiện công nghệ dùng hằng ngày.',
     heroImage: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner2.jpg?1768028836881',
     breadcrumb: ['Trang chủ', 'Phụ kiện'],
     filters: {
       price: ['Dưới 300 nghìn', '300 - 500 nghìn', 'Trên 500 nghìn'],
-      brand: ['Vivumax', 'Apple Zin', 'Baseus'],
-      type: ['Sạc & cáp', 'Tai nghe', 'Pin sạc dự phòng'],
+      brand: ['UGREEN', 'Baseus', 'Samsung'],
+      type: ['Sạc & cáp', 'Bàn phím', 'Pin sạc dự phòng'],
     },
     sortOptions: ['Tên A-Z', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
-    featuredSlugs: [
-      'cu-sac-nhanh-cong-pd-type-c-vivumax-pd20-20w',
-      'cap-sac-nhanh-day-ben-du-dau-hop-kim-kem-3a-vivumax-ci16-type-c-to-lightning-30w-mau-titanium-xanh-den',
-    ],
+    featuredSlugs: accessoryFeaturedSlugs,
     contentTitle: 'Phụ kiện giá tốt, dễ mua kèm khi lên đời máy hoặc thay mới',
     contentBody:
       'Nhóm phụ kiện được trình bày theo hướng dễ xem giá, dễ so sánh và phù hợp nhiều khung khuyến mại trên trang chủ lẫn trang danh mục.',
   },
   {
+    slug: 'tablet',
+    title: 'Tablet',
+    eyebrow: 'Danh mục sản phẩm',
+    description: 'Máy tính bảng Android, Galaxy Tab và Xiaomi Pad được tách riêng để dễ lọc và xem nhanh.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg',
+    breadcrumb: ['Trang chủ', 'Tablet'],
+    filters: {
+      price: ['Dưới 5 triệu', '5 - 10 triệu', '10 - 20 triệu', 'Trên 20 triệu'],
+      brand: ['Samsung', 'Xiaomi', 'HONOR'],
+      type: ['Máy mới', 'Likenew', '5G'],
+    },
+    sortOptions: ['Tên A-Z', 'Tên Z-A', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: tabletFeaturedSlugs,
+    contentTitle: 'Tablet Android được tách riêng, dễ xem theo nhu cầu học tập, giải trí và làm việc',
+    contentBody:
+      'Danh mục tablet chỉ giữ các mẫu máy tính bảng hoàn chỉnh, tách riêng khỏi phụ kiện như bao da, bàn phím hay cường lực để tránh lẫn khi duyệt sản phẩm.',
+  },
+  {
     slug: 'linh-kien',
     title: 'Linh kiện',
     eyebrow: 'Danh mục sản phẩm',
-    description: 'Pin, màn hình và linh kiện sửa chữa cho nhiều dòng iPhone phổ biến.',
+    description: 'Bao da, kính cường lực, bút cảm ứng và phụ kiện hỗ trợ cho điện thoại hoặc tablet.',
     heroImage: 'https://bizweb.dktcdn.net/100/112/815/products/pin-15-promax.png?v=1764920853963',
     breadcrumb: ['Trang chủ', 'Linh kiện'],
     filters: {
       price: ['Dưới 1 triệu', '1 - 1.5 triệu', 'Trên 1.5 triệu'],
-      brand: ['FEAGLET', 'EU'],
-      type: ['Pin', 'Màn hình', 'Camera'],
+      brand: ['Baseus', 'Samsung', 'ESR'],
+      type: ['Bao da', 'Cường lực', 'Bút cảm ứng'],
     },
     sortOptions: ['Tên A-Z', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
-    featuredSlugs: ['pin-iphone-15-pro-max-feaglet-4422mah', 'pin-iphone-14-pro-max-feaglet-4323mah', 'pin-eu-iphone-15-pro-max'],
-    contentTitle: 'Linh kiện iPhone dễ tra cứu theo model và thông số',
+    featuredSlugs: tabletFeaturedSlugs.length ? tabletFeaturedSlugs : accessoryFeaturedSlugs,
+    contentTitle: 'Phụ kiện hỗ trợ dễ tra cứu theo thiết bị và nhu cầu sử dụng',
     contentBody:
-      'Danh mục linh kiện tập trung vào khả năng đọc nhanh model tương thích, dung lượng, giá bán và các sản phẩm liên quan cùng nhóm.',
+      'Danh mục này tập trung vào nhóm sản phẩm hỗ trợ, giúp khách xem nhanh thiết bị tương thích, giá bán và các sản phẩm liên quan cùng nhóm.',
+  },
+  {
+    slug: 'hang-cu',
+    title: 'Máy Cũ Giá Rẻ',
+    eyebrow: 'Danh mục nổi bật',
+    description: 'Tổng hợp máy Android giảm giá mạnh, ưu tiên mẫu dễ xem giá và dễ chọn nhanh khi cần lên đời tiết kiệm.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1772792984416-top-colection-may-cu-1.jpg',
+    breadcrumb: ['Trang chủ', 'Máy Cũ Giá Rẻ'],
+    filters: {
+      price: ['Dưới 5 triệu', '5 - 10 triệu', '10 - 20 triệu', 'Trên 20 triệu'],
+      brand: ['Samsung', 'Xiaomi', 'OPPO'],
+      type: ['Máy cũ', 'Likenew', 'Giảm giá sâu'],
+    },
+    sortOptions: ['Tên A-Z', 'Tên Z-A', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('hang-cu').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Máy cũ giá dễ tiếp cận, ưu tiên model đang có deal tốt',
+    contentBody:
+      'Trang này gom các máy đang có mức giảm giá rõ ràng để khách xem nhanh sản phẩm phù hợp ngân sách. Một phần dữ liệu được dựng sẵn để giữ trải nghiệm duyệt trang liền mạch, không dẫn sang lỗi 404.',
+  },
+  {
+    slug: 'thu-cu-doi-moi',
+    title: 'Thu Cũ Đổi Mới',
+    eyebrow: 'Dịch vụ nổi bật',
+    description: 'Nhóm sản phẩm phù hợp để tham khảo khi cần lên đời, đổi máy hoặc săn ưu đãi đổi cũ lấy mới.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1765439122070-390x490_Top-Collection-Banner_thu-cu-doi-moi-new.jpg',
+    breadcrumb: ['Trang chủ', 'Thu Cũ Đổi Mới'],
+    filters: {
+      price: ['Dưới 10 triệu', '10 - 20 triệu', '20 - 30 triệu', 'Trên 30 triệu'],
+      brand: ['Samsung', 'Xiaomi', 'OPPO'],
+      type: ['Máy cũ', 'Máy mới', 'Giảm giá sâu'],
+    },
+    sortOptions: ['Tên A-Z', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('thu-cu-doi-moi').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Gợi ý nhanh các model phù hợp khi lên đời hoặc đổi máy',
+    contentBody:
+      'Phần này ưu tiên trải nghiệm tham khảo nhanh, kết hợp dữ liệu có sẵn và nội dung hard-code để vẫn dùng được ngay cả khi chưa kết nối đủ luồng nghiệp vụ thu cũ.',
+  },
+  {
+    slug: 'am-thanh',
+    title: 'Âm Thanh',
+    eyebrow: 'Danh mục sản phẩm',
+    description: 'Tai nghe, loa và phụ kiện âm thanh được gom riêng để dễ lọc theo nhu cầu nghe gọi, giải trí hoặc làm việc.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1663990385429-airpods-pro-2-thumbnail.jpg',
+    breadcrumb: ['Trang chủ', 'Âm Thanh'],
+    filters: {
+      price: ['Dưới 500 nghìn', '500 nghìn - 1 triệu', '1 - 3 triệu', 'Trên 3 triệu'],
+      brand: ['Baseus', 'Sony', 'Samsung'],
+      type: ['Tai nghe', 'Loa', 'Micro'],
+    },
+    sortOptions: ['Tên A-Z', 'Tên Z-A', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('am-thanh').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Âm thanh gọn, dễ lọc nhanh theo đúng nhóm sản phẩm cần tìm',
+    contentBody:
+      'Danh mục âm thanh tách riêng để tránh lẫn với nhóm phụ kiện chung. Nếu dữ liệu thực tế còn thiếu, trang vẫn hiển thị bộ sưu tập mẫu để không làm gãy hành trình duyệt sản phẩm.',
+  },
+  {
+    slug: 'smartwatch',
+    title: 'Đồng Hồ',
+    eyebrow: 'Danh mục sản phẩm',
+    description: 'Khu vực đồng hồ thông minh và phụ kiện đeo tay đang được hoàn thiện, hiện ưu tiên hiển thị danh mục mẫu có thể bấm và lọc.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1715769095134-icon-watch.png',
+    breadcrumb: ['Trang chủ', 'Đồng Hồ'],
+    filters: {
+      price: ['Dưới 1 triệu', '1 - 3 triệu', '3 - 5 triệu', 'Trên 5 triệu'],
+      brand: ['Samsung', 'Xiaomi', 'Huawei'],
+      type: ['Đồng hồ thông minh', 'Dây đeo', 'Phụ kiện watch'],
+    },
+    sortOptions: ['Tên A-Z', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('smartwatch').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Trang mẫu cho nhóm đồng hồ và phụ kiện đeo tay',
+    contentBody:
+      'Hiện chưa có nguồn dữ liệu riêng đầy đủ cho đồng hồ, nên hệ thống dùng bộ sản phẩm mẫu liên quan để người dùng vẫn có thể bấm, lọc và xem bố cục hoàn chỉnh.',
+  },
+  {
+    slug: 'laptop',
+    title: 'Laptop',
+    eyebrow: 'Danh mục sản phẩm',
+    description: 'Danh mục laptop đang ở giai đoạn dựng giao diện và luồng điều hướng, tạm dùng dữ liệu mẫu để tránh trang trống hoặc 404.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1715769087668-icon-laptop.png',
+    breadcrumb: ['Trang chủ', 'Laptop'],
+    filters: {
+      price: ['5 - 10 triệu', '10 - 15 triệu', '15 - 25 triệu', 'Trên 25 triệu'],
+      brand: ['ASUS', 'Acer', 'Lenovo'],
+      type: ['Laptop văn phòng', 'Laptop học tập', 'Laptop nổi bật'],
+    },
+    sortOptions: ['Tên A-Z', 'Tên Z-A', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('laptop').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Trang laptop tạm dùng dữ liệu mẫu để hoàn thiện luồng mua sắm',
+    contentBody:
+      'Khi chưa đồng bộ đủ sản phẩm laptop thực tế, trang vẫn giữ điều hướng, bộ lọc và danh sách mẫu để quá trình demo hoặc test giao diện không bị đứt đoạn.',
+  },
+  {
+    slug: 'gia-dung',
+    title: 'Gia Dụng Thông Minh',
+    eyebrow: 'Danh mục sản phẩm',
+    description: 'Nhóm smart home và thiết bị gia dụng thông minh được dựng sẵn để khách có thể bấm xem ngay thay vì gặp lỗi trang.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1744598068328-icw-do-gia-dung.png',
+    breadcrumb: ['Trang chủ', 'Gia Dụng Thông Minh'],
+    filters: {
+      price: ['Dưới 1 triệu', '1 - 3 triệu', '3 - 5 triệu', 'Trên 5 triệu'],
+      brand: ['Xiaomi', 'Baseus', 'Ezviz'],
+      type: ['Camera', 'Smart home', 'Thiết bị tiện ích'],
+    },
+    sortOptions: ['Tên A-Z', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('gia-dung').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Gia dụng thông minh được dựng theo hướng dễ thử nghiệm và dễ mở rộng',
+    contentBody:
+      'Danh mục này có thể dùng ngay trong quá trình test điều hướng và giao diện. Khi có dữ liệu thật, chỉ cần thay nguồn sản phẩm mà không phải sửa lại luồng người dùng.',
+  },
+  {
+    slug: 'khuyen-mai',
+    title: 'Khuyến Mãi',
+    eyebrow: 'Ưu đãi nổi bật',
+    description: 'Tập hợp nhanh các sản phẩm đang có giá tốt hoặc mức giảm dễ thấy để khách theo dõi ưu đãi trong một trang riêng.',
+    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg',
+    breadcrumb: ['Trang chủ', 'Khuyến Mãi'],
+    filters: {
+      price: ['Dưới 1 triệu', '1 - 5 triệu', '5 - 10 triệu', 'Trên 10 triệu'],
+      brand: ['Samsung', 'Xiaomi', 'Baseus'],
+      type: ['Giảm giá sâu', 'Máy nổi bật', 'Phụ kiện bán chạy'],
+    },
+    sortOptions: ['Tên A-Z', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
+    featuredSlugs: getCollectionProductsBySlug('khuyen-mai').slice(0, 3).map((product) => product.slug),
+    contentTitle: 'Khuyến mãi được gom riêng để khách xem deal nhanh hơn',
+    contentBody:
+      'Ngay cả khi một phần chương trình ưu đãi mới chỉ là UI hoặc dữ liệu tạm, trang vẫn có nội dung cứng và danh sách sản phẩm mẫu để không phát sinh 404.',
   },
 ];
 
 export const productSections = [
   {
-    id: 'iphone',
+    id: 'android',
     eyebrow: 'Điện thoại',
-    title: 'iPhone',
+    title: 'Android',
     description: '',
     tabs: ['Điện thoại', 'Phụ kiện', 'Linh kiện', 'Tin tức'],
-    products: ['iphone-17-pro-max-256gb-chinh-hang', 'iphone-16-pro-max-512gb', 'apple-iphone-15-128gb'],
+    products: phoneFeaturedSlugs,
     actionHref: '/danh-muc/dien-thoai',
     actionLabel: 'Xem tất cả',
   },
@@ -191,47 +484,30 @@ export const productSections = [
     title: 'PHỤ KIỆN',
     description: '',
     tabs: ['Phụ Kiện VivuMax', 'Phụ kiện', 'Linh kiện', 'Tin tức'],
-    products: [
-      'cu-sac-nhanh-cong-pd-type-c-vivumax-pd20-20w',
-      'cap-sac-nhanh-day-ben-du-dau-hop-kim-kem-3a-vivumax-ci16-type-c-to-lightning-30w-mau-titanium-xanh-den',
-    ],
+    products: accessoryFeaturedSlugs,
     actionHref: '/danh-muc/phu-kien',
     actionLabel: 'Xem tất cả',
   },
   {
-    id: 'pin-feaglet',
-    eyebrow: 'Linh kiện',
-    title: 'Pin Feaglet ( Đại Bàng )',
+    id: 'tablet-accessories',
+    eyebrow: 'Tablet',
+    title: 'Phụ kiện tablet',
     description: '',
-    tabs: ['Màn hình', 'Pin', 'Thay thế, sửa chữa iPhone, iPad', 'Xem tất cả'],
-    products: [
-      'pin-iphone-15-pro-max-feaglet-4422mah',
-      'pin-iphone-14-pro-max-feaglet-4323mah',
-      'pin-iphone-15-pro-feaglet-3274mah',
-      'pin-iphone-15-plus-feaglet-4383mah',
-      'pin-iphone-14-pro-feaglet-3200mah',
-      'pin-iphone-15-feaglet-3349mah',
-      'pin-iphone-14-plus-feaglet-4325mah',
-      'pin-iphone-13-pro-max-feaglet',
-    ],
+    tabs: ['Máy tính bảng', 'Bút cảm ứng', 'Bao da', 'Xem tất cả'],
+    products: tabletFeaturedSlugs.length ? tabletFeaturedSlugs : accessoryFeaturedSlugs.slice(0, 4),
     actionHref: '/danh-muc/linh-kien',
     actionLabel: 'Xem tất cả',
   },
   {
-    id: 'pin-eu',
-    eyebrow: 'Linh kiện',
-    title: 'Pin EU',
+    id: 'samsung-accessories',
+    eyebrow: 'Phụ kiện',
+    title: 'Phụ kiện Samsung',
     description: '',
-    tabs: ['Màn hình', 'Pin', 'Thay thế, sửa chữa iPhone, iPad'],
-    products: [
-      'pin-eu-iphone-15-pro-max',
-      'pin-eu-iphone-15-pro',
-      'pin-eu-iphone-15-plus',
-      'pin-eu-iphone-15',
-      'pin-eu-iphone-14-pro-max',
-      'pin-eu-iphone-14-pro',
-      'pin-eu-iphone-14-plus',
-    ],
+    tabs: ['Cường lực', 'Bao da', 'Sạc nhanh'],
+    products: accessoryProducts
+      .filter((product) => /samsung/i.test(product.name))
+      .slice(0, 7)
+      .map((product) => product.slug),
     actionHref: '/danh-muc/linh-kien',
     actionLabel: 'Xem tất cả',
   },
@@ -350,10 +626,11 @@ export const supportPanels = [
 ];
 
 export const socialLinks = [
-  { title: 'Zalo', href: 'https://zalo.me/0899918668', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1768028836881' },
-  { title: 'Facebook', href: '#', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1768028836881' },
-  { title: 'Youtube', href: '#', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1768028836881' },
-  { title: 'Google', href: '#', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/google.png?1768028836881' },
+  { title: 'Facebook', href: 'https://www.facebook.com/dienthoaigiakho.hcm/', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1768028836881' },
+  { title: 'Instagram', href: 'https://www.instagram.com/dienthoaigiakho.vn/', image: '/images/footer-instagram.svg' },
+  { title: 'TikTok', href: 'https://www.tiktok.com/@dienthoaigiakho.vn', image: '/images/footer-tiktok.svg' },
+  { title: 'Youtube', href: 'https://www.youtube.com/channel/UCXQDv0xIHMLxOzhfDXDcHfQ', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1768028836881' },
+  { title: 'Zalo', href: 'https://zalo.me/1370400569283862593', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1768028836881' },
 ];
 
 export const marketplaceLinks = [
@@ -364,10 +641,29 @@ export const marketplaceLinks = [
 ];
 
 export const paymentBadges = [
-  { title: 'Payment 1', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_1.png?1768028836881' },
-  { title: 'Payment 2', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_2.png?1768028836881' },
-  { title: 'Payment 3', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/payment_3.png?1768028836881' },
+  { title: 'Visa', label: 'VISA' },
+  { title: 'Mastercard', label: 'mastercard' },
+  { title: 'ATM', label: 'ATM' },
+  { title: 'mPOS', label: 'mPOS.vn' },
+  { title: 'MegaPay', label: 'megaPay' },
+  { title: 'Kredivo', image: 'https://cdn.dienthoaigiakho.vn/photos/1695884312660-Kredivo.png' },
 ];
+
+export const footerServiceLinks = [
+  'Khách hàng doanh nghiệp (B2B)',
+  'Tuyển dụng',
+  'Điều khoản sử dụng',
+];
+
+export const footerPartner = {
+  title: 'CareCenter.vn',
+  image: '/images/footer-carecenter.svg',
+};
+
+export const footerCertification = {
+  title: 'Đã thông báo Bộ Công Thương',
+  image: '/images/footer-bo-cong-thuong.svg',
+};
 
 export const blogPosts = [
   {
@@ -491,7 +787,13 @@ export function getProductBySlug(slug) {
 }
 
 export function getProductsByCategory(category) {
-  return products.filter((product) => product.category === category);
+  const directMatches = products.filter((product) => product.categorySlug === category || product.category === category);
+
+  if (directMatches.length > 0) {
+    return directMatches;
+  }
+
+  return getCollectionProductsBySlug(category);
 }
 
 export function getRelatedProducts(product, limit = 4) {

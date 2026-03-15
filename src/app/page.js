@@ -2,8 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -12,33 +10,18 @@ import { BlogCard } from '@/components/BlogCard';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { HeroCarousel } from '@/components/HeroCarousel';
-import { ProductCarouselSection } from '@/components/ProductCarouselSection';
 import {
+  accessoryProducts,
+  phoneProducts,
   categoryRailItems,
   editorialSections,
   featuredCategories,
   getLatestBlogPosts,
   heroSlides,
-  midPageBanners,
-  productSections,
-  products,
-  siteMeta,
   socialLinks,
   storeBenefits,
+  tabletProducts,
 } from '@/data/siteData';
-
-const sidePromos = [
-  {
-    title: 'iPhone 17 Pre-order',
-    href: '/danh-muc/dien-thoai',
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1771985295667-390x490_Top-collection-banner-ip17-PM.jpg',
-  },
-  {
-    title: 'Máy Cũ Giá Rẻ',
-    href: '/danh-muc/hang-cu',
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772792984416-top-colection-may-cu-1.jpg',
-  },
-];
 
 export default function Home() {
   const posts = getLatestBlogPosts();
@@ -164,16 +147,16 @@ export default function Home() {
         </section>
 
         
-        {/* ============= IPHONE PRODUCTS ============= */}
+        {/* ============= FEATURED PRODUCTS ============= */}
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Điện Thoại Giá Kho</h2>
+            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Điện thoại nổi bật</h2>
             <Link href="/danh-muc/dien-thoai" className="text-[14px] font-bold text-slate-400 hover:text-[#d70018] flex items-center gap-1 transition-colors">
               Xem tất cả <span className="text-[18px]">›</span>
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
-            {products.slice(0, 10).map((product, idx) => (
+            {phoneProducts.slice(0, 10).map((product, idx) => (
                <ProductCard key={`${product.id}-${idx}`} product={product} /> 
             ))}
           </div>
@@ -182,7 +165,7 @@ export default function Home() {
         {/* ============= TABLET ============= */}
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Máy Tính Bảng / iPad</h2>
+            <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Thiết bị tablet</h2>
             <Link href="/danh-muc/tablet" className="text-[14px] font-bold text-slate-400 hover:text-[#d70018] flex items-center gap-1 transition-colors">
               Xem tất cả <span className="text-[18px]">›</span>
             </Link>
@@ -203,7 +186,7 @@ export default function Home() {
             <Link href="/danh-muc/tablet" className="group block overflow-hidden rounded-xl border border-slate-50 shadow-sm">
                 <div className="relative aspect-[595/214] w-full">
                     <Image
-                        src="https://cdn.dienthoaigiakho.vn/photos/1770626742764-595x214_Section-Banner-Macbook.jpg"
+                        src="https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg"
                         alt="Right Mid Banner"
                         fill
                         className="object-cover transition duration-500 group-hover:scale-[1.02]"
@@ -213,7 +196,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
-            {products.filter(p => (p.category || '').toLowerCase().includes('tablet')).slice(0, 10).map((product, idx) => (
+            {tabletProducts.slice(0, 10).map((product, idx) => (
                <ProductCard key={`${product.id}-${idx}`} product={product} /> 
             ))}
           </div>
@@ -228,7 +211,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
-            {products.filter(p => (p.category || '').toLowerCase().includes('phụ kiện')).slice(0, 10).map((product, idx) => (
+            {accessoryProducts.slice(0, 10).map((product, idx) => (
                <ProductCard key={`${product.id}-${idx}`} product={product} /> 
             ))}
           </div>
