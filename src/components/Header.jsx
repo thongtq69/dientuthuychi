@@ -4,10 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { categoryRailItems, siteMeta } from '@/data/siteData';
+import { useAuth } from './AuthContext';
+import { useCart } from './CartContext';
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopCategoryOpen, setDesktopCategoryOpen] = useState(false);
+
+  const { user, setShowAuthModal, logout } = useAuth();
+  const { totalCount, setIsCartOpen } = useCart();
 
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
@@ -101,29 +106,63 @@ export function Header() {
               </div>
             </a>
             
-            <a href="/he-thong-cua-hang" className="flex items-center gap-2 hover:opacity-80 transition">
-              <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[11px] text-slate-400 font-semibold">Hệ thống</span>
-                <span className="text-[13px] font-bold text-white">Showroom</span>
-              </div>
-            </a>
+            {/* Account Block */}
+            <div className="relative group">
+              {user ? (
+                <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition py-2">
+                  <div className="w-10 h-10 rounded-full border border-[#fdd100] flex items-center justify-center bg-[#fdd100]/10 overflow-hidden">
+                    <span className="text-sm font-bold text-[#fdd100]">{user.fullName?.[0]}</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] text-slate-400 font-semibold truncate max-w-[80px]">Xin chào,</span>
+                    <span className="text-[13px] font-bold text-white truncate max-w-[80px]">{user.fullName.split(' ').pop()}</span>
+                  </div>
+                  {/* Dropdown Menu */}
+                  <div className="absolute right-0 top-full mt-0 w-48 bg-white rounded-xl shadow-2xl py-2 text-slate-900 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-[60] border border-slate-100">
+                    <Link href="/tai-khoan" className="block px-4 py-2 hover:bg-slate-50 text-[14px]">Trang cá nhân</Link>
+                    <Link href="/tai-khoan/don-hang" className="block px-4 py-2 hover:bg-slate-50 text-[14px]">Đơn hàng của tôi</Link>
+                    <hr className="my-1 border-slate-100" />
+                    <button onClick={logout} className="w-full text-left px-4 py-2 hover:bg-slate-50 text-[14px] text-red-600 font-medium">Đăng xuất</button>
+                  </div>
+                </div>
+              ) : (
+                <button 
+                  onClick={() => setShowAuthModal(true)}
+                  className="flex items-center gap-2 hover:opacity-80 transition"
+                >
+                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className="text-[11px] text-slate-400 font-semibold">Đăng nhập</span>
+                    <span className="text-[13px] font-bold text-white">Tài khoản</span>
+                  </div>
+                </button>
+              )}
+            </div>
             
-            <a href="/cart" className="flex items-center gap-2 hover:opacity-80 transition relative">
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="flex items-center gap-2 hover:opacity-80 transition relative"
+            >
              <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col items-start">
                 <span className="text-[11px] text-slate-400 font-semibold">Giỏ</span>
                 <span className="text-[13px] font-bold text-white">hàng</span>
               </div>
-              <span className="absolute top-0 right-10 -mt-1 -mr-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[9px] font-bold text-white">0</span>
-            </a>
+              {totalCount > 0 && (
+                <span className="absolute top-0 right-10 -mt-1 -mr-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[9px] font-bold text-white transition-all scale-110">
+                  {totalCount}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
+
+
 
        {/* USP Bar (Giá Kho Style) - Yellow */}
        <div className="hidden lg:block bg-[#fdd100] border-b border-black/5">

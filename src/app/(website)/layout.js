@@ -1,5 +1,9 @@
-﻿import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { AuthProvider } from '@/components/AuthContext';
+import { AuthModal } from '@/components/AuthModal';
+import { CartProvider } from '@/components/CartContext';
+import { CartDrawer } from '@/components/CartDrawer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,7 +24,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <AuthProvider>
+          <CartProvider>
+            <AuthModal />
+            <CartDrawer />
+            {children}
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

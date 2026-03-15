@@ -1,18 +1,27 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useCart } from './CartContext';
+import { useRouter } from 'next/navigation';
 
 export function StickyActionBar({ product }) {
   const [visible, setVisible] = useState(false);
+  const { addItem } = useCart();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 500);
+      setVisible(window.scrollY > 800);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleBuyNow = () => {
+    addItem(product, 1, product.variant);
+    router.push('/checkout');
+  };
+
+  const handleAddToCart = () => {
+    addItem(product, 1, product.variant);
+  };
 
   const formatPrice = (p) => {
     if (typeof p === 'string') {
@@ -36,7 +45,7 @@ export function StickyActionBar({ product }) {
           </div>
           <div className="flex flex-col min-w-0">
             <div className="line-clamp-1 text-[14px] font-black text-slate-900 uppercase">{product.name}</div>
-            <div className="text-[11px] font-bold text-slate-400">Tùy chọn: <span className="text-slate-600 capitalize">{product.color || 'Mặc định'}</span></div>
+            <div className="text-[11px] font-bold text-slate-400">Tùy chọn: <span className="text-slate-600 capitalize">{product.variant || 'Mặc định'}</span></div>
           </div>
         </div>
         
@@ -53,11 +62,18 @@ export function StickyActionBar({ product }) {
           </div>
           
           <div className="flex gap-2">
-            <button className="h-[44px] rounded-lg bg-red-600 px-8 text-[14px] font-black text-white hover:bg-red-700 transition active:scale-95 shadow-lg shadow-red-200">
-               MUA NGAY
+            <button 
+                onClick={handleAddToCart}
+                className="h-[44px] w-[44px] flex items-center justify-center rounded-lg border-2 border-red-600 text-red-600 hover:bg-red-50 transition active:scale-95"
+                title="Thêm vào giỏ hàng"
+            >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             </button>
-            <button className="h-[44px] rounded-lg bg-sky-600 px-6 text-[14px] font-black text-white hover:bg-sky-700 transition active:scale-95 shadow-lg shadow-sky-100 uppercase">
-               Trả góp
+            <button 
+                onClick={handleBuyNow}
+                className="h-[44px] rounded-lg bg-red-600 px-8 text-[14px] font-black text-white hover:bg-red-700 transition active:scale-95 shadow-lg shadow-red-200"
+            >
+               MUA NGAY
             </button>
           </div>
         </div>
@@ -65,3 +81,4 @@ export function StickyActionBar({ product }) {
     </div>
   );
 }
+

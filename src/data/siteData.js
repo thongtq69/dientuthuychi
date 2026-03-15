@@ -626,11 +626,11 @@ export const supportPanels = [
 ];
 
 export const socialLinks = [
-  { title: 'Facebook', href: 'https://www.facebook.com/dienthoaigiakho.hcm/', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/facebook.png?1768028836881' },
+  { title: 'Facebook', href: 'https://www.facebook.com/dienthoaigiakho.hcm/', image: '/images/footer-assets/facebook.png' },
   { title: 'Instagram', href: 'https://www.instagram.com/dienthoaigiakho.vn/', image: '/images/footer-instagram.svg' },
   { title: 'TikTok', href: 'https://www.tiktok.com/@dienthoaigiakho.vn', image: '/images/footer-tiktok.svg' },
-  { title: 'Youtube', href: 'https://www.youtube.com/channel/UCXQDv0xIHMLxOzhfDXDcHfQ', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/youtube.png?1768028836881' },
-  { title: 'Zalo', href: 'https://zalo.me/1370400569283862593', image: 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/zalo.png?1768028836881' },
+  { title: 'Youtube', href: 'https://www.youtube.com/channel/UCXQDv0xIHMLxOzhfDXDcHfQ', image: '/images/footer-assets/youtube.png' },
+  { title: 'Zalo', href: 'https://zalo.me/1370400569283862593', image: '/images/footer-assets/zalo.png' },
 ];
 
 export const marketplaceLinks = [
@@ -641,12 +641,12 @@ export const marketplaceLinks = [
 ];
 
 export const paymentBadges = [
-  { title: 'Visa', label: 'VISA' },
-  { title: 'Mastercard', label: 'mastercard' },
-  { title: 'ATM', label: 'ATM' },
-  { title: 'mPOS', label: 'mPOS.vn' },
-  { title: 'MegaPay', label: 'megaPay' },
-  { title: 'Kredivo', image: 'https://cdn.dienthoaigiakho.vn/photos/1695884312660-Kredivo.png' },
+  { title: 'Visa', image: '/images/footer-assets/visa.svg' },
+  { title: 'Mastercard', image: '/images/footer-assets/mastercard.svg' },
+  { title: 'ATM', image: '/images/footer-assets/atm.svg' },
+  { title: 'mPOS', image: '/images/footer-assets/mpos.svg' },
+  { title: 'MegaPay', image: '/images/footer-assets/megapay.svg' },
+  { title: 'Kredivo', image: '/images/footer-assets/kredivo.png' },
 ];
 
 export const footerServiceLinks = [
@@ -655,14 +655,44 @@ export const footerServiceLinks = [
   'Điều khoản sử dụng',
 ];
 
+export const footerContactInfo = [
+  { label: 'Địa chỉ', value: 'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội, Việt Nam.', note: '' },
+  { label: 'Hotline', value: '0899 918 668', note: '' },
+  { label: 'Email', value: 'thuychi@gmail.com', note: '' },
+  { label: 'Thời gian', value: 'Mở cửa: 08:00 - 22:00 mỗi ngày', note: '' },
+];
+
+export const footerShowrooms = {
+  title: 'Showroom Thủy Chi',
+  hours: 'Giờ hoạt động Showroom: 8h30 - 21h30',
+  locations: [
+    'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội',
+  ],
+};
+
+export const footerPolicyLinks = [
+  'Ưu đãi hội viên',
+  'Hướng dẫn mua hàng Online',
+  'Hướng dẫn thanh toán',
+  'Hướng dẫn trả góp',
+  'Hướng dẫn sử dụng Voucher',
+  'Chính sách giao nhận - kiểm hàng',
+  'Chính sách đổi trả',
+  'Chính sách bảo mật thông tin',
+  'Chính sách bảo hành',
+  'Dịch vụ sửa chữa',
+  'Quy định sao lưu dữ liệu',
+  'Câu hỏi thường gặp',
+];
+
 export const footerPartner = {
   title: 'CareCenter.vn',
-  image: '/images/footer-carecenter.svg',
+  image: '/images/footer-assets/carecenter.png',
 };
 
 export const footerCertification = {
   title: 'Đã thông báo Bộ Công Thương',
-  image: '/images/footer-bo-cong-thuong.svg',
+  image: '/images/footer-assets/bocongthuong.png',
 };
 
 export const blogPosts = [

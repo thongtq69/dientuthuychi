@@ -6,14 +6,15 @@ export const Orders = {
     defaultColumns: ['orderCode', 'customer', 'total', 'status', 'createdAt'],
   },
   access: {
-    read: ({ req: { user } }) => {
+    read: ({ req }) => {
+      const user = req?.user;
       if (!user) return false;
       if (user.collection === 'users') return true;
       return { customer: { equals: user.id } };
     },
-    create: ({ req: { user } }) => !!user,
-    update: ({ req: { user } }) => user?.collection === 'users',
-    delete: ({ req: { user } }) => user?.collection === 'users',
+    create: ({ req }) => !!req?.user,
+    update: ({ req }) => req?.user?.collection === 'users',
+    delete: ({ req }) => req?.user?.collection === 'users',
   },
   hooks: {
     beforeChange: [
@@ -28,7 +29,7 @@ export const Orders = {
             collection: 'orders',
             where: {
               createdAt: {
-                greater_than: startOfDay.toISOString(),
+                greater_than_equal: startOfDay.toISOString(),
               },
             },
             limit: 0,

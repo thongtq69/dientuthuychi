@@ -5,7 +5,7 @@ export const SiteSettings = {
   },
   access: {
     read: () => true,
-    update: ({ req: { user } }) => user?.collection === 'users',
+    update: ({ req }) => req?.user?.collection === 'users',
   },
   fields: [
     {

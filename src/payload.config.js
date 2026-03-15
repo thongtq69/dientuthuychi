@@ -45,14 +45,11 @@ export default buildConfig({
     Promotions
   ],
   editor: lexicalEditor({}),
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || 'ba4c9d7a2b3c4d5e6f7a8b9c0d1e2f3a',
   db: mongooseAdapter({
     url: process.env.MONGODB_URI,
   }),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
-  graphQL: {
-    schemaOutputFile: path.resolve(dirname, 'generated-schema.graphql'),
   },
 });

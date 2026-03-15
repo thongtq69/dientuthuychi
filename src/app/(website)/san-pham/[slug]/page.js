@@ -15,6 +15,7 @@ import { SpecificationsTable } from '@/components/SpecificationsTable';
 import { ProductInfoBox } from '@/components/ProductInfoBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { SmartImage } from '@/components/SmartImage';
+import { ProductCTA } from '@/components/ProductCTA';
 import { accessoryProducts, getProductBySlug, getRelatedProducts, products } from '@/data/siteData';
 
 /* ── Helpers ── */
@@ -108,14 +109,16 @@ export async function generateMetadata({ params }) {
 }
 
 /* ── Page ── */
-export default async function ProductDetailPage({ params }) {
+export default async function ProductDetailPage({ params, searchParams }) {
   const { slug } = await params;
+  const { sku } = await searchParams;
+  
   const baseProduct = getProductBySlug(slug);
   const extendedData = getExtendedProductData(slug);
   if (!baseProduct && !extendedData) notFound();
 
   const normalized = extendedData?.normalized_product || {};
-  const product = {
+  let product = {
     ...(baseProduct || {}),
     ...normalized,
     technical_specifications: extendedData?.technical_specifications || baseProduct?.technical_specifications,
@@ -131,6 +134,16 @@ export default async function ProductDetailPage({ params }) {
     })(),
     featured_highlights: extendedData?.featured_highlights || normalized?.featured_highlights || []
   };
+
+  // Handle SKU specific product data if provided
+  let currentVariant = null;
+  if (sku && product.variants) {
+    currentVariant = product.variants.find(v => v.sku === sku);
+    if (currentVariant) {
+        product.price = currentVariant.price;
+        product.color = currentVariant.color || currentVariant.name;
+    }
+  }
 
   const { promotions, coupons } = extractPromotionsFromText(product.text_content);
   const richSections = product.featured_highlights.length > 0
@@ -159,6 +172,14 @@ export default async function ProductDetailPage({ params }) {
     : 0;
 
   const related = getRelatedProducts(product, 10);
+
+  // Prepare product for cart
+  const cartProduct = {
+    slug: slug,
+    name: product.name,
+    price: price,
+    image: currentVariant?.image || product.primary_image || product.image
+  };
 
   return (
     <div className="min-h-screen bg-[#f0f2f5] font-sans antialiased">
@@ -222,10 +243,14 @@ export default async function ProductDetailPage({ params }) {
                   <h3 className="text-[13px] font-bold text-slate-700 mb-3">Chọn màu để xem giá và tình trạng hàng</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {uiVariants.map(v => (
-                      <Link
+                       <Link
                         key={v.slug}
                         href={v.href}
-                        className="flex items-center gap-2.5 rounded-lg border-2 border-slate-200 p-2.5 hover:border-red-400 transition-colors bg-white"
+                        className={`flex items-center gap-2.5 rounded-lg border-2 p-2.5 transition-all bg-white ${
+                            (sku === v.slug) 
+                            ? 'border-red-600 ring-2 ring-red-100' 
+                            : 'border-slate-200 hover:border-slate-300'
+                        }`}
                       >
                         <div className="relative h-10 w-10 shrink-0 rounded-md overflow-hidden bg-slate-50 border border-slate-100">
                           <Image src={v.image} alt={v.label} fill sizes="40px" className="object-contain p-0.5" />
@@ -244,22 +269,10 @@ export default async function ProductDetailPage({ params }) {
               <PromotionBox promotions={promotions} coupons={coupons} />
 
               {/* CTA Buttons */}
-              <div className="space-y-2.5">
-                <button className="w-full h-[52px] rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-bold text-[16px] shadow-md shadow-red-200/50 active:scale-[0.98]">
-                  MUA NGAY
-                </button>
-                <div className="grid grid-cols-2 gap-2">
-                  <button className="h-11 rounded-lg bg-sky-600 text-white font-bold text-[12px] hover:bg-sky-700 transition shadow-sm">
-                    TRẢ GÓP 0%
-                  </button>
-                  <button className="h-11 rounded-lg bg-emerald-600 text-white font-bold text-[12px] hover:bg-emerald-700 transition shadow-sm">
-                    THU CŨ ĐỔI MỚI
-                  </button>
-                </div>
-                <p className="text-center text-[11px] text-slate-400 font-medium">
-                  Gọi <span className="font-bold text-red-600">0899.918.668</span> để được tư vấn
-                </p>
-              </div>
+              <ProductCTA 
+                product={cartProduct} 
+                variant={currentVariant?.color || currentVariant?.name || 'Mặc định'}
+              />
             </div>
           </div>
         </div>
@@ -349,7 +362,11 @@ export default async function ProductDetailPage({ params }) {
         </div>
       </main>
 
-      <StickyActionBar product={product} />
+      <StickyActionBar product={{
+          ...cartProduct,
+          variant: currentVariant?.color || currentVariant?.name || 'Mặc định',
+          originalPrice: originalPrice
+      }} />
       <Footer />
     </div>
   );

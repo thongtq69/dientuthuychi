@@ -5,18 +5,21 @@ export const Carts = {
     description: 'Giỏ hàng server-side',
   },
   access: {
-    read: ({ req: { user } }) => {
+    read: ({ req }) => {
+      const user = req?.user;
       if (!user) return false;
       if (user.collection === 'users') return true;
       return { customer: { equals: user.id } };
     },
-    update: ({ req: { user } }) => {
+    update: ({ req }) => {
+      const user = req?.user;
       if (!user) return false;
       if (user.collection === 'users') return true;
       return { customer: { equals: user.id } };
     },
-    create: ({ req: { user } }) => !!user,
-    delete: ({ req: { user } }) => {
+    create: ({ req }) => !!req?.user,
+    delete: ({ req }) => {
+      const user = req?.user;
       if (!user) return false;
       if (user.collection === 'users') return true;
       return { customer: { equals: user.id } };

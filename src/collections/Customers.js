@@ -7,18 +7,20 @@ export const Customers = {
     defaultColumns: ['fullName', 'email', 'phone', 'createdAt'],
   },
   access: {
-    read: ({ req: { user } }) => {
+    read: ({ req }) => {
+      const user = req?.user;
       if (!user) return false;
       if (user.collection === 'users') return true;
       return { id: { equals: user.id } };
     },
-    update: ({ req: { user } }) => {
+    update: ({ req }) => {
+      const user = req?.user;
       if (!user) return false;
       if (user.collection === 'users') return true;
       return { id: { equals: user.id } };
     },
     create: () => true,
-    delete: ({ req: { user } }) => user?.collection === 'users',
+    delete: ({ req }) => req?.user?.collection === 'users',
   },
   fields: [
     {
