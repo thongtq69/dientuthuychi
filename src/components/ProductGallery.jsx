@@ -1,29 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 export function ProductGallery({ images = [], alt }) {
-  const [activeImage, setActiveImage] = useState(images[0] || '');
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length > 0) {
-      setActiveImage(images[0]);
-      setActiveIndex(0);
-    }
-  }, [images]);
+  const safeActiveIndex = images[activeIndex] ? activeIndex : 0;
+  const activeImage = images[safeActiveIndex] || '';
 
   const handleNext = () => {
-    const nextIdx = (activeIndex + 1) % images.length;
+    const nextIdx = (safeActiveIndex + 1) % images.length;
     setActiveIndex(nextIdx);
-    setActiveImage(images[nextIdx]);
   };
 
   const handlePrev = () => {
-    const prevIdx = (activeIndex - 1 + images.length) % images.length;
+    const prevIdx = (safeActiveIndex - 1 + images.length) % images.length;
     setActiveIndex(prevIdx);
-    setActiveImage(images[prevIdx]);
   };
 
   const [imageError, setImageError] = useState(false);
@@ -79,22 +71,22 @@ export function ProductGallery({ images = [], alt }) {
            {images.slice(0, 20).map((_, i) => (
                <div 
                  key={i} 
-                 className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-6 bg-slate-900 shadow-sm' : 'w-1.5 bg-slate-200/80'}`}
-               />
-           ))}
+                 className={`h-1.5 rounded-full transition-all duration-300 ${i === safeActiveIndex ? 'w-6 bg-slate-900 shadow-sm' : 'w-1.5 bg-slate-200/80'}`}
+                />
+            ))}
         </div>
       </div>
       
       {/* Thumbnails Tray */}
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
         {images.map((image, idx) => {
-          const isActive = idx === activeIndex;
+          const isActive = idx === safeActiveIndex;
           return (
             <button
               key={idx}
               type="button"
               onClick={() => {
-                setActiveImage(image);
+                setImageError(false);
                 setActiveIndex(idx);
               }}
               className={`relative h-16 w-16 lg:h-20 lg:w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-all duration-200 ${

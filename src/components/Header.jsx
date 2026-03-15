@@ -3,10 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { categoryRailItems, navItems, siteMeta, utilityLinks } from '@/data/siteData';
+import { categoryRailItems, siteMeta } from '@/data/siteData';
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [desktopCategoryOpen, setDesktopCategoryOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
@@ -42,8 +43,38 @@ export function Header() {
           </Link>
 
           {/* Category Button (Giá Kho Style: Yellow button) */}
-          <div className="hidden lg:flex items-center justify-center bg-[#fdd100] text-black font-bold text-[14px] px-4 py-2 rounded shrink-0 h-[44px] cursor-pointer hover:bg-yellow-400 transition">
-             <span className="mr-2 text-lg">☰</span> DANH MỤC
+          <div className="relative hidden lg:block shrink-0">
+            <button
+              type="button"
+              onClick={() => setDesktopCategoryOpen((value) => !value)}
+              className="flex h-[44px] items-center justify-center rounded bg-[#fdd100] px-4 py-2 text-[14px] font-bold text-black transition hover:bg-yellow-400"
+              aria-expanded={desktopCategoryOpen}
+              aria-label="Mở danh mục"
+            >
+              <span className="mr-2 text-lg">☰</span> DANH MỤC
+            </button>
+
+            {desktopCategoryOpen ? (
+              <div className="absolute left-0 top-[calc(100%+10px)] z-50 w-[320px] overflow-hidden rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-2xl">
+                <div className="max-h-[70vh] overflow-y-auto py-2">
+                  {categoryRailItems.map((item) => (
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      className="flex items-center gap-3 border-b border-slate-100 px-4 py-3 text-[14px] font-medium transition hover:bg-slate-50"
+                      onClick={() => setDesktopCategoryOpen(false)}
+                    >
+                      {item.icon ? (
+                        <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full bg-slate-50">
+                          <Image src={item.icon} alt={item.title} fill className="object-contain p-1" />
+                        </div>
+                      ) : null}
+                      <span>{item.title}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {/* Search bar */}
