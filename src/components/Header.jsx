@@ -38,7 +38,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
             <Image
-              src="/brand-logo-real.jpg"
+              src={siteMeta.logo}
               alt={siteMeta.name}
               width={48}
               height={48}

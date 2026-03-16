@@ -150,6 +150,7 @@ export const siteMeta = {
   supportHours: 'Mở cửa: 08:00 - 22:00 mỗi ngày',
   searchPlaceholder: 'Bạn cần tìm gì...',
   email: 'thuychi@gmail.com',
+  logo: '/logo-thuychi.jpg',
 };
 
 export const utilityLinks = [

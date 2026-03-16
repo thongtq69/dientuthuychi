@@ -181,7 +181,7 @@ export default function OrderTrackingPage() {
                             {order.adminNote && (
                                 <div className="mt-8 p-4 bg-amber-50 rounded-2xl border border-amber-100/50">
                                     <p className="text-[11px] font-black text-amber-900 uppercase mb-1">Cập nhật từ cửa hàng:</p>
-                                    <p className="text-[13px] text-amber-800 font-medium italic">"{order.adminNote}"</p>
+                                    <p className="text-[13px] text-amber-800 font-medium italic">&quot;{order.adminNote}&quot;</p>
                                 </div>
                             )}
                         </div>

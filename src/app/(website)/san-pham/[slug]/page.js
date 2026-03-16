@@ -148,7 +148,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
   const { promotions, coupons } = extractPromotionsFromText(product.text_content);
   const richSections = product.featured_highlights.length > 0
     ? product.featured_highlights.map((item) => (typeof item === 'string' ? { heading: '', content: item } : item))
-    : extractDetailsFromText(product.text_content);
+    : extractDetailsFromText(product.text_content).length > 0
+      ? extractDetailsFromText(product.text_content)
+      : (product.description || []).map((item, index) => ({ heading: index === 0 ? 'Giới thiệu' : '', content: item }));
 
   const gallery = filterGallery(product.images_list, product.primary_image || product.image);
 
