@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { categoryRailItems, siteMeta } from '@/data/siteData';
 import { useAuth } from './AuthContext';
 import { useCart } from './CartContext';
@@ -10,15 +10,24 @@ import { useCart } from './CartContext';
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopCategoryOpen, setDesktopCategoryOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { user, setShowAuthModal, logout } = useAuth();
   const { totalCount, setIsCartOpen } = useCart();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
       {/* Top Commitment Bar */}
-      <div className="bg-[#05030c] text-center py-1">
-        <span className="text-[12px] font-black text-[#fdd100] uppercase tracking-widest">
+      <div className={`bg-[#05030c] text-center overflow-hidden transition-all duration-300 ease-in-out ${isScrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-10 py-1 opacity-100'}`}>
+        <span className="text-[12px] font-black text-[#fdd100] uppercase tracking-widest whitespace-nowrap">
            Cam kết không zin tặng máy
         </span>
       </div>
@@ -38,12 +47,12 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center justify-center p-1">
             <Image
-              src={siteMeta.logo}
+              src="/logo-thuychi.jpg"
               alt={siteMeta.name}
-              width={100}
-              height={100}
+              width={72}
+              height={72}
               priority
-              className="h-[100px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
+              className="h-[72px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
             />
           </Link>
 
