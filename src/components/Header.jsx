@@ -28,7 +28,7 @@ export function Header() {
       {/* Top Commitment Bar */}
       <div className={`bg-[#05030c] text-center overflow-hidden transition-all duration-300 ease-in-out ${isScrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-10 py-1 opacity-100'}`}>
         <span className="text-[12px] font-black text-[#fdd100] uppercase tracking-widest whitespace-nowrap">
-           Cam kết không zin tặng máy
+          Cam kết không zin tặng máy
         </span>
       </div>
 
@@ -49,10 +49,10 @@ export function Header() {
             <Image
               src="/logo-thuychi.jpg"
               alt={siteMeta.name}
-              width={72}
-              height={72}
+              width={64}
+              height={64}
               priority
-              className="h-[72px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
+              className="h-[64px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
             />
           </Link>
 
@@ -114,7 +114,7 @@ export function Header() {
                 <span className="text-[13px] font-bold text-white whitespace-nowrap">{siteMeta.hotline}</span>
               </div>
             </a>
-            
+
             <Link href="/tra-cuu-don-hang" className="flex items-center gap-2 hover:opacity-80 transition">
               <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
@@ -145,7 +145,7 @@ export function Header() {
                   </div>
                 </div>
               ) : (
-                <button 
+                <button
                   onClick={() => setShowAuthModal(true)}
                   className="flex items-center gap-2 hover:opacity-80 transition"
                 >
@@ -159,12 +159,12 @@ export function Header() {
                 </button>
               )}
             </div>
-            
-            <button 
+
+            <button
               onClick={() => setIsCartOpen(true)}
               className="flex items-center gap-2 hover:opacity-80 transition relative"
             >
-             <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
               </div>
               <div className="flex flex-col items-start">
@@ -183,8 +183,8 @@ export function Header() {
 
 
 
-       {/* USP Bar (Giá Kho Style) - Yellow */}
-       <div className="hidden lg:block bg-[#fdd100] border-b border-black/5">
+      {/* USP Bar (Giá Kho Style) - Yellow */}
+      <div className="hidden lg:block bg-[#fdd100] border-b border-black/5">
         <div className="mx-auto flex max-w-[1270px] items-center justify-between px-3 py-2 text-[13px] font-bold text-black uppercase">
           <div className="flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
