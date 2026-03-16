@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {
   footerCertification,
   footerContactInfo,
-  footerPartner,
   footerPolicyLinks,
   footerServiceLinks,
   footerShowrooms,
@@ -97,14 +96,6 @@ export function Footer() {
               </ul>
             </div>
 
-            <div className="space-y-4">
-              <FooterSectionTitle>Đối tác sửa chữa & Bảo hành</FooterSectionTitle>
-              <Link href="#" className="block max-w-[480px]">
-                <div className="relative aspect-[1601/316] w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-                  <Image src={footerPartner.image} alt={footerPartner.title} fill sizes="420px" className="object-contain" />
-                </div>
-              </Link>
-            </div>
           </div>
 
           <div className="space-y-10">

@@ -1,6 +1,7 @@
 import { products as giakhoProducts } from './giakhoData';
 import { nonApplePhonesProducts } from './nonApplePhonesData';
 import { nonAppleTabletsProducts } from './nonAppleTabletsData';
+import { sanitizeProductName } from '@/lib/productDisplay';
 
 const APPLE_PRODUCT_PATTERN = /(^|[^a-z])(apple|iphone|ipad|macbook|airpods|watch|lightning|magsafe|airtag|phone air)([^a-z]|$)/i;
 const HIDDEN_PRODUCT_PATTERN = /\btest\b/i;
@@ -111,6 +112,7 @@ function prepareProducts(rawProducts) {
 
     const preparedProduct = {
       ...product,
+      name: sanitizeProductName(product.name),
       image: getProductImage(product),
       category: displayCategory.title,
       categorySlug: displayCategory.tagName,
@@ -176,8 +178,6 @@ export const categoryRailItems = [
   { title: 'Phụ Kiện', href: '/danh-muc/phu-kien', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769087666-icon-accessory1.png' },
   { title: 'Âm Thanh', href: '/danh-muc/am-thanh', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095133-icon-sound.png' },
   { title: 'Đồng Hồ', href: '/danh-muc/smartwatch', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095134-icon-watch.png' },
-  { title: 'Laptop', href: '/danh-muc/laptop', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769087668-icon-laptop.png' },
-  { title: 'Gia Dụng Thông Minh', href: '/danh-muc/gia-dung', icon: 'https://cdn.dienthoaigiakho.vn/photos/1744598068328-icw-do-gia-dung.png' },
   { title: 'Khuyến Mãi', href: '/danh-muc/khuyen-mai', icon: 'https://cdn.dienthoaigiakho.vn/photos/1715769095132-icon-promotion.png' },
 ];
 
@@ -293,10 +293,6 @@ function getCollectionProductsBySlug(slug) {
   if (slug === 'smartwatch') {
     const watchProducts = accessoryProducts.filter((product) => /(watch|đồng hồ|dong ho|strap|dây đeo|day deo)/i.test(getProductLookup(product)));
     return (watchProducts.length ? watchProducts : accessoryProducts).slice(0, 18);
-  }
-
-  if (slug === 'laptop') {
-    return [...tabletProducts, ...phoneProducts].slice(0, 18);
   }
 
   if (slug === 'gia-dung') {
@@ -455,42 +451,6 @@ export const collections = [
     contentTitle: 'Trang mẫu cho nhóm đồng hồ và phụ kiện đeo tay',
     contentBody:
       'Hiện chưa có nguồn dữ liệu riêng đầy đủ cho đồng hồ, nên hệ thống dùng bộ sản phẩm mẫu liên quan để người dùng vẫn có thể bấm, lọc và xem bố cục hoàn chỉnh.',
-  },
-  {
-    slug: 'laptop',
-    title: 'Laptop',
-    eyebrow: 'Danh mục sản phẩm',
-    description: 'Danh mục laptop đang ở giai đoạn dựng giao diện và luồng điều hướng, tạm dùng dữ liệu mẫu để tránh trang trống hoặc 404.',
-    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1715769087668-icon-laptop.png',
-    breadcrumb: ['Trang chủ', 'Laptop'],
-    filters: {
-      price: ['5 - 10 triệu', '10 - 15 triệu', '15 - 25 triệu', 'Trên 25 triệu'],
-      brand: ['ASUS', 'Acer', 'Lenovo'],
-      type: ['Laptop văn phòng', 'Laptop học tập', 'Laptop nổi bật'],
-    },
-    sortOptions: ['Tên A-Z', 'Tên Z-A', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
-    featuredSlugs: getCollectionProductsBySlug('laptop').slice(0, 3).map((product) => product.slug),
-    contentTitle: 'Trang laptop tạm dùng dữ liệu mẫu để hoàn thiện luồng mua sắm',
-    contentBody:
-      'Khi chưa đồng bộ đủ sản phẩm laptop thực tế, trang vẫn giữ điều hướng, bộ lọc và danh sách mẫu để quá trình demo hoặc test giao diện không bị đứt đoạn.',
-  },
-  {
-    slug: 'gia-dung',
-    title: 'Gia Dụng Thông Minh',
-    eyebrow: 'Danh mục sản phẩm',
-    description: 'Nhóm smart home và thiết bị gia dụng thông minh được dựng sẵn để khách có thể bấm xem ngay thay vì gặp lỗi trang.',
-    heroImage: 'https://cdn.dienthoaigiakho.vn/photos/1744598068328-icw-do-gia-dung.png',
-    breadcrumb: ['Trang chủ', 'Gia Dụng Thông Minh'],
-    filters: {
-      price: ['Dưới 1 triệu', '1 - 3 triệu', '3 - 5 triệu', 'Trên 5 triệu'],
-      brand: ['Xiaomi', 'Baseus', 'Ezviz'],
-      type: ['Camera', 'Smart home', 'Thiết bị tiện ích'],
-    },
-    sortOptions: ['Tên A-Z', 'Hàng mới', 'Giá thấp đến cao', 'Giá cao xuống thấp'],
-    featuredSlugs: getCollectionProductsBySlug('gia-dung').slice(0, 3).map((product) => product.slug),
-    contentTitle: 'Gia dụng thông minh được dựng theo hướng dễ thử nghiệm và dễ mở rộng',
-    contentBody:
-      'Danh mục này có thể dùng ngay trong quá trình test điều hướng và giao diện. Khi có dữ liệu thật, chỉ cần thay nguồn sản phẩm mà không phải sửa lại luồng người dùng.',
   },
   {
     slug: 'khuyen-mai',
@@ -671,9 +631,9 @@ export const supportPanels = [
 ];
 
 export const socialLinks = [
-  { title: 'Facebook', href: 'https://www.facebook.com/dienthoaigiakho.hcm/', image: '/images/footer-assets/facebook.png' },
+  { title: 'Facebook', href: 'https://www.facebook.com/share/1AoNjBKGMU/?mibextid=wwXIfr', image: '/images/footer-assets/facebook.png' },
   { title: 'Instagram', href: 'https://www.instagram.com/dienthoaigiakho.vn/', image: '/images/footer-instagram.svg' },
-  { title: 'TikTok', href: 'https://www.tiktok.com/@dienthoaigiakho.vn', image: '/images/footer-tiktok.svg' },
+  { title: 'TikTok', href: 'https://vt.tiktok.com/ZSuH4usAd/?page=TikTokShop', image: '/images/footer-tiktok.svg' },
   { title: 'Youtube', href: 'https://www.youtube.com/channel/UCXQDv0xIHMLxOzhfDXDcHfQ', image: '/images/footer-assets/youtube.png' },
   { title: 'Zalo', href: 'https://zalo.me/1370400569283862593', image: '/images/footer-assets/zalo.png' },
 ];
@@ -729,11 +689,6 @@ export const footerPolicyLinks = [
   'Quy định sao lưu dữ liệu',
   'Câu hỏi thường gặp',
 ];
-
-export const footerPartner = {
-  title: 'CareCenter.vn',
-  image: '/images/footer-assets/carecenter.png',
-};
 
 export const footerCertification = {
   title: 'Đã thông báo Bộ Công Thương',

@@ -17,6 +17,7 @@ import { ProductInfoBox } from '@/components/ProductInfoBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { ProductCTA } from '@/components/ProductCTA';
 import { accessoryProducts, getProductBySlug, getRelatedProducts, products } from '@/data/siteData';
+import { sanitizeProductName } from '@/lib/productDisplay';
 
 /* ── Helpers ── */
 function formatPrice(price) {
@@ -101,10 +102,10 @@ export async function generateMetadata({ params }) {
   const data = getExtendedProductData(slug);
   if (!data) return { title: 'Sản phẩm' };
   return {
-    title: data.title || data.h1,
+    title: sanitizeProductName(data.title || data.h1),
     description: data.meta_description,
     alternates: { canonical: data.canonical },
-    openGraph: { title: data.h1, description: data.meta_description, images: [data.normalized_product?.primary_image] }
+    openGraph: { title: sanitizeProductName(data.h1), description: data.meta_description, images: [data.normalized_product?.primary_image] }
   };
 }
 
@@ -134,6 +135,8 @@ export default async function ProductDetailPage({ params, searchParams }) {
     })(),
     featured_highlights: extendedData?.featured_highlights || normalized?.featured_highlights || baseProduct?.featured_highlights || baseProduct?.highlights || []
   };
+
+  product.name = sanitizeProductName(product.name);
 
   // Handle SKU specific product data if provided
   let currentVariant = null;
