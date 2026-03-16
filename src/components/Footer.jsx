@@ -11,12 +11,13 @@ import {
   footerShowrooms,
   paymentBadges,
   socialLinks,
+  siteMeta,
 } from '@/data/siteData';
 
 function FooterSectionTitle({ children }) {
   return (
     <div className="space-y-3">
-      <h3 className="text-[18px] font-black uppercase tracking-tight text-slate-900 sm:text-[20px]">{children}</h3>
+      <h3 className="text-[18px] font-black uppercase tracking-normal text-slate-900 sm:text-[20px]">{children}</h3>
       <div className="h-1 w-24 rounded-full bg-[#f4cf16]" />
     </div>
   );
@@ -36,16 +37,29 @@ export function Footer() {
       <div className="mx-auto max-w-[1270px] space-y-8 overflow-x-hidden px-4 sm:px-5 lg:px-6">
         <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[1.15fr_0.95fr_0.85fr_1fr]">
           <div className="space-y-10">
-            <div className="space-y-4">
-              <FooterSectionTitle>Thông tin liên hệ</FooterSectionTitle>
-              <div className="space-y-3 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                {footerContactInfo.map((item) => (
-                  <p key={item.label}>
-                    <span className="font-bold text-slate-900">{item.label}:</span>{' '}
-                    <span className={item.label === 'Hotline' ? 'font-extrabold text-[#d70018]' : item.label === 'Email' ? 'font-semibold text-[#1d4ed8]' : 'text-slate-600'}>{item.value}</span>{' '}
-                    {item.note ? <span className="text-slate-500">{item.note}</span> : null}
-                  </p>
-                ))}
+            <div className="space-y-6">
+              <Link href="/" className="inline-block">
+                <div className="relative h-[80px] w-[80px] overflow-hidden rounded-2xl bg-[#05030c] p-2">
+                  <Image 
+                    src={siteMeta.logo} 
+                    alt={siteMeta.name} 
+                    fill 
+                    className="object-contain"
+                  />
+                </div>
+              </Link>
+              
+              <div className="space-y-4">
+                <FooterSectionTitle>Thông tin liên hệ</FooterSectionTitle>
+                <div className="space-y-3 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+                  {footerContactInfo.map((item) => (
+                    <p key={item.label}>
+                      <span className="font-bold text-slate-900">{item.label}:</span>{' '}
+                      <span className={item.label === 'Hotline' ? 'font-extrabold text-[#d70018]' : item.label === 'Email' ? 'font-semibold text-[#1d4ed8]' : 'text-slate-600'}>{item.value}</span>{' '}
+                      {item.note ? <span className="text-slate-500">{item.note}</span> : null}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
 

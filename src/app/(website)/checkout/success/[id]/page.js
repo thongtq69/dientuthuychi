@@ -51,7 +51,7 @@ export default function OrderSuccessPage() {
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
              </div>
              
-             <h1 className="text-3xl font-black text-slate-900 mb-2 uppercase italic tracking-tight">THANH TOÁN THÀNH CÔNG!</h1>
+             <h1 className="text-3xl font-black text-slate-900 mb-2 uppercase italic tracking-normal">THANH TOÁN THÀNH CÔNG!</h1>
              <p className="text-lg font-bold text-slate-600 mb-8">Cảm ơn bạn đã tin tưởng Điện Tử Thuỷ Chi</p>
              
              {order && (

@@ -222,7 +222,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
                 {/* Price Box */}
                 <div className="mt-4 rounded-lg bg-gradient-to-r from-red-50 to-orange-50 border border-red-100 p-4">
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[26px] sm:text-[28px] font-black text-red-600 tracking-tight">
+                    <span className="text-[26px] sm:text-[28px] font-black text-red-600 tracking-normal">
                       {formatPrice(price || product.price)}
                     </span>
                     {discount > 0 && (

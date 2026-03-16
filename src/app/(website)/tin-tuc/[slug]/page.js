@@ -44,7 +44,7 @@ export default async function BlogArticlePage({ params }) {
                 <span className="text-white/35">•</span>
                 <span>{post.readTime}</span>
               </div>
-              <h1 className="mt-4 max-w-4xl text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">{post.title}</h1>
+              <h1 className="mt-4 max-w-4xl text-3xl font-semibold tracking-normal sm:text-4xl lg:text-5xl">{post.title}</h1>
             </div>
           </div>
 
@@ -55,7 +55,7 @@ export default async function BlogArticlePage({ params }) {
               <div className="mt-8 space-y-8">
                 {post.sections.map((section) => (
                   <section key={section.heading} className="space-y-4">
-                    <h2 className="text-2xl font-semibold tracking-tight text-slate-950">{section.heading}</h2>
+                    <h2 className="text-2xl font-semibold tracking-normal text-slate-950">{section.heading}</h2>
                     <div className="space-y-4 text-base leading-8 text-slate-700">
                       {section.paragraphs.map((paragraph) => (
                         <p key={paragraph}>{paragraph}</p>
@@ -69,7 +69,7 @@ export default async function BlogArticlePage({ params }) {
             <aside className="space-y-4 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 h-fit lg:sticky lg:top-28">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Chuyên mục</div>
-                <div className="mt-2 text-xl font-semibold tracking-tight text-slate-950">Tin tức Điện tử Thuỷ Chi</div>
+                <div className="mt-2 text-xl font-semibold tracking-normal text-slate-950">Tin tức Điện tử Thuỷ Chi</div>
                 <p className="mt-3 text-sm leading-6 text-slate-600">Sidebar này giúp article page bớt trống trên desktop, gần hơn với cảm giác đọc nội dung trong một storefront thật.</p>
               </div>
               <div className="grid gap-3 text-sm text-slate-700">
@@ -85,7 +85,7 @@ export default async function BlogArticlePage({ params }) {
           <div className="mb-6 flex items-center justify-between gap-4">
             <div>
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">Đọc tiếp</div>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Bài viết liên quan</h2>
+              <h2 className="mt-2 text-2xl font-semibold tracking-normal text-slate-950">Bài viết liên quan</h2>
             </div>
             <Link href="/tin-tuc" className="text-sm font-semibold text-slate-900">Xem tất cả →</Link>
           </div>

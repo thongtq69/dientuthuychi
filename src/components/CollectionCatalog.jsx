@@ -189,7 +189,7 @@ export function CollectionCatalog({ collection, products }) {
 
         <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <Breadcrumbs items={breadcrumbItems} />
-          <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950">{collection.contentTitle}</h2>
+          <h2 className="mt-4 text-2xl font-semibold tracking-normal text-slate-950">{collection.contentTitle}</h2>
           <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base">{collection.contentBody}</p>
         </section>
       </div>

@@ -36,14 +36,14 @@ export function Header() {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex items-center">
+          <Link href="/" className="shrink-0 flex items-center justify-center p-1">
             <Image
               src={siteMeta.logo}
               alt={siteMeta.name}
-              width={48}
-              height={48}
+              width={100}
+              height={100}
               priority
-              className="h-[48px] w-auto object-contain"
+              className="h-[100px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
             />
           </Link>
 

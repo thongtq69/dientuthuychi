@@ -65,7 +65,7 @@ export default function OrderTrackingPage() {
       
       <main className="mx-auto max-w-[1260px] px-4 py-12">
         <div className="flex flex-col items-center">
-            <h1 className="text-[28px] font-black text-slate-900 mb-2 uppercase italic tracking-tight">TRA CỨU ĐƠN HÀNG</h1>
+            <h1 className="text-[28px] font-black text-slate-900 mb-2 uppercase italic tracking-normal">TRA CỨU ĐƠN HÀNG</h1>
             <p className="text-slate-500 mb-8 text-center max-w-md">Nhập mã đơn hàng và số điện thoại của bạn để theo dõi tình trạng xử lý và vận chuyển.</p>
 
             <div className="w-full max-w-xl bg-white rounded-3xl p-8 shadow-xl shadow-slate-200/50 border border-slate-100">

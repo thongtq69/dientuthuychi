@@ -17,7 +17,7 @@ export function PromoBanner({ banner }) {
       <div className="relative z-10 grid gap-4 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
         <div className="max-w-2xl">
           <p className={`text-xs font-semibold uppercase tracking-[0.26em] ${isDark ? 'text-sky-300' : 'text-sky-700'}`}>Ưu đãi & dịch vụ</p>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">{banner.title}</h3>
+          <h3 className="mt-3 text-2xl font-semibold tracking-normal sm:text-3xl">{banner.title}</h3>
           <p className={`mt-3 max-w-xl text-sm leading-6 ${isDark ? 'text-slate-200' : 'text-slate-600'}`}>{banner.description}</p>
         </div>
         <span className={`inline-flex w-fit items-center rounded-full px-5 py-3 text-sm font-semibold ${isDark ? 'bg-white text-slate-950' : 'bg-slate-950 text-white'}`}>

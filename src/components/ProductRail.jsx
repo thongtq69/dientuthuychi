@@ -8,7 +8,7 @@ export function ProductRail({ title, products = [] }) {
   return (
     <section className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">{title}</h2>
+        <h2 className="text-xl font-black text-slate-900 uppercase tracking-normal">{title}</h2>
         <button className="text-sm font-bold text-sky-600 hover:underline">
           Xem tất cả ›
         </button>

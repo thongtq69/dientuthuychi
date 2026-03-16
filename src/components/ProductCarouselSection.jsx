@@ -17,7 +17,7 @@ export function ProductCarouselSection({ section }) {
   return (
     <section className="rounded-sm border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="border-l-4 border-[#1b66d2] pl-3 text-xl font-black uppercase tracking-tight text-slate-950 sm:text-[22px]">
+        <h2 className="border-l-4 border-[#1b66d2] pl-3 text-xl font-black uppercase tracking-normal text-slate-950 sm:text-[22px]">
           {section.title}
         </h2>
         <Link

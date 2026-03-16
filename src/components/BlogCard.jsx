@@ -30,7 +30,7 @@ export function BlogCard({ post, compact = false }) {
           <span className="text-slate-300">•</span>
           <span>{post.readTime}</span>
         </div>
-        <Link href={`/tin-tuc/${post.slug}`} className="mt-3 block text-xl font-semibold leading-tight tracking-tight text-slate-950 transition group-hover:text-sky-600">
+        <Link href={`/tin-tuc/${post.slug}`} className="mt-3 block text-xl font-semibold leading-tight tracking-normal text-slate-950 transition group-hover:text-sky-600">
           {post.title}
         </Link>
         <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-600">{post.excerpt}</p>

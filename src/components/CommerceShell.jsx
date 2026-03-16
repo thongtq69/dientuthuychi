@@ -28,7 +28,7 @@ export function CommerceShell() {
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
           <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Hotline bán hàng</div>
-          <div className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{siteMeta.hotline}</div>
+          <div className="mt-2 text-2xl font-semibold tracking-normal text-slate-950">{siteMeta.hotline}</div>
           <p className="mt-3 text-sm leading-6 text-slate-600">Tư vấn chọn máy, báo giá nhanh, hỗ trợ đặt hàng và giải đáp sản phẩm mỗi ngày.</p>
         </div>
         <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm">
