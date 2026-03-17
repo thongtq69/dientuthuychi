@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { categoryRailItems, siteMeta } from '@/data/siteData';
 import { useAuth } from './AuthContext';
 import { useCart } from './CartContext';
@@ -10,11 +10,28 @@ import { useCart } from './CartContext';
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopCategoryOpen, setDesktopCategoryOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const { user, setShowAuthModal, logout } = useAuth();
   const { totalCount, setIsCartOpen } = useCart();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
+      {/* Top Commitment Bar */}
+      <div className={`bg-[#05030c] text-center overflow-hidden transition-all duration-300 ease-in-out ${isScrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-10 py-1 opacity-100'}`}>
+        <span className="text-[12px] font-black text-[#fdd100] uppercase tracking-widest whitespace-nowrap">
+          Cam kết không zin tặng máy
+        </span>
+      </div>
+
       {/* Main Header Bar - Black */}
       <div className="bg-[#05030c] text-white">
         <div className="mx-auto flex max-w-[1270px] items-center gap-4 px-3 py-3 lg:gap-6">

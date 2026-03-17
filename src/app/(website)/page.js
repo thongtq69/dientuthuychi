@@ -57,7 +57,7 @@ export default function Home() {
       <main className="mx-auto max-w-[1270px] px-3 py-3 sm:px-4 lg:py-4">
         
         {/* ============= HERO SECTION ============= */}
-        <section className="grid gap-3 lg:grid-cols-[250px_minmax(0,1fr)_182px] xl:grid-cols-[250px_minmax(0,1fr)_182px]">
+        <section className="grid gap-3 lg:grid-cols-[250px_minmax(0,1fr)] xl:grid-cols-[250px_minmax(0,1fr)]">
           
           {/* Left Category Sidebar */}
           <div className="hidden lg:block bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm">
@@ -87,20 +87,6 @@ export default function Home() {
              <HeroCarousel slides={heroSlides} />
            </div>
 
-           {/* Right side promo (Standard Vertical S26 Promo) */}
-           <div className="relative hidden lg:block">
-             <Link href="/danh-muc/dien-thoai" className="group block overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm">
-                <div className="relative w-full" style={{ aspectRatio: '182 / 476' }}>
-                <Image
-                  src="https://cdn.dienthoaigiakho.vn/photos/1773022062519-s26-pre-roll-1.jpg"
-                  alt="Side Promo"
-                  fill
-                  sizes="182px"
-                  className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                />
-                </div>
-             </Link>
-           </div>
         </section>
 
         {/* ============= CATEGORY ICON BAR ============= */}
