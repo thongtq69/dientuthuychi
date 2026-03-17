@@ -126,9 +126,9 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3 xl:gap-4">
+          <div className="flex flex-wrap justify-center gap-4 xl:gap-5">
             {featuredCategories.map((cat) => (
-              <Link key={cat.title} href={cat.href} className="group block w-[calc(50%-0.375rem)] overflow-hidden rounded-lg sm:w-[calc(33.333%-0.5rem)] md:w-[180px]">
+              <Link key={cat.title} href={cat.href} className="group block w-[calc(50%-0.5rem)] overflow-hidden rounded-lg sm:w-[calc(33.333%-0.75rem)] md:w-[220px] lg:w-[250px] xl:w-[270px]">
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <Image
                     src={cat.image}
