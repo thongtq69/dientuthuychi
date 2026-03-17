@@ -183,18 +183,6 @@ export const categoryRailItems = [
 
 export const featuredCategories = [
   {
-    title: 'Galaxy S26 Series',
-    href: '/danh-muc/dien-thoai',
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg',
-    description: 'Galaxy S26 Series',
-  },
-  {
-    title: 'Máy Cũ Giá Rẻ',
-    href: '/danh-muc/hang-cu',
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772792984416-top-colection-may-cu-1.jpg',
-    description: 'Máy Cũ Giá Rẻ',
-  },
-  {
     title: 'Galaxy A Series',
     href: '/danh-muc/dien-thoai',
     image: 'https://cdn.dienthoaigiakho.vn/photos/1772705147684-390x490-Galaxy-A-Top-Collection-Banner-2-1.jpg',
@@ -238,16 +226,6 @@ export const heroSlides = [
     image: 'https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg',
     ctaHref: '/danh-muc/tablet',
     title: 'Galaxy Tab',
-  },
-  {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg',
-    ctaHref: '/danh-muc/dien-thoai',
-    title: 'Deal Android nổi bật',
-  },
-  {
-    image: 'https://cdn.dienthoaigiakho.vn/photos/1772792984416-top-colection-may-cu-1.jpg',
-    ctaHref: '/danh-muc/hang-cu',
-    title: 'Máy cũ giá tốt',
   },
   {
     image: 'https://cdn.dienthoaigiakho.vn/photos/1773215461393-984x395_Main-Banner-samsung-s25-1.jpg',

@@ -32,9 +32,9 @@ export default function Home() {
     <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
       {/* Sky Banners - Exact Gia Kho Banners */}
       <div className="fixed left-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
-         <div className="relative aspect-[1/4] w-full">
+         <div className="relative aspect-[1/5] w-full">
             <Image 
-              src="https://cdn.dienthoaigiakho.vn/photos/1773105631169-roll-banner-tuan-le-vangjpg.jpg" 
+              src="https://cdn.dienthoaigiakho.vn/photos/1772422775466-roll1-2.jpg" 
               alt="Sky Left" 
               fill 
               className="object-contain"
@@ -104,15 +104,15 @@ export default function Home() {
         </section>
 
         {/* ============= CATEGORY ICON BAR ============= */}
-        <section className="mt-5 rounded-xl border border-slate-50 bg-white p-4 shadow-sm">
-           <div className="grid grid-cols-5 gap-y-6 gap-x-2 sm:grid-cols-10">
-              {categoryRailItems.map((item) => (
-                 <Link key={item.title} href={item.href} className="group flex flex-col items-center gap-2">
-                    <div className="relative h-[60px] w-[60px] overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
-                       <Image src={item.icon || ''} alt={item.title} fill className="object-contain p-3 transition duration-300 group-hover:scale-110" />
-                    </div>
-                    <span className="text-center text-[12px] font-bold text-slate-800 leading-tight line-clamp-2 h-7 flex items-center">{item.title}</span>
-                 </Link>
+         <section className="mt-5 rounded-xl border border-slate-50 bg-white p-4 shadow-sm">
+            <div className="flex flex-wrap justify-center gap-x-4 gap-y-6 sm:gap-x-6 lg:gap-x-10">
+               {categoryRailItems.map((item) => (
+                  <Link key={item.title} href={item.href} className="group flex w-[92px] flex-col items-center gap-2 sm:w-[110px]">
+                     <div className="relative h-[60px] w-[60px] overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
+                        <Image src={item.icon || ''} alt={item.title} fill className="object-contain p-3 transition duration-300 group-hover:scale-110" />
+                     </div>
+                     <span className="text-center text-[12px] font-bold text-slate-800 leading-tight line-clamp-2 h-7 flex items-center">{item.title}</span>
+                  </Link>
               ))}
            </div>
         </section>
@@ -126,9 +126,9 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 xl:gap-4">
+          <div className="flex flex-wrap justify-center gap-3 xl:gap-4">
             {featuredCategories.map((cat) => (
-              <Link key={cat.title} href={cat.href} className="group block overflow-hidden rounded-lg">
+              <Link key={cat.title} href={cat.href} className="group block w-[calc(50%-0.375rem)] overflow-hidden rounded-lg sm:w-[calc(33.333%-0.5rem)] md:w-[180px]">
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <Image
                     src={cat.image}
