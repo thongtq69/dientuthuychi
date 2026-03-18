@@ -610,10 +610,7 @@ export const supportPanels = [
 
 export const socialLinks = [
   { title: 'Facebook', href: 'https://www.facebook.com/share/1AoNjBKGMU/?mibextid=wwXIfr', image: '/images/footer-assets/facebook.png' },
-  { title: 'Instagram', href: 'https://www.instagram.com/dienthoaigiakho.vn/', image: '/images/footer-instagram.svg' },
   { title: 'TikTok', href: 'https://vt.tiktok.com/ZSuH4usAd/?page=TikTokShop', image: '/images/footer-tiktok.svg' },
-  { title: 'Youtube', href: 'https://www.youtube.com/channel/UCXQDv0xIHMLxOzhfDXDcHfQ', image: '/images/footer-assets/youtube.png' },
-  { title: 'Zalo', href: 'https://zalo.me/1370400569283862593', image: '/images/footer-assets/zalo.png' },
 ];
 
 export const marketplaceLinks = [
