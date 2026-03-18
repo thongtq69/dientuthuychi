@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-03-18T12:48:59.561Z",
+  "report": {
+    "rawTotal": 2432,
+    "filteredTotal": 838,
+    "importedTotal": 370,
+    "duplicateTotal": 468,
+    "byCategory": {
+      "tablet": 23,
+      "dien-thoai": 97,
+      "phu-kien": 250
+    },
+    "missingImage": 23,
+    "missingSpecs": 251,
+    "sample": [
+      {
+        "slug": "samsung-galaxy-tab-s11-ultra-5g-12gb256gb-1757660662",
+        "productGroup": "TAB_S11_ULTRA",
+        "categorySlug": "tablet",
+        "image": "https://cdn.dienthoaigiakho.vn/photos/1769585329659-Samsung-galaxy-tab-s11-ultra-2.png",
+        "specs": 8,
+        "technicalSections": 3
+      },
+      {
+        "slug": "oppo-reno13-5g-12gb256gb-likenew-fullbox",
+        "productGroup": "RENO13_SERIES_LKN",
+        "categorySlug": "dien-thoai",
+        "image": "https://cdn.dienthoaigiakho.vn/photos/1735895938210-Oppo-Reno13-5G-BL.jpg",
+        "specs": 9,
+        "technicalSections": 0
+      },
+      {
+        "slug": "oppo-reno13-5g-12gb512gb-likenew-fullbox",
+        "productGroup": "RENO13_SERIES",
+        "categorySlug": "dien-thoai",
+        "image": "https://cdn.dienthoaigiakho.vn/photos/1733220317513-oppo-reno-13-4.jpg",
+        "specs": 10,
+        "technicalSections": 0
+      },
+      {
+        "slug": "cap-sac-nhanh-mazer-infinitelink-3-pro-100w-usb-c-to-c-125m-chinh-hang-trang-gk602509",
+        "productGroup": "1743567807.0",
+        "categorySlug": "phu-kien",
+        "image": "https://cdn.dienthoaigiakho.vn/photos/1743567939752-Mazer-Infinite.Link-Pro-3-C-to-C-Wh.jpg",
+        "specs": 0,
+        "technicalSections": 0
+      },
+      {
+        "slug": "cu-sac-innostyle-gocharge-pdpps-20w-sac-nhanh-sieu-nho-chinh-hang-trang-gk602913",
+        "productGroup": "1757382438.0",
+        "categorySlug": "phu-kien",
+        "image": "https://cdn.dienthoaigiakho.vn/photos/1757382614891-SAC-NHANH-INNOSTYLE-20W-GOCHARGE-5.jpeg",
+        "specs": 0,
+        "technicalSections": 0
+      }
+    ]
+  },
+  "writeResult": null,
+  "mediaTotals": {
+    "mediaCreated": 0,
+    "mediaReused": 0,
+    "productMatched": 0,
+    "productUpdated": 0,
+    "productMissing": 0,
+    "bannerMatched": 0,
+    "bannerCreated": 0,
+    "bannerUpdated": 0
+  },
+  "sampleChecks": [],
+  "missingImageSources": [],
+  "brokenMappings": [],
+  "missingProducts": []
+}

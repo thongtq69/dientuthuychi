@@ -1,3 +1,17 @@
+const normalizeText = (value) => (typeof value === 'string' ? value.trim() : value)
+
+const normalizeSlug = (value) => {
+  if (typeof value !== 'string') return ''
+
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
 export const Categories = {
   slug: 'categories',
   admin: {
@@ -11,6 +25,17 @@ export const Categories = {
     create: ({ req: { user } }) => user?.collection === 'users',
     delete: ({ req: { user } }) => user?.collection === 'users',
   },
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (!data) return data
+        data.title = normalizeText(data.title)
+        data.slug = normalizeSlug(data.slug || data.title)
+        data.description = normalizeText(data.description)
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'title',
@@ -23,7 +48,12 @@ export const Categories = {
       type: 'text',
       required: true,
       unique: true,
+      index: true,
       label: 'Slug',
+      validate: (value) => {
+        if (!value) return 'Slug là bắt buộc'
+        return normalizeSlug(value) === value ? true : 'Slug chỉ dùng chữ thường, số và dấu gạch ngang'
+      },
     },
     {
       name: 'parent',
@@ -43,6 +73,19 @@ export const Categories = {
       label: 'Mô tả',
     },
     {
+      name: 'heroBanner',
+      type: 'relationship',
+      relationTo: 'banners',
+      label: 'Banner nổi bật',
+    },
+    {
+      name: 'banners',
+      type: 'relationship',
+      relationTo: 'banners',
+      hasMany: true,
+      label: 'Banner liên kết',
+    },
+    {
       name: 'order',
       type: 'number',
       defaultValue: 0,
@@ -55,4 +98,4 @@ export const Categories = {
       label: 'Hiển thị',
     },
   ],
-};
+}

@@ -1,0 +1,62 @@
+{
+  "totals": {
+    "mediaCreated": 17,
+    "mediaReused": 6,
+    "productMatched": 0,
+    "productUpdated": 0,
+    "productMissing": 0,
+    "bannerMatched": 22,
+    "bannerCreated": 22,
+    "bannerUpdated": 0
+  },
+  "missingImageSources": [],
+  "brokenMappings": [],
+  "missingProducts": [],
+  "missingBanners": [],
+  "bannerPositions": {
+    "home-hero": 3,
+    "home-featured-category": 4,
+    "home-mid": 1,
+    "home-tablet-promo": 2,
+    "home-sky": 2,
+    "promo-campaign": 1,
+    "collection-hero": 9
+  },
+  "sampleChecks": [
+    {
+      "type": "banner",
+      "slug": "home-hero-samsung-galaxy-s26-series",
+      "position": "home-hero",
+      "desktop": "https://cdn.dienthoaigiakho.vn/photos/1773117620989-1968x790-main-banner-S26-1.jpg",
+      "mobile": null
+    },
+    {
+      "type": "banner",
+      "slug": "home-hero-galaxy-tab",
+      "position": "home-hero",
+      "desktop": "https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg",
+      "mobile": null
+    },
+    {
+      "type": "banner",
+      "slug": "home-hero-samsung-galaxy-s25",
+      "position": "home-hero",
+      "desktop": "https://cdn.dienthoaigiakho.vn/photos/1773215461393-984x395_Main-Banner-samsung-s25-1.jpg",
+      "mobile": null
+    },
+    {
+      "type": "banner",
+      "slug": "home-featured-galaxy-a-series",
+      "position": "home-featured-category",
+      "desktop": "https://cdn.dienthoaigiakho.vn/photos/1772705147684-390x490-Galaxy-A-Top-Collection-Banner-2-1.jpg",
+      "mobile": null
+    },
+    {
+      "type": "banner",
+      "slug": "home-featured-tablet-android",
+      "position": "home-featured-category",
+      "desktop": "https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg",
+      "mobile": null
+    }
+  ]
+}
