@@ -13,10 +13,22 @@ const beVietnamPro = Be_Vietnam_Pro({
   variable: '--font-be-vietnam-pro',
 });
 
-export const metadata = {
-  title: 'Điện tử Thuỷ Chi | Điện thoại, linh kiện và phụ kiện công nghệ',
-  description: 'Điện tử Thuỷ Chi chuyên điện thoại, linh kiện sửa chữa và phụ kiện công nghệ với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
-};
+export async function generateMetadata() {
+  const siteContent = await getSiteChromeData();
+  const siteMeta = siteContent?.siteMeta || {};
+  
+  return {
+    title: {
+      default: siteMeta.name || 'Điện tử Thuỷ Chi | Điện thoại, linh kiện và phụ kiện công nghệ',
+      template: `%s | ${siteMeta.name || 'Điện tử Thuỷ Chi'}`
+    },
+    description: siteMeta.tagline || 'Điện tử Thuỷ Chi chuyên điện thoại, linh kiện sửa chữa và phụ kiện công nghệ với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
+    icons: {
+      icon: '/logo-thuychi.jpg',
+      apple: '/logo-thuychi.jpg',
+    },
+  };
+}
 
 export default async function RootLayout({ children }) {
   const siteContent = await getSiteChromeData();
