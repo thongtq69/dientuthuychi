@@ -18,7 +18,19 @@ import {
   trustBadges,
   utilityLinks,
 } from '@/data/siteData'
-import { coerceArray, getMediaUrl, richTextToParagraphs, withPayloadFallback } from '@/lib/api/shared'
+import { coerceArray, getMediaUrl, isPopulatedDoc, richTextToParagraphs, withPayloadFallback } from '@/lib/api/shared'
+
+const resolveLogoUrl = (logo) => {
+  if (isPopulatedDoc(logo)) {
+    return getMediaUrl(logo)
+  }
+
+  if (typeof logo === 'string' && logo.startsWith('/')) {
+    return logo
+  }
+
+  return null
+}
 
 const getLocalSettings = () => ({
   siteMeta,
@@ -54,7 +66,7 @@ const normalizeSettings = (settings, promotion) => {
   const email = settings?.contact?.email || settings?.email || siteMeta.email
   const address = settings?.contact?.address || settings?.address || siteMeta.address
   const workingHours = settings?.contact?.workingHours || settings?.workingHours || siteMeta.supportHours
-  const logo = getMediaUrl(settings?.logo) || siteMeta.logo
+  const logo = resolveLogoUrl(settings?.logo) || siteMeta.logo
 
   return {
     siteMeta: {
