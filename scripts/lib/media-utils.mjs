@@ -161,6 +161,7 @@ export async function upsertMedia(payload, source, options = {}) {
     collection: 'media',
     data: {
       alt: alt || path.basename(filename, path.extname(filename)),
+      externalURL: normalizedSource,
     },
     filePath: materialized.filePath,
     overrideAccess: true,

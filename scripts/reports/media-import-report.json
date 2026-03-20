@@ -2,14 +2,595 @@
   "totals": {
     "mediaCreated": 0,
     "mediaReused": 0,
-    "productMatched": 0,
+    "productMatched": 116,
     "productUpdated": 0,
-    "productMissing": 930,
+    "productMissing": 814,
     "bannerMatched": 0,
     "bannerCreated": 0,
     "bannerUpdated": 0
   },
-  "missingImageSources": [],
+  "missingImageSources": [
+    {
+      "slug": "oppo-a3-8gb-256gb-1723710348",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759077041403-OPPO-A3-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a6-4g-8gb128gb-1773039449",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773040450421-OPPO-A6.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a6-pro-4g-8gb128gb-1768448838",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758763952513-OPPO-A6-PRO-2.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a6-pro-4g-8gb256gb-1758763363",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758763952515-OPPO-A6-PRO-3.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a6t-4gb128gb-1767675623",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767674471957-OPPO.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a6t-4gb64gb-1767681272",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767674471957-OPPO.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a6t-6gb256gb-1767673676",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767674552040-OPPO-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-a78-4g-8gb256gb-chinh-hang-1689561589",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1689850411378-Layer-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-find-x9-5g-12gb256gb-1762332500",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762827575820-OPPO-4.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-find-x9-5g-16gb512gb-1762328059",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762827630727-OPPO-5.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-find-x9-pro-5g-16gb512gb-1762825317",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762826556987-OPPO-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-reno13-5g-12gb256gb-likenew-fullbox-1768373087",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1735895938210-Oppo-Reno13-5G-BL.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-reno15-5g-12gb256gb-1767000008",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767000685729-OPPO-Reno15-5G.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-reno15-f-5g-12gb256gb-1766996480",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767671318864-oppo-reno-15-F-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "oppo-reno15-f-5g-8gb256gb-1767079232",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767671260210-oppo-reno-15-F-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-14-5g-8gb256gb-1746613673",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757319633652-Realme-14.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-c71-4gb-128gb-1749464398",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757316748427-Realme-C71.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-c71-6gb-128gb-1749463814",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757316748427-Realme-C71.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-c75-8gb-256gb-1740128620",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757318331339-Realme-C75.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-c75x-6gb-128gb-1743581385",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757318707729-Realme-C75x.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-c85-pro-8gb128gb-1760582471",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1760581770666-Realme-C85-5G-Xanh-thumb.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-c85-pro-8gb256gb-1760582190",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1760581770666-Realme-C85-5G-Xanh-thumb.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-note-60x-3gb-64gb-1740130488",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757067771439-Realme-note-60x.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-note-70-4gb128gb-1753776722",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757068275062-Realme-note-70.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "realme-note-70-4gb64gb-1753780018",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1757068275062-Realme-note-70.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a06-4gb128gb-likenew-fullbox-1731925741",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1726829224485-SSG-A06-Bm.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a06-5g-4gb128gb-1742539778",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758988254366-SAMSUNG-A06-5G.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a06-5g-4gb128gb-likenew-fullbox-1752230157",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1742539482901-A06-5G-Ge.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a07-4g-4gb128gb-1755081303",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758989400288-Samsung-A07-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a07-4g-4gb128gb-bhdt-1755080521",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758989400289-Samsung-A07-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a07-4g-4gb64gb-bhdt-1757312613",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758989400288-Samsung-A07-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a07-4g-8gb256gb-1764580183",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758989400289-Samsung-A07-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a07-5g-4gb128gb-1768793601",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1768796993728-Samsung-Galaxy-A07-5G-4GB_128GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a07-5g-4gb128gb-bhdt-1768797221",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1768796993728-Samsung-Galaxy-A07-5G-4GB_128GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a16-5g-8gb128gb-likenew-fullbox-1741665847",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758991944674-SAMSUNG-A16-5G-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a17-4g-4gb128gb-bhdt-1757307078",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773137318500-Samsung-A17xanh.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a17-4g-8gb128gb-1757652444",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773137318499-Samsung-A17-xam.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a17-4g-8gb128gb-bhdt-1757652216",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773112626301-Samsung-Galaxy-A17-4G-8GB128GB-Chinh-Hang-BHDT.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a17-5g-8gb128gb-1755079772",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773138256707-Samsung-A17-xam.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a17-5g-8gb128gb-bhdt-1755078279",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773138256709-Samsung-A17-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a26-5g-8gb128gb-1742541439",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773138531230-Samsung-A26-xanh.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a26-5g-8gb128gb-1742541606",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773138540640-Samsung-A26-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a26-5g-8gb128gb-likenew-fullbox-1758255465",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1763430714262-Galaxy-A26-5G-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a36-5g-8gb128gb-1741053271",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773135785532-Samsung-A36-5G-tim.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a36-5g-8gb128gb-bhdt-1741053994",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773112663827-Samsung-Galaxy-A36-5G-8GB128GB-Chinh-Hang-BHDT.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a37-5g-8gb128gb-1773025699",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1741053372407-SSG-A36-Pu3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a37-5g-8gb128gb-1773026528",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1741053372407-SSG-A36-Pu3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a56-5g-8gb128gb-1741052847",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773133831237-Samsung-A56-5G-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a56-5g-8gb128gb-bhdt-1741054280",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773112586344-Samsung-Galaxy-A56-5G-8GB128GB-Chinh-Hang-BHDT.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a57-5g-8gb128gb-1773026720",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1741053372407-SSG-A36-Pu3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-a57-5g-8gb128gb-1773026941",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1741053372407-SSG-A36-Pu3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s25-12gb256gb-1731480942",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762489048746-Galaxy-S25-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s25-fe-5g-8gb128gb-1757389751",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1764063844708-s25-bl.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s25-fe-5g-8gb128gb-bhdt-1757399874",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1764063844709-s25-xanh-nhat.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s25-ultra-12gb256gb-1731480954",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762489854605-Galaxy-S25-ultra.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s25-ultra-12gb256gb-bhdt-1738916209",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762489854602-Galaxy-S25-ultra-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-12gb256gb-1771827947",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772069723653-Samsung-Galaxy-S26-12GB_256GB.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-12gb256gb-1773126807",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772069723651-Samsung-Galaxy-S26-12GB_256GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-12gb512gb-1771828813",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772069816152-Samsung-Galaxy-S26-12GB_512G-4.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-12gb512gb-1773126938",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772069816152-Samsung-Galaxy-S26-12GB_512G-4.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-plus-12gb256gb-1771829173",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772070137601-Samsung-Galaxy-S26-Plus-12GB_256GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-plus-12gb512gb-1771829863",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772070254130-Samsung-Galaxy-S26-Plus-12GB_512GB.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra-12gb1tb-1771830651",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772071832507-Samsung-Galaxy-S26-Ultra-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra-12gb1tb-bhdt-1773280759",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772071832507-Samsung-Galaxy-S26-Ultra-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra-12gb256gb-1771830134",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772070667349-Samsung-Galaxy-S26-Ultra-12GB_256GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra-12gb256gb-bhdt-1773279723",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772070667349-Samsung-Galaxy-S26-Ultra-12GB_256GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra-12gb512gb-1771830482",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772071220202-Samsung-Galaxy-S26-Ultra-12GB_512GB.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-s26-ultra-12gb512gb-bhdt-1773280459",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1772071220199-Samsung-Galaxy-S26-Ultra-12GB_512GB-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-lte-4gb64gb-bhdt-1759832024",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762499301243-tab-A11.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-lte-8gb128gb-bhdt-1764140937",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758275109912-tab-A11-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-plus-5g-6gb128gb-1764573440",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758275109912-tab-A11-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-plus-wifi-8gb256gb-1764572442",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758275109912-tab-A11-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-wifi-4gb64g-1758249419",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762499301243-tab-A11.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-wifi-4gb64gb-bhdt-1759373985",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762499301243-tab-A11.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a11-wifi-8gb128gb-bhdt-1762397328",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758275109912-tab-A11-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-a9-plus-wifi-4gb64gb-2023-chinh-hang-1699343393",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758273135194-tab-A9-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s10-fe-5g-8gb128gb-1742551094",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762497412664-tab-s10-fe-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s10-fe-wifi-8gb128gb-1742550312",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1762497412664-tab-s10-fe-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s10-fe-wifi-8gb128gb-likenew-fullbox-1759998401",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758265266248-tab-s10-FE-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s10-lite-wifi-6gb128gb-1756885477",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758096899969-galaxy-tab-s10-lite.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s10-lite-wifi-6gb128gb-1756887497",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1756887274076-Samsung-Galaxy-Tab-S10-Lite.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s11-5g-12gb128gb-1757659974",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1769584129083-Samsung-galaxy-tab-s11-wh-1.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s11-5g-12gb256gb-1757660243",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1769584129083-Samsung-galaxy-tab-s11-wh-1.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s11-ultra-5g-12gb256gb-1757660662",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1769585329659-Samsung-galaxy-tab-s11-ultra-2.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s11-wifi-12gb128gb-1757304011",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1769584129083-Samsung-galaxy-tab-s11-wh-1.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-tab-s11-wifi-12gb256gb-1757301785",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773212006283-Samsung-Galaxy-Tab-S11-Wifi-12GB256GB.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-z-flip7-5g-12gb256gb-1751876707",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759074430714-Samsung-z-flip-7-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-z-flip7-5g-12gb256gb-likenew-fullbox-1772695443",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759074430715-Samsung-z-flip-7-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold7-5g-1751876721",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759074868412-Samsung-z-fold-7-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "samsung-galaxy-z-fold7-5g-bhdt-1761625374",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759074868412-Samsung-z-fold-7-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-15t-5g-12gb512gb-1759200034",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759200820878-Xiaomi-15-T-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-15t-pro-5g-12gb512gb-1759197009",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759198735273-Xiaomi-15-T-Pro-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-pad-7-wifi-8gb128gb-likenew-fullbox-1765341974",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758873854285-xiaomi-pad-7-2_.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-poco-c71-4gb128gb-1756881848",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759140738371-Xiaomi-poco-c71-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-poco-c85-6gb128gb-1760609575",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1760609096414-Realme-Poco-C85-Den-thumnail.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-poco-c85-6gb128gb-likenew-fullbox-1764295811",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1760609096413-Realme-Poco-C85-Xanh-luc-thumnail.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-poco-c85-8gb256gb-1760608833",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1760609096414-Realme-Poco-C85-Den-thumnail.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-13x-6gb-128gb-1743759785",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759140077051-Xiaomi-redmi-13x-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-13x-8gb-128gb-1743761620",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759140077051-Xiaomi-redmi-13x-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-14c-4gb128gb-likenew-fullbox-1732265451",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759141089488-Xiaomi-redmi-14c-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-15-6gb-128gb-1761639615",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1773284397987-Xiaomi-Redmi-15-6GB128GB-Chinh-Hang.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-15-8gb-128gb-1761638392",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1761639028447-Xiaomi-Redmi-15-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-15c-4gb-128gb-1761632947",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1761636785890-Xiaomi-Redmi-15C1.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-15c-6gb-128gb-1761637755",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1761636771452-Xiaomi-Redmi-15C3.png",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-a3-3gb64gb-1714196876",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759141694056-Xiaomi-redmi-A3-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-a3-4gb-128gb-1720164622",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759135264997-Xiaomi-redmi-a3-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-a5-3gb64gb-1746613960",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759141466635-Xiaomi-redmi-A5-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-note-14-6gb128gb-chinh-hang-1736411499",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759139700386-Xiaomi-redmi-note-14-Pro-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-note-14-6gb128gb-likenew-fullbox-1739955147",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1759139700386-Xiaomi-redmi-note-14-2.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-note-15-4g-6gb128gb-1767603188",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767949200322-xiaomi-redmi-note-15-tim.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-note-15-5g-6gb128gb-1767604724",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767949147651-xiaomi-redmi-note-15-5g-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-note-15-pro-4g-12gb256gb-1767605208",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1767949093698-xiaomi-redmi-note-15-pro-xanh-duong.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-note-15-pro-5g-8gb256gb-1768034204",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1768035260842-xiaomi-redmi-note-5-pro-5g-den.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-pad-2-pro-wifi-6gb128gb-1764224874",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1764228347173-Redmi-Pad-2-Pro-3.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-pad-2-wifi-6gb128gb-1758011348",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1758873197937-Xiaomi-pad-2-1.jpg",
+      "reason": "missing-primary-image"
+    },
+    {
+      "slug": "xiaomi-redmi-pad-se-87-inch-4g-4gb128gb-1762316826",
+      "source": "https://cdn.dienthoaigiakho.vn/photos/1763441706563-Xiaomi-Redmi-pad-se-1.jpg",
+      "reason": "missing-primary-image"
+    }
+  ],
   "brokenMappings": [],
   "missingProducts": [
     {
@@ -2877,66 +3458,6 @@
       "source": "https://dienthoaigiakho.vn/op-uniq-moven-antimicrobial-charcoal-cho-ipad-pro-11-inch-chinh-hang-1665637500"
     },
     {
-      "slug": "oppo-a3-8gb-256gb-1723710348",
-      "source": "https://dienthoaigiakho.vn/oppo-a3-8gb-256gb-1723710348"
-    },
-    {
-      "slug": "oppo-a6-4g-8gb128gb-1773039449",
-      "source": "https://dienthoaigiakho.vn/oppo-a6-4g-8gb128gb-1773039449"
-    },
-    {
-      "slug": "oppo-a6-pro-4g-8gb128gb-1768448838",
-      "source": "https://dienthoaigiakho.vn/oppo-a6-pro-4g-8gb128gb-1768448838"
-    },
-    {
-      "slug": "oppo-a6-pro-4g-8gb256gb-1758763363",
-      "source": "https://dienthoaigiakho.vn/oppo-a6-pro-4g-8gb256gb-1758763363"
-    },
-    {
-      "slug": "oppo-a6t-4gb128gb-1767675623",
-      "source": "https://dienthoaigiakho.vn/oppo-a6t-4gb128gb-1767675623"
-    },
-    {
-      "slug": "oppo-a6t-4gb64gb-1767681272",
-      "source": "https://dienthoaigiakho.vn/oppo-a6t-4gb64gb-1767681272"
-    },
-    {
-      "slug": "oppo-a6t-6gb256gb-1767673676",
-      "source": "https://dienthoaigiakho.vn/oppo-a6t-6gb256gb-1767673676"
-    },
-    {
-      "slug": "oppo-a78-4g-8gb256gb-chinh-hang-1689561589",
-      "source": "https://dienthoaigiakho.vn/oppo-a78-4g-8gb256gb-chinh-hang-1689561589"
-    },
-    {
-      "slug": "oppo-find-x9-5g-12gb256gb-1762332500",
-      "source": "https://dienthoaigiakho.vn/oppo-find-x9-5g-12gb256gb-1762332500"
-    },
-    {
-      "slug": "oppo-find-x9-5g-16gb512gb-1762328059",
-      "source": "https://dienthoaigiakho.vn/oppo-find-x9-5g-16gb512gb-1762328059"
-    },
-    {
-      "slug": "oppo-find-x9-pro-5g-16gb512gb-1762825317",
-      "source": "https://dienthoaigiakho.vn/oppo-find-x9-pro-5g-16gb512gb-1762825317"
-    },
-    {
-      "slug": "oppo-reno13-5g-12gb256gb-likenew-fullbox-1768373087",
-      "source": "https://dienthoaigiakho.vn/oppo-reno13-5g-12gb256gb-likenew-fullbox-1768373087"
-    },
-    {
-      "slug": "oppo-reno15-5g-12gb256gb-1767000008",
-      "source": "https://dienthoaigiakho.vn/oppo-reno15-5g-12gb256gb-1767000008"
-    },
-    {
-      "slug": "oppo-reno15-f-5g-12gb256gb-1766996480",
-      "source": "https://dienthoaigiakho.vn/oppo-reno15-f-5g-12gb256gb-1766996480"
-    },
-    {
-      "slug": "oppo-reno15-f-5g-8gb256gb-1767079232",
-      "source": "https://dienthoaigiakho.vn/oppo-reno15-f-5g-8gb256gb-1767079232"
-    },
-    {
       "slug": "phu-phim-jcpal-fitskin-tpu-cho-macbook-pro-13-2020-pro-16-2019-1597395150",
       "source": "https://dienthoaigiakho.vn/phu-phim-jcpal-fitskin-tpu-cho-macbook-pro-13-2020-pro-16-2019-1597395150"
     },
@@ -3105,46 +3626,6 @@
       "source": "https://dienthoaigiakho.vn/quat-thong-minh-xiaomi-mi-smart-standing-fan-2-lite-1770795939"
     },
     {
-      "slug": "realme-14-5g-8gb256gb-1746613673",
-      "source": "https://dienthoaigiakho.vn/realme-14-5g-8gb256gb-1746613673"
-    },
-    {
-      "slug": "realme-c71-4gb-128gb-1749464398",
-      "source": "https://dienthoaigiakho.vn/realme-c71-4gb-128gb-1749464398"
-    },
-    {
-      "slug": "realme-c71-6gb-128gb-1749463814",
-      "source": "https://dienthoaigiakho.vn/realme-c71-6gb-128gb-1749463814"
-    },
-    {
-      "slug": "realme-c75-8gb-256gb-1740128620",
-      "source": "https://dienthoaigiakho.vn/realme-c75-8gb-256gb-1740128620"
-    },
-    {
-      "slug": "realme-c75x-6gb-128gb-1743581385",
-      "source": "https://dienthoaigiakho.vn/realme-c75x-6gb-128gb-1743581385"
-    },
-    {
-      "slug": "realme-c85-pro-8gb128gb-1760582471",
-      "source": "https://dienthoaigiakho.vn/realme-c85-pro-8gb128gb-1760582471"
-    },
-    {
-      "slug": "realme-c85-pro-8gb256gb-1760582190",
-      "source": "https://dienthoaigiakho.vn/realme-c85-pro-8gb256gb-1760582190"
-    },
-    {
-      "slug": "realme-note-60x-3gb-64gb-1740130488",
-      "source": "https://dienthoaigiakho.vn/realme-note-60x-3gb-64gb-1740130488"
-    },
-    {
-      "slug": "realme-note-70-4gb128gb-1753776722",
-      "source": "https://dienthoaigiakho.vn/realme-note-70-4gb128gb-1753776722"
-    },
-    {
-      "slug": "realme-note-70-4gb64gb-1753780018",
-      "source": "https://dienthoaigiakho.vn/realme-note-70-4gb64gb-1753780018"
-    },
-    {
       "slug": "robot-hut-bui-lau-nha-dreame-bot-x50-ultra-1770708594",
       "source": "https://dienthoaigiakho.vn/robot-hut-bui-lau-nha-dreame-bot-x50-ultra-1770708594"
     },
@@ -3173,252 +3654,8 @@
       "source": "https://dienthoaigiakho.vn/sac-o-to-anker-323-1c1a-525w-a2735-1753082026"
     },
     {
-      "slug": "samsung-galaxy-a06-4gb128gb-likenew-fullbox-1731925741",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a06-4gb128gb-likenew-fullbox-1731925741"
-    },
-    {
-      "slug": "samsung-galaxy-a06-5g-4gb128gb-1742539778",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a06-5g-4gb128gb-1742539778"
-    },
-    {
-      "slug": "samsung-galaxy-a06-5g-4gb128gb-likenew-fullbox-1752230157",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a06-5g-4gb128gb-likenew-fullbox-1752230157"
-    },
-    {
-      "slug": "samsung-galaxy-a07-4g-4gb128gb-1755081303",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a07-4g-4gb128gb-1755081303"
-    },
-    {
-      "slug": "samsung-galaxy-a07-4g-4gb128gb-bhdt-1755080521",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a07-4g-4gb128gb-bhdt-1755080521"
-    },
-    {
-      "slug": "samsung-galaxy-a07-4g-4gb64gb-bhdt-1757312613",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a07-4g-4gb64gb-bhdt-1757312613"
-    },
-    {
-      "slug": "samsung-galaxy-a07-4g-8gb256gb-1764580183",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a07-4g-8gb256gb-1764580183"
-    },
-    {
-      "slug": "samsung-galaxy-a07-5g-4gb128gb-1768793601",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a07-5g-4gb128gb-1768793601"
-    },
-    {
-      "slug": "samsung-galaxy-a07-5g-4gb128gb-bhdt-1768797221",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a07-5g-4gb128gb-bhdt-1768797221"
-    },
-    {
-      "slug": "samsung-galaxy-a16-5g-8gb128gb-likenew-fullbox-1741665847",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a16-5g-8gb128gb-likenew-fullbox-1741665847"
-    },
-    {
-      "slug": "samsung-galaxy-a17-4g-4gb128gb-bhdt-1757307078",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a17-4g-4gb128gb-bhdt-1757307078"
-    },
-    {
-      "slug": "samsung-galaxy-a17-4g-8gb128gb-1757652444",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a17-4g-8gb128gb-1757652444"
-    },
-    {
-      "slug": "samsung-galaxy-a17-4g-8gb128gb-bhdt-1757652216",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a17-4g-8gb128gb-bhdt-1757652216"
-    },
-    {
-      "slug": "samsung-galaxy-a17-5g-8gb128gb-1755079772",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a17-5g-8gb128gb-1755079772"
-    },
-    {
-      "slug": "samsung-galaxy-a17-5g-8gb128gb-bhdt-1755078279",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a17-5g-8gb128gb-bhdt-1755078279"
-    },
-    {
-      "slug": "samsung-galaxy-a26-5g-8gb128gb-1742541439",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a26-5g-8gb128gb-1742541439"
-    },
-    {
-      "slug": "samsung-galaxy-a26-5g-8gb128gb-1742541606",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a26-5g-8gb128gb-1742541606"
-    },
-    {
-      "slug": "samsung-galaxy-a26-5g-8gb128gb-likenew-fullbox-1758255465",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a26-5g-8gb128gb-likenew-fullbox-1758255465"
-    },
-    {
-      "slug": "samsung-galaxy-a36-5g-8gb128gb-1741053271",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a36-5g-8gb128gb-1741053271"
-    },
-    {
-      "slug": "samsung-galaxy-a36-5g-8gb128gb-bhdt-1741053994",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a36-5g-8gb128gb-bhdt-1741053994"
-    },
-    {
-      "slug": "samsung-galaxy-a37-5g-8gb128gb-1773025699",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a37-5g-8gb128gb-1773025699"
-    },
-    {
-      "slug": "samsung-galaxy-a37-5g-8gb128gb-1773026528",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a37-5g-8gb128gb-1773026528"
-    },
-    {
-      "slug": "samsung-galaxy-a56-5g-8gb128gb-1741052847",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a56-5g-8gb128gb-1741052847"
-    },
-    {
-      "slug": "samsung-galaxy-a56-5g-8gb128gb-bhdt-1741054280",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a56-5g-8gb128gb-bhdt-1741054280"
-    },
-    {
-      "slug": "samsung-galaxy-a57-5g-8gb128gb-1773026720",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a57-5g-8gb128gb-1773026720"
-    },
-    {
-      "slug": "samsung-galaxy-a57-5g-8gb128gb-1773026941",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-a57-5g-8gb128gb-1773026941"
-    },
-    {
       "slug": "samsung-galaxy-fit3-1761720186",
       "source": "https://dienthoaigiakho.vn/samsung-galaxy-fit3-1761720186"
-    },
-    {
-      "slug": "samsung-galaxy-s25-12gb256gb-1731480942",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s25-12gb256gb-1731480942"
-    },
-    {
-      "slug": "samsung-galaxy-s25-fe-5g-8gb128gb-1757389751",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s25-fe-5g-8gb128gb-1757389751"
-    },
-    {
-      "slug": "samsung-galaxy-s25-fe-5g-8gb128gb-bhdt-1757399874",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s25-fe-5g-8gb128gb-bhdt-1757399874"
-    },
-    {
-      "slug": "samsung-galaxy-s25-ultra-12gb256gb-1731480954",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s25-ultra-12gb256gb-1731480954"
-    },
-    {
-      "slug": "samsung-galaxy-s25-ultra-12gb256gb-bhdt-1738916209",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s25-ultra-12gb256gb-bhdt-1738916209"
-    },
-    {
-      "slug": "samsung-galaxy-s26-12gb256gb-1771827947",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-12gb256gb-1771827947"
-    },
-    {
-      "slug": "samsung-galaxy-s26-12gb256gb-1773126807",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-12gb256gb-1773126807"
-    },
-    {
-      "slug": "samsung-galaxy-s26-12gb512gb-1771828813",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-12gb512gb-1771828813"
-    },
-    {
-      "slug": "samsung-galaxy-s26-12gb512gb-1773126938",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-12gb512gb-1773126938"
-    },
-    {
-      "slug": "samsung-galaxy-s26-plus-12gb256gb-1771829173",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-plus-12gb256gb-1771829173"
-    },
-    {
-      "slug": "samsung-galaxy-s26-plus-12gb512gb-1771829863",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-plus-12gb512gb-1771829863"
-    },
-    {
-      "slug": "samsung-galaxy-s26-ultra-12gb1tb-1771830651",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-ultra-12gb1tb-1771830651"
-    },
-    {
-      "slug": "samsung-galaxy-s26-ultra-12gb1tb-bhdt-1773280759",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-ultra-12gb1tb-bhdt-1773280759"
-    },
-    {
-      "slug": "samsung-galaxy-s26-ultra-12gb256gb-1771830134",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-ultra-12gb256gb-1771830134"
-    },
-    {
-      "slug": "samsung-galaxy-s26-ultra-12gb256gb-bhdt-1773279723",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-ultra-12gb256gb-bhdt-1773279723"
-    },
-    {
-      "slug": "samsung-galaxy-s26-ultra-12gb512gb-1771830482",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-ultra-12gb512gb-1771830482"
-    },
-    {
-      "slug": "samsung-galaxy-s26-ultra-12gb512gb-bhdt-1773280459",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-s26-ultra-12gb512gb-bhdt-1773280459"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-lte-4gb64gb-bhdt-1759832024",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-lte-4gb64gb-bhdt-1759832024"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-lte-8gb128gb-bhdt-1764140937",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-lte-8gb128gb-bhdt-1764140937"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-plus-5g-6gb128gb-1764573440",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-plus-5g-6gb128gb-1764573440"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-plus-wifi-8gb256gb-1764572442",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-plus-wifi-8gb256gb-1764572442"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-wifi-4gb64g-1758249419",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-wifi-4gb64g-1758249419"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-wifi-4gb64gb-bhdt-1759373985",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-wifi-4gb64gb-bhdt-1759373985"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a11-wifi-8gb128gb-bhdt-1762397328",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a11-wifi-8gb128gb-bhdt-1762397328"
-    },
-    {
-      "slug": "samsung-galaxy-tab-a9-plus-wifi-4gb64gb-2023-chinh-hang-1699343393",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-a9-plus-wifi-4gb64gb-2023-chinh-hang-1699343393"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s10-fe-5g-8gb128gb-1742551094",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s10-fe-5g-8gb128gb-1742551094"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s10-fe-wifi-8gb128gb-1742550312",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s10-fe-wifi-8gb128gb-1742550312"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s10-fe-wifi-8gb128gb-likenew-fullbox-1759998401",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s10-fe-wifi-8gb128gb-likenew-fullbox-1759998401"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s10-lite-wifi-6gb128gb-1756885477",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s10-lite-wifi-6gb128gb-1756885477"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s10-lite-wifi-6gb128gb-1756887497",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s10-lite-wifi-6gb128gb-1756887497"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s11-5g-12gb128gb-1757659974",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s11-5g-12gb128gb-1757659974"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s11-5g-12gb256gb-1757660243",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s11-5g-12gb256gb-1757660243"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s11-ultra-5g-12gb256gb-1757660662",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s11-ultra-5g-12gb256gb-1757660662"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s11-wifi-12gb128gb-1757304011",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s11-wifi-12gb128gb-1757304011"
-    },
-    {
-      "slug": "samsung-galaxy-tab-s11-wifi-12gb256gb-1757301785",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-tab-s11-wifi-12gb256gb-1757301785"
     },
     {
       "slug": "samsung-galaxy-watch-8-bt-44mm-chinh-hang-bhdt-1753668735",
@@ -3435,22 +3672,6 @@
     {
       "slug": "samsung-galaxy-watch-ultra-2025-47mm-lte-bhdt-1759374771",
       "source": "https://dienthoaigiakho.vn/samsung-galaxy-watch-ultra-2025-47mm-lte-bhdt-1759374771"
-    },
-    {
-      "slug": "samsung-galaxy-z-flip7-5g-12gb256gb-1751876707",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-z-flip7-5g-12gb256gb-1751876707"
-    },
-    {
-      "slug": "samsung-galaxy-z-flip7-5g-12gb256gb-likenew-fullbox-1772695443",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-z-flip7-5g-12gb256gb-likenew-fullbox-1772695443"
-    },
-    {
-      "slug": "samsung-galaxy-z-fold7-5g-1751876721",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-z-fold7-5g-1751876721"
-    },
-    {
-      "slug": "samsung-galaxy-z-fold7-5g-bhdt-1761625374",
-      "source": "https://dienthoaigiakho.vn/samsung-galaxy-z-fold7-5g-bhdt-1761625374"
     },
     {
       "slug": "san-pham-test-001-1694052067",
@@ -3627,110 +3848,6 @@
     {
       "slug": "vong-giu-dien-thoai-zagg-snap-360-1749030550",
       "source": "https://dienthoaigiakho.vn/vong-giu-dien-thoai-zagg-snap-360-1749030550"
-    },
-    {
-      "slug": "xiaomi-15t-5g-12gb512gb-1759200034",
-      "source": "https://dienthoaigiakho.vn/xiaomi-15t-5g-12gb512gb-1759200034"
-    },
-    {
-      "slug": "xiaomi-15t-pro-5g-12gb512gb-1759197009",
-      "source": "https://dienthoaigiakho.vn/xiaomi-15t-pro-5g-12gb512gb-1759197009"
-    },
-    {
-      "slug": "xiaomi-pad-7-wifi-8gb128gb-likenew-fullbox-1765341974",
-      "source": "https://dienthoaigiakho.vn/xiaomi-pad-7-wifi-8gb128gb-likenew-fullbox-1765341974"
-    },
-    {
-      "slug": "xiaomi-poco-c71-4gb128gb-1756881848",
-      "source": "https://dienthoaigiakho.vn/xiaomi-poco-c71-4gb128gb-1756881848"
-    },
-    {
-      "slug": "xiaomi-poco-c85-6gb128gb-1760609575",
-      "source": "https://dienthoaigiakho.vn/xiaomi-poco-c85-6gb128gb-1760609575"
-    },
-    {
-      "slug": "xiaomi-poco-c85-6gb128gb-likenew-fullbox-1764295811",
-      "source": "https://dienthoaigiakho.vn/xiaomi-poco-c85-6gb128gb-likenew-fullbox-1764295811"
-    },
-    {
-      "slug": "xiaomi-poco-c85-8gb256gb-1760608833",
-      "source": "https://dienthoaigiakho.vn/xiaomi-poco-c85-8gb256gb-1760608833"
-    },
-    {
-      "slug": "xiaomi-redmi-13x-6gb-128gb-1743759785",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-13x-6gb-128gb-1743759785"
-    },
-    {
-      "slug": "xiaomi-redmi-13x-8gb-128gb-1743761620",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-13x-8gb-128gb-1743761620"
-    },
-    {
-      "slug": "xiaomi-redmi-14c-4gb128gb-likenew-fullbox-1732265451",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-14c-4gb128gb-likenew-fullbox-1732265451"
-    },
-    {
-      "slug": "xiaomi-redmi-15-6gb-128gb-1761639615",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-15-6gb-128gb-1761639615"
-    },
-    {
-      "slug": "xiaomi-redmi-15-8gb-128gb-1761638392",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-15-8gb-128gb-1761638392"
-    },
-    {
-      "slug": "xiaomi-redmi-15c-4gb-128gb-1761632947",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-15c-4gb-128gb-1761632947"
-    },
-    {
-      "slug": "xiaomi-redmi-15c-6gb-128gb-1761637755",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-15c-6gb-128gb-1761637755"
-    },
-    {
-      "slug": "xiaomi-redmi-a3-3gb64gb-1714196876",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-a3-3gb64gb-1714196876"
-    },
-    {
-      "slug": "xiaomi-redmi-a3-4gb-128gb-1720164622",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-a3-4gb-128gb-1720164622"
-    },
-    {
-      "slug": "xiaomi-redmi-a5-3gb64gb-1746613960",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-a5-3gb64gb-1746613960"
-    },
-    {
-      "slug": "xiaomi-redmi-note-14-6gb128gb-chinh-hang-1736411499",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-note-14-6gb128gb-chinh-hang-1736411499"
-    },
-    {
-      "slug": "xiaomi-redmi-note-14-6gb128gb-likenew-fullbox-1739955147",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-note-14-6gb128gb-likenew-fullbox-1739955147"
-    },
-    {
-      "slug": "xiaomi-redmi-note-15-4g-6gb128gb-1767603188",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-note-15-4g-6gb128gb-1767603188"
-    },
-    {
-      "slug": "xiaomi-redmi-note-15-5g-6gb128gb-1767604724",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-note-15-5g-6gb128gb-1767604724"
-    },
-    {
-      "slug": "xiaomi-redmi-note-15-pro-4g-12gb256gb-1767605208",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-note-15-pro-4g-12gb256gb-1767605208"
-    },
-    {
-      "slug": "xiaomi-redmi-note-15-pro-5g-8gb256gb-1768034204",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-note-15-pro-5g-8gb256gb-1768034204"
-    },
-    {
-      "slug": "xiaomi-redmi-pad-2-pro-wifi-6gb128gb-1764224874",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-pad-2-pro-wifi-6gb128gb-1764224874"
-    },
-    {
-      "slug": "xiaomi-redmi-pad-2-wifi-6gb128gb-1758011348",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-pad-2-wifi-6gb128gb-1758011348"
-    },
-    {
-      "slug": "xiaomi-redmi-pad-se-87-inch-4g-4gb128gb-1762316826",
-      "source": "https://dienthoaigiakho.vn/xiaomi-redmi-pad-se-87-inch-4g-4gb128gb-1762316826"
     }
   ],
   "missingBanners": [],

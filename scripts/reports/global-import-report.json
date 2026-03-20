@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-03-19T02:25:11.900Z",
+  "dryRun": false,
+  "globals": [
+    "site-settings",
+    "promotions"
+  ],
+  "mappedFields": {
+    "siteSettings": {
+      "siteName": "Điện tử Thuỷ Chi",
+      "topBarText": "Thanh toán khi nhận hàng • Cam kết uy tín hàng chính hãng • Giao hàng miễn phí 2h • Bảo hành lỗi 1 đổi 1",
+      "hotline": "0899 918 668"
+    },
+    "promotions": {
+      "title": "Khuyen mai noi bat",
+      "active": true,
+      "bannerSource": "https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/banner.jpg?1768028836881"
+    }
+  },
+  "mediaTotals": {
+    "mediaCreated": 1,
+    "mediaReused": 1,
+    "productMatched": 0,
+    "productUpdated": 0,
+    "productMissing": 0,
+    "bannerMatched": 0,
+    "bannerCreated": 0,
+    "bannerUpdated": 0
+  },
+  "sampleChecks": [
+    {
+      "type": "global",
+      "slug": "site-settings",
+      "hasLogo": true
+    },
+    {
+      "type": "global",
+      "slug": "promotions",
+      "hasBanner": true,
+      "linkedBanners": 2
+    }
+  ],
+  "missingImageSources": [],
+  "brokenMappings": []
+}

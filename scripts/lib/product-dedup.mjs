@@ -23,8 +23,28 @@ export function dedupeProducts(products) {
     });
   }
 
+  const dedupedBySlug = new Map()
+
+  for (const product of deduped.values()) {
+    const existing = dedupedBySlug.get(product.slug)
+
+    if (!existing) {
+      dedupedBySlug.set(product.slug, product)
+      continue
+    }
+
+    const merged = mergeProductData(existing, product)
+    dedupedBySlug.set(product.slug, merged)
+    duplicateGroups.push({
+      key: `slug:${product.slug}`,
+      keptSlug: merged.slug,
+      incomingSlug: product.slug,
+      existingSlug: existing.slug,
+    })
+  }
+
   return {
-    products: [...deduped.values()],
+    products: [...dedupedBySlug.values()],
     duplicateGroups,
   };
 }

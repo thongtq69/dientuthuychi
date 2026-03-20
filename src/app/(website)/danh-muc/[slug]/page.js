@@ -3,28 +3,16 @@ import { CollectionHero } from '@/components/CollectionHero';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { ProductRail } from '@/components/ProductRail';
-import { categoryRailItems, collections, featuredCategories, getCollectionBySlug, getProductsByCategory, getProductsBySlugs } from '@/data/siteData';
+import { getCollectionPageData, getCollectionRouteSlugs } from '@/lib/api/products';
 
-export function generateStaticParams() {
-  const slugs = new Set(collections.map((collection) => collection.slug));
-
-  categoryRailItems.forEach((item) => {
-    const match = item.href.match(/\/danh-muc\/([^/?#]+)/);
-    if (match?.[1]) slugs.add(match[1]);
-  });
-
-  featuredCategories.forEach((item) => {
-    const match = item.href.match(/\/danh-muc\/([^/?#]+)/);
-    if (match?.[1]) slugs.add(match[1]);
-  });
-
-  return [...slugs].map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getCollectionRouteSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export default async function CollectionPage({ params }) {
   const { slug } = await params;
-  const collection = getCollectionBySlug(slug);
-  const products = getProductsByCategory(slug);
+  const { collection, featuredProducts, products } = await getCollectionPageData(slug);
 
   if (!collection || products.length === 0) {
     return (
@@ -42,8 +30,6 @@ export default async function CollectionPage({ params }) {
       </div>
     );
   }
-
-  const featuredProducts = getProductsBySlugs(collection.featuredSlugs);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">

@@ -2,20 +2,57 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import { categoryRailItems, siteMeta } from '@/data/siteData';
+import { useState, useSyncExternalStore } from 'react';
+import { useSiteContent } from '@/components/SiteContentProvider';
 import { useAuth } from './AuthContext';
 import { useCart } from './CartContext';
+
+const DEFAULT_SITE_META = {
+  name: 'Điện tử Thủy Chi',
+  hotline: '0899.918.668',
+  searchPlaceholder: 'Bạn muốn tìm gì ...',
+  logo: '/logo-thuychi.jpg',
+};
+
+const DEFAULT_CATEGORY_RAIL_ITEMS = [
+  { title: 'Điện Thoại', href: '/danh-muc/dien-thoai' },
+  { title: 'Tablet', href: '/danh-muc/tablet' },
+  { title: 'Thu Cũ Đổi Mới', href: '/thu-cu-doi-moi' },
+  { title: 'Phụ Kiện', href: '/danh-muc/phu-kien' },
+  { title: 'Tin Tức', href: '/tin-tuc' },
+];
+
+const subscribe = () => () => {};
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopCategoryOpen, setDesktopCategoryOpen] = useState(false);
+  const [logoSrc, setLogoSrc] = useState(null);
+  const hasMounted = useSyncExternalStore(subscribe, () => true, () => false);
+  const siteContent = useSiteContent();
 
   const { user, setShowAuthModal, logout } = useAuth();
   const { totalCount, setIsCartOpen } = useCart();
+  const siteMeta = siteContent?.siteMeta || DEFAULT_SITE_META;
+  const categoryRailItems = siteContent?.categoryRailItems || DEFAULT_CATEGORY_RAIL_ITEMS;
+  const resolvedLogo = siteMeta?.logo || '/logo-thuychi.jpg';
+  const searchPlaceholder = siteContent?.searchPlaceholder || siteMeta.searchPlaceholder || 'Ban muon tim gi ...';
+  const topBarText = siteContent?.topBarText || '';
+  const uspItems = siteContent?.uspItems?.length ? siteContent.uspItems : [
+    'Chinh hang - Xuat VAT day du',
+    'Thu cu len doi - Tra gop 0%',
+    'Giao nhanh - Freeship don 500K',
+    '45 ngay mien phi 1 doi 1',
+  ];
 
   return (
     <header className="sticky top-0 z-50 bg-[#f3f5f7]">
+      {topBarText ? (
+        <div className="bg-[#fdd100] text-center text-[11px] font-bold uppercase tracking-[0.16em] text-black">
+          <div className="mx-auto max-w-[1270px] px-3 py-2">{topBarText}</div>
+        </div>
+      ) : null}
+
       {/* Main Header Bar - Black */}
       <div className="bg-[#05030c] text-white">
         <div className="mx-auto flex max-w-[1270px] items-center gap-4 px-3 py-3 lg:gap-6">
@@ -31,12 +68,13 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center justify-center p-1">
             <Image
-              src="/logo-thuychi.jpg"
+              src={logoSrc || resolvedLogo}
               alt={siteMeta.name}
               width={64}
               height={64}
               priority
               className="h-[64px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
+              onError={() => setLogoSrc('/logo-thuychi.jpg')}
             />
           </Link>
 
@@ -64,7 +102,7 @@ export function Header() {
                     >
                       {item.icon ? (
                         <div className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full bg-slate-50">
-                          <Image src={item.icon} alt={item.title} fill className="object-contain p-1" />
+                          <Image src={item.icon} alt={item.title} fill sizes="28px" className="object-contain p-1" />
                         </div>
                       ) : null}
                       <span>{item.title}</span>
@@ -77,11 +115,11 @@ export function Header() {
 
           {/* Search bar */}
           <form className="hidden sm:flex h-[44px] min-w-0 flex-1 items-center overflow-hidden rounded bg-white relative">
-            <input
-              type="text"
-              placeholder="Bạn muốn tìm gì ..."
-              className="h-full w-full min-w-0 border-0 px-4 text-[14px] text-slate-900 outline-none placeholder:text-slate-400"
-            />
+              <input
+                type="text"
+                placeholder={searchPlaceholder}
+                className="h-full w-full min-w-0 border-0 px-4 text-[14px] text-slate-900 outline-none placeholder:text-slate-400"
+              />
             <button type="button" className="absolute right-0 flex h-full shrink-0 items-center px-4 text-slate-600 bg-transparent hover:bg-slate-100 transition">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
@@ -155,7 +193,7 @@ export function Header() {
                 <span className="text-[11px] text-slate-400 font-semibold">Giỏ</span>
                 <span className="text-[13px] font-bold text-white">hàng</span>
               </div>
-              {totalCount > 0 && (
+              {hasMounted && totalCount > 0 && (
                 <span className="absolute top-0 right-10 -mt-1 -mr-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[9px] font-bold text-white transition-all scale-110">
                   {totalCount}
                 </span>
@@ -172,19 +210,19 @@ export function Header() {
         <div className="mx-auto flex max-w-[1270px] items-center justify-between px-3 py-2 text-[13px] font-bold text-black uppercase">
           <div className="flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <span>Chính hãng - Xuất VAT đầy đủ</span>
+            <span>{uspItems[0] || 'Chinh hang - Xuat VAT day du'}</span>
           </div>
           <div className="flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-            <span>Thu cũ lên đời - Trả góp 0%</span>
+            <span>{uspItems[1] || 'Thu cu len doi - Tra gop 0%'}</span>
           </div>
           <div className="flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-            <span>Giao nhanh - Freeship đơn 500K</span>
+            <span>{uspItems[2] || 'Giao nhanh - Freeship don 500K'}</span>
           </div>
           <div className="flex items-center gap-2">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a10 10 0 1 0 3.8-11.83l-3.23 3.86"></path></svg>
-            <span>45 ngày miễn phí 1 đổi 1</span>
+            <span>{uspItems[3] || '45 ngay mien phi 1 doi 1'}</span>
           </div>
         </div>
       </div>

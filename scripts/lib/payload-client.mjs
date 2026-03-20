@@ -8,8 +8,19 @@ import { getPayload } from 'payload';
 import { upsertMedia } from './media-utils.mjs';
 
 const projectRoot = path.resolve(new URL('../..', import.meta.url).pathname);
+const PLACEHOLDER_IMAGE_SOURCE = '/images/product-placeholder.svg'
 
 let payloadPromise;
+
+export async function destroyPayloadClient() {
+  if (!payloadPromise) {
+    return
+  }
+
+  const payload = await payloadPromise
+  payloadPromise = null
+  await payload.destroy()
+}
 
 function toRichTextParagraphs(paragraphs) {
   return {
@@ -83,7 +94,7 @@ function normalizeVariants(variants, fallbackPrice) {
   return variants
     .map((variant, index) => ({
       name: variant.name || variant.label || `Variant ${index + 1}`,
-      sku: variant.sku || null,
+      sku: variant.sku || variant.slug || null,
       price: typeof variant.price === 'number' ? variant.price : fallbackPrice,
       stock: typeof variant.stock === 'number' ? variant.stock : 0,
       color: variant.color || variant.label || null,
@@ -137,25 +148,49 @@ async function getOrCreateCategory(payload, product) {
   })
 }
 
-async function resolveMedia(payload, source, alt, tempDir, report) {
-  if (!source) {
-    return null
+async function resolveMedia(payload, source, alt, tempDir, report, slug = alt) {
+  const targetSource = source || PLACEHOLDER_IMAGE_SOURCE
+
+  try {
+    const mediaDoc = await upsertMedia(payload, targetSource, {
+      alt,
+      projectRoot,
+      report,
+      tempDir,
+    })
+
+    return mediaDoc?.id || null
+  } catch (error) {
+    if (targetSource === PLACEHOLDER_IMAGE_SOURCE) {
+      throw error
+    }
+
+    report.brokenMappings?.push({ slug, reason: `${error.message}; fallback placeholder image` })
+
+    const fallbackDoc = await upsertMedia(payload, PLACEHOLDER_IMAGE_SOURCE, {
+      alt,
+      projectRoot,
+      report,
+      tempDir,
+    })
+
+    return fallbackDoc?.id || null
   }
-
-  const mediaDoc = await upsertMedia(payload, source, {
-    alt,
-    projectRoot,
-    report,
-    tempDir,
-  })
-
-  return mediaDoc?.id || null
 }
 
 async function buildProductData(payload, product, tempDir, report) {
   const category = await getOrCreateCategory(payload, product)
-  const image = await resolveMedia(payload, product.image, product.name, tempDir, report)
+  const image = await resolveMedia(payload, product.image, product.name, tempDir, report, product.slug)
   const inventory = normalizeInventory(product.inventory)
+  const gallery = []
+
+  for (const source of product.gallery || []) {
+    const galleryImageId = await resolveMedia(payload, source, product.name, tempDir, report, product.slug)
+
+    if (galleryImageId && galleryImageId !== image && !gallery.some((item) => item.image === galleryImageId)) {
+      gallery.push({ image: galleryImageId, alt: product.name })
+    }
+  }
 
   return {
     name: product.name,
@@ -174,7 +209,7 @@ async function buildProductData(payload, product, tempDir, report) {
     family: product.raw?.family || undefined,
     image,
     mainImage: image,
-    gallery: [],
+    gallery,
     description: toRichTextParagraphs(product.description || []),
     highlights: normalizeHighlights(product.highlights),
     specs: product.specs || [],
@@ -191,6 +226,21 @@ async function buildProductData(payload, product, tempDir, report) {
   }
 }
 
+async function syncProductVariants(payload, productId, variants, report, slug) {
+  try {
+    await payload.update({
+      collection: 'products',
+      id: productId,
+      data: {
+        variants,
+      },
+      overrideAccess: true,
+    })
+  } catch (error) {
+    report.brokenMappings?.push({ slug, reason: `Variant sync skipped: ${error.message}` })
+  }
+}
+
 export async function getPayloadClient() {
   if (!payloadPromise) {
     payloadPromise = getPayload({ config })
@@ -202,6 +252,7 @@ export async function getPayloadClient() {
 export async function upsertProductsToPayload(products, report = {}) {
   const payload = await getPayloadClient()
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'task-2-products-'))
+  const variantPatches = []
   const result = {
     created: 0,
     updated: 0,
@@ -226,7 +277,31 @@ export async function upsertProductsToPayload(products, report = {}) {
           },
         })
 
+        if (existing.docs.length === 0 && duplicateField !== 'slug') {
+          const existingBySlug = await payload.find({
+            collection: 'products',
+            depth: 0,
+            limit: 1,
+            pagination: false,
+            overrideAccess: true,
+            where: {
+              slug: {
+                equals: product.slug,
+              },
+            },
+          })
+
+          if (existingBySlug.docs.length > 0) {
+            existing.docs = existingBySlug.docs
+          }
+        }
+
         const data = await buildProductData(payload, product, tempDir, report)
+        const variants = data.variants
+        const baseData = {
+          ...data,
+          variants: [],
+        }
         if (!data.image) {
           report.missingImageSources?.push({ slug: product.slug, reason: 'missing-primary-image' })
           result.skipped += 1
@@ -237,9 +312,12 @@ export async function upsertProductsToPayload(products, report = {}) {
           await payload.update({
             collection: 'products',
             id: existing.docs[0].id,
-            data,
+            data: baseData,
             overrideAccess: true,
           })
+          if (variants.length > 0) {
+            variantPatches.push({ id: existing.docs[0].id, slug: product.slug, variants })
+          }
           result.updated += 1
           if ((report.sampleChecks?.length || 0) < 5) {
             report.sampleChecks?.push({
@@ -254,11 +332,59 @@ export async function upsertProductsToPayload(products, report = {}) {
           continue
         }
 
-        await payload.create({
+        try {
+          await payload.create({
+            collection: 'products',
+            data: baseData,
+            overrideAccess: true,
+          })
+        } catch (error) {
+          if (String(error.message || '').includes('slug')) {
+            const existingBySlug = await payload.find({
+              collection: 'products',
+              depth: 0,
+              limit: 1,
+              pagination: false,
+              overrideAccess: true,
+              where: {
+                slug: {
+                  equals: product.slug,
+                },
+              },
+            })
+
+            if (existingBySlug.docs.length > 0) {
+              await payload.update({
+                collection: 'products',
+                id: existingBySlug.docs[0].id,
+                data: baseData,
+                overrideAccess: true,
+              })
+              if (variants.length > 0) {
+                variantPatches.push({ id: existingBySlug.docs[0].id, slug: product.slug, variants })
+              }
+              result.updated += 1
+              continue
+            }
+          }
+
+          throw error
+        }
+        const createdDocLookup = await payload.find({
           collection: 'products',
-          data,
+          depth: 0,
+          limit: 1,
+          pagination: false,
           overrideAccess: true,
+          where: {
+            slug: {
+              equals: product.slug,
+            },
+          },
         })
+        if (createdDocLookup.docs[0] && variants.length > 0) {
+          variantPatches.push({ id: createdDocLookup.docs[0].id, slug: product.slug, variants })
+        }
         result.created += 1
         if ((report.sampleChecks?.length || 0) < 5) {
           report.sampleChecks?.push({
@@ -274,6 +400,10 @@ export async function upsertProductsToPayload(products, report = {}) {
         report.brokenMappings?.push({ slug: product.slug, reason: error.message })
         result.skipped += 1
       }
+    }
+
+    for (const patch of variantPatches) {
+      await syncProductVariants(payload, patch.id, patch.variants, report, patch.slug)
     }
 
     return result

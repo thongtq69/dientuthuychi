@@ -2,16 +2,44 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  footerCertification,
-  footerContactInfo,
-  footerPolicyLinks,
-  footerServiceLinks,
-  footerShowrooms,
-  paymentBadges,
-  socialLinks,
-  siteMeta,
-} from '@/data/siteData';
+import { useState } from 'react';
+import { useSiteContent } from '@/components/SiteContentProvider';
+
+const DEFAULT_SITE_META = {
+  name: 'Điện tử Thủy Chi',
+  logo: '/logo-thuychi.jpg',
+  address: 'Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội',
+  email: 'thuychi@gmail.com',
+  hotline: '0899 918 668',
+};
+
+const DEFAULT_FOOTER_CONTACT_INFO = [
+  { label: 'Địa chỉ', value: DEFAULT_SITE_META.address, note: '' },
+  { label: 'Hotline', value: DEFAULT_SITE_META.hotline, note: '' },
+  { label: 'Email', value: DEFAULT_SITE_META.email, note: '' },
+  { label: 'Thời gian', value: 'Mở cửa: 08:00 - 22:00 mỗi ngày', note: '' },
+];
+
+const DEFAULT_FOOTER_POLICY_LINKS = ['Ưu đãi hội viên', 'Hướng dẫn mua hàng Online', 'Hướng dẫn thanh toán'];
+const DEFAULT_FOOTER_SERVICE_LINKS = ['Khách hàng doanh nghiệp (B2B)', 'Tuyển dụng', 'Điều khoản sử dụng'];
+const DEFAULT_FOOTER_SHOWROOMS = {
+  title: 'Showroom Thủy Chi',
+  hours: 'Giờ hoạt động Showroom: 8h30 - 21h30',
+  locations: [DEFAULT_SITE_META.address],
+};
+const DEFAULT_PAYMENT_BADGES = [
+  { title: 'Visa', image: '/images/footer-assets/visa.svg' },
+  { title: 'Mastercard', image: '/images/footer-assets/mastercard.svg' },
+  { title: 'ATM', image: '/images/footer-assets/atm.svg' },
+];
+const DEFAULT_SOCIAL_LINKS = [
+  { title: 'Facebook', href: '#', image: '/images/footer-assets/facebook.png' },
+  { title: 'TikTok', href: '#', image: '/images/footer-tiktok.svg' },
+];
+const DEFAULT_FOOTER_CERTIFICATION = {
+  title: 'Đã thông báo Bộ Công Thương',
+  image: '/images/footer-assets/bocongthuong.png',
+};
 
 function FooterSectionTitle({ children }) {
   return (
@@ -31,6 +59,18 @@ function PaymentBadge({ item }) {
 }
 
 export function Footer() {
+  const [logoSrc, setLogoSrc] = useState(null);
+  const siteContent = useSiteContent();
+  const footerCertification = siteContent?.footerCertification || DEFAULT_FOOTER_CERTIFICATION;
+  const footerContactInfo = siteContent?.footerContactInfo || DEFAULT_FOOTER_CONTACT_INFO;
+  const footerPolicyLinks = siteContent?.footerPolicyLinks || DEFAULT_FOOTER_POLICY_LINKS;
+  const footerServiceLinks = siteContent?.footerServiceLinks || DEFAULT_FOOTER_SERVICE_LINKS;
+  const footerShowrooms = siteContent?.footerShowrooms || DEFAULT_FOOTER_SHOWROOMS;
+  const paymentBadges = siteContent?.paymentBadges || DEFAULT_PAYMENT_BADGES;
+  const socialLinks = siteContent?.socialLinks || DEFAULT_SOCIAL_LINKS;
+  const siteMeta = siteContent?.siteMeta || DEFAULT_SITE_META;
+  const resolvedLogo = siteMeta?.logo || '/logo-thuychi.jpg';
+
   return (
     <footer className="mt-12 border-t border-slate-200 bg-white pt-10 pb-6 text-slate-800">
       <div className="mx-auto max-w-[1270px] space-y-8 overflow-x-hidden px-4 sm:px-5 lg:px-6">
@@ -40,10 +80,12 @@ export function Footer() {
               <Link href="/" className="inline-block">
                 <div className="relative h-[80px] w-[80px] overflow-hidden rounded-2xl bg-[#05030c] p-2">
                   <Image 
-                    src={siteMeta.logo} 
+                    src={logoSrc || resolvedLogo} 
                     alt={siteMeta.name} 
                     fill 
+                    sizes="80px"
                     className="object-contain"
+                    onError={() => setLogoSrc('/logo-thuychi.jpg')}
                   />
                 </div>
               </Link>

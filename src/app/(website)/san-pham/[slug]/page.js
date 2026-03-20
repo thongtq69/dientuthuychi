@@ -16,7 +16,7 @@ import { SpecificationsTable } from '@/components/SpecificationsTable';
 import { ProductInfoBox } from '@/components/ProductInfoBox';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { ProductCTA } from '@/components/ProductCTA';
-import { accessoryProducts, getProductBySlug, getRelatedProducts, products } from '@/data/siteData';
+import { getProductPageData, getProductRouteSlugs } from '@/lib/api/products';
 import { sanitizeProductName } from '@/lib/productDisplay';
 
 /* ── Helpers ── */
@@ -88,8 +88,8 @@ function filterGallery(images, primary) {
   const filtered = (images || []).filter(img =>
     img && typeof img === 'string' &&
     !EXCLUDE.some(k => img.toLowerCase().includes(k.toLowerCase())) &&
-    img.includes('cdn.dienthoaigiakho.vn') &&
-    (img.endsWith('.jpg') || img.endsWith('.png') || img.endsWith('.jpeg') || img.endsWith('.webp'))
+    (/^https?:\/\//.test(img) || img.startsWith('/')) &&
+    (img.endsWith('.jpg') || img.endsWith('.png') || img.endsWith('.jpeg') || img.endsWith('.webp') || img.startsWith('/media/'))
   );
   if (filtered.length > 0) return filtered.slice(0, 15);
   if (primary) return [primary];
@@ -99,14 +99,25 @@ function filterGallery(images, primary) {
 /* ── Metadata ── */
 export async function generateMetadata({ params }) {
   const { slug } = await params;
+  const { product } = await getProductPageData(slug);
   const data = getExtendedProductData(slug);
-  if (!data) return { title: 'Sản phẩm' };
+  if (!product && !data) return { title: 'Sản phẩm' };
+
   return {
-    title: sanitizeProductName(data.title || data.h1),
-    description: data.meta_description,
-    alternates: { canonical: data.canonical },
-    openGraph: { title: sanitizeProductName(data.h1), description: data.meta_description, images: [data.normalized_product?.primary_image] }
+    title: product?.seo?.title || sanitizeProductName(product?.name || data?.title || data?.h1 || 'Sản phẩm'),
+    description: product?.seo?.description || data?.meta_description,
+    alternates: { canonical: data?.canonical },
+    openGraph: {
+      title: product?.seo?.title || sanitizeProductName(product?.name || data?.h1 || 'Sản phẩm'),
+      description: product?.seo?.description || data?.meta_description,
+      images: [product?.image || data?.normalized_product?.primary_image].filter(Boolean),
+    },
   };
+}
+
+export async function generateStaticParams() {
+  const slugs = await getProductRouteSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 /* ── Page ── */
@@ -114,7 +125,8 @@ export default async function ProductDetailPage({ params, searchParams }) {
   const { slug } = await params;
   const { sku } = await searchParams;
   
-  const baseProduct = getProductBySlug(slug);
+  const { product: dataLayerProduct, relatedProducts } = await getProductPageData(slug);
+  const baseProduct = dataLayerProduct;
   const extendedData = getExtendedProductData(slug);
   if (!baseProduct && !extendedData) notFound();
 
@@ -176,7 +188,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
     ? Math.round((1 - price / originalPrice) * 100)
     : 0;
 
-  const related = getRelatedProducts(product, 10);
+  const related = relatedProducts;
 
   // Prepare product for cart
   const cartProduct = {
@@ -200,7 +212,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
           <div className="w-full lg:w-[58%]">
             <div className="rounded-xl bg-white p-3 sm:p-4 shadow-sm border border-slate-200/60">
               <ProductGallery
-                images={gallery.length > 0 ? gallery : ["https://cdn.dienthoaigiakho.vn/photos/1731313707122-Samsung-Galaxy-S25-Ultra-Den.jpg"]}
+                images={gallery.length > 0 ? gallery : ['https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/km_product1.png?1768028836881']}
                 alt={product.name}
               />
             </div>

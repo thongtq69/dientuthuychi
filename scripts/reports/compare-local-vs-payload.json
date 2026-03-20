@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-03-20T08:59:09.648Z",
+  "payload": {
+    "ok": true,
+    "error": null
+  },
+  "products": {
+    "counts": {
+      "local": 369,
+      "payload": 369,
+      "status": "match"
+    },
+    "slugDiff": {
+      "localOnly": [],
+      "payloadOnly": [],
+      "matched": 369
+    },
+    "categoryBreakdown": [
+      {
+        "key": "dien-thoai",
+        "local": 97,
+        "payload": 97,
+        "delta": 0
+      },
+      {
+        "key": "phu-kien",
+        "local": 250,
+        "payload": 250,
+        "delta": 0
+      },
+      {
+        "key": "tablet",
+        "local": 22,
+        "payload": 22,
+        "delta": 0
+      }
+    ],
+    "integrity": {
+      "checked": 369,
+      "mismatches": [
+        {
+          "slug": "oppo-reno13-5g-12gb512gb-likenew-fullbox",
+          "local": {
+            "hasImage": true,
+            "hasSpecs": true,
+            "variantCount": 2,
+            "galleryCount": 2
+          },
+          "payload": {
+            "hasImage": true,
+            "hasSpecs": true,
+            "variantCount": 2,
+            "galleryCount": 0
+          }
+        }
+      ],
+      "mismatchCount": 1
+    }
+  },
+  "banners": {
+    "counts": {
+      "local": 22,
+      "payload": 22,
+      "status": "match"
+    },
+    "slugDiff": {
+      "localOnly": [],
+      "payloadOnly": [],
+      "matched": 22
+    },
+    "positionBreakdown": [
+      {
+        "key": "collection-hero",
+        "local": 9,
+        "payload": 9,
+        "delta": 0
+      },
+      {
+        "key": "home-featured-category",
+        "local": 4,
+        "payload": 4,
+        "delta": 0
+      },
+      {
+        "key": "home-hero",
+        "local": 3,
+        "payload": 3,
+        "delta": 0
+      },
+      {
+        "key": "home-mid",
+        "local": 1,
+        "payload": 1,
+        "delta": 0
+      },
+      {
+        "key": "home-sky",
+        "local": 2,
+        "payload": 2,
+        "delta": 0
+      },
+      {
+        "key": "home-tablet-promo",
+        "local": 2,
+        "payload": 2,
+        "delta": 0
+      },
+      {
+        "key": "promo-campaign",
+        "local": 1,
+        "payload": 1,
+        "delta": 0
+      }
+    ]
+  },
+  "pages": {
+    "counts": {
+      "local": 314,
+      "payload": 314,
+      "status": "match"
+    },
+    "slugDiff": {
+      "localOnly": [
+        "Test-0002-1741877060",
+        "info/Gia-kho-member"
+      ],
+      "payloadOnly": [
+        "he-thong-cua-hang",
+        "info/gia-kho-member"
+      ],
+      "matched": 312
+    }
+  },
+  "posts": {
+    "counts": {
+      "local": 4,
+      "payload": 4,
+      "status": "match"
+    },
+    "slugDiff": {
+      "localOnly": [],
+      "payloadOnly": [],
+      "matched": 4
+    }
+  },
+  "status": "needs_attention",
+  "notes": {
+    "pagesSource": "Local pages are derived from `pages-json/*.json` with `page_type === content`.",
+    "productImageRule": "Integrity check flags products missing image/specs/variants parity or losing gallery data during migration.",
+    "projectRoot": "/Users/bephi/thuychi/dientuthuychi"
+  }
+}

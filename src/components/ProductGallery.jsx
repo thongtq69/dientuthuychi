@@ -34,7 +34,7 @@ export function ProductGallery({ images = [], alt }) {
               priority
               className={`object-contain transition-all duration-700 group-hover:scale-110 ${imageError ? 'opacity-0' : 'opacity-100'}`}
               onError={() => setImageError(true)}
-              onLoadingComplete={() => setImageError(false)}
+              onLoad={() => setImageError(false)}
             />
             {imageError && (
               <div className="flex h-full w-full items-center justify-center bg-slate-50 text-slate-300 flex-col gap-2">

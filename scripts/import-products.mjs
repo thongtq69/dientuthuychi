@@ -27,6 +27,19 @@ function parseArgs(argv) {
   };
 }
 
+function uniqueEntries(entries) {
+  const seen = new Set();
+
+  return (entries || []).filter((entry) => {
+    const key = JSON.stringify(entry);
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
 function buildProducts() {
   const rawTotal = sources.reduce((total, [, products]) => total + products.length, 0);
   const normalized = [];
@@ -86,8 +99,12 @@ async function main() {
   const mediaReport = createMediaReport();
 
   if (args.write) {
-    const { upsertProductsToPayload } = await import('./lib/payload-client.mjs');
-    writeResult = await upsertProductsToPayload(products, mediaReport);
+    const { destroyPayloadClient, upsertProductsToPayload } = await import('./lib/payload-client.mjs');
+    try {
+      writeResult = await upsertProductsToPayload(products, mediaReport);
+    } finally {
+      await destroyPayloadClient();
+    }
   }
 
   const finalReport = {
@@ -96,9 +113,9 @@ async function main() {
     writeResult,
     mediaTotals: mediaReport.totals,
     sampleChecks: mediaReport.sampleChecks,
-    missingImageSources: mediaReport.missingImageSources.slice(0, 20),
-    brokenMappings: mediaReport.brokenMappings.slice(0, 20),
-    missingProducts: mediaReport.missingProducts.slice(0, 20),
+    missingImageSources: uniqueEntries(mediaReport.missingImageSources).slice(0, 20),
+    brokenMappings: uniqueEntries(mediaReport.brokenMappings).slice(0, 20),
+    missingProducts: uniqueEntries(mediaReport.missingProducts).slice(0, 20),
   };
 
   await fs.mkdir(path.dirname(reportPath), { recursive: true });
@@ -115,6 +132,8 @@ async function main() {
   if (!args.write) {
     console.log('Dry run only. Add --write to upsert into Payload after Task 1 schema is ready.');
   }
+
+  process.exit(0);
 }
 
 main().catch((error) => {

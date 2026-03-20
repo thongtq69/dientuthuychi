@@ -1,5 +1,12 @@
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-export default function TradeInPage() {
-  redirect('/danh-muc/thu-cu-doi-moi');
+import { CmsLandingPage } from '@/components/CmsLandingPage';
+import { getStaticPageData } from '@/lib/api/content';
+
+export default async function TradeInPage() {
+  const page = await getStaticPageData('thu-cu-doi-moi');
+
+  if (!page) notFound();
+
+  return <CmsLandingPage page={page} />;
 }

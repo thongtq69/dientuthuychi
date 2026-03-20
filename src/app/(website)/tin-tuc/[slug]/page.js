@@ -6,19 +6,21 @@ import { BlogCard } from '@/components/BlogCard';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { getBlogPostBySlug, getLatestBlogPosts } from '@/data/siteData';
+import { RichTextRenderer } from '@/components/RichTextRenderer';
+import { getBlogListingData, getBlogPostData, getBlogPostSlugs } from '@/lib/api/content';
 
-export function generateStaticParams() {
-  return getLatestBlogPosts().map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const slugs = await getBlogPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export default async function BlogArticlePage({ params }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getBlogPostData(slug);
 
   if (!post) notFound();
 
-  const relatedPosts = getLatestBlogPosts().filter((item) => item.slug !== post.slug).slice(0, 3);
+  const relatedPosts = (await getBlogListingData()).filter((item) => item.slug !== post.slug).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -52,18 +54,24 @@ export default async function BlogArticlePage({ params }) {
             <div className="max-w-3xl">
               <p className="text-lg leading-8 text-slate-700">{post.intro}</p>
 
-              <div className="mt-8 space-y-8">
-                {post.sections.map((section) => (
-                  <section key={section.heading} className="space-y-4">
-                    <h2 className="text-2xl font-semibold tracking-normal text-slate-950">{section.heading}</h2>
-                    <div className="space-y-4 text-base leading-8 text-slate-700">
-                      {section.paragraphs.map((paragraph) => (
-                        <p key={paragraph}>{paragraph}</p>
-                      ))}
-                    </div>
-                  </section>
-                ))}
-              </div>
+              {post.content ? (
+                <div className="mt-8">
+                  <RichTextRenderer content={post.content} />
+                </div>
+              ) : Array.isArray(post.sections) ? (
+                <div className="mt-8 space-y-8">
+                  {post.sections.map((section) => (
+                    <section key={section.heading} className="space-y-4">
+                      <h2 className="text-2xl font-semibold tracking-normal text-slate-950">{section.heading}</h2>
+                      <div className="space-y-4 text-base leading-8 text-slate-700">
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             <aside className="space-y-4 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5 h-fit lg:sticky lg:top-28">

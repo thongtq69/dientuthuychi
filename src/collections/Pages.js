@@ -12,6 +12,18 @@ const normalizeSlug = (value) => {
     .replace(/^-+|-+$/g, '')
 }
 
+const normalizeRoutePath = (value) => {
+  if (typeof value !== 'string') return ''
+
+  const normalized = value
+    .split('/')
+    .map((segment) => normalizeSlug(segment))
+    .filter(Boolean)
+    .join('/')
+
+  return normalized
+}
+
 const syncSeo = (data) => {
   if (!data) return data
 
@@ -37,7 +49,7 @@ export const Pages = {
   admin: {
     useAsTitle: 'title',
     group: 'Nội dung',
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'routePath', 'updatedAt'],
   },
   access: {
     read: () => true,
@@ -50,7 +62,8 @@ export const Pages = {
       ({ data }) => {
         if (!data) return data
         data.title = normalizeText(data.title)
-        data.slug = normalizeSlug(data.slug || data.title)
+        data.routePath = normalizeRoutePath(data.routePath || data.slug || data.title)
+        data.slug = normalizeSlug(data.slug || data.routePath?.split('/').at(-1) || data.title)
         return syncSeo(data)
       },
     ],
@@ -66,12 +79,26 @@ export const Pages = {
       name: 'slug',
       type: 'text',
       required: true,
-      unique: true,
       index: true,
       label: 'Slug',
       validate: (value) => {
         if (!value) return 'Slug là bắt buộc'
         return normalizeSlug(value) === value ? true : 'Slug chỉ dùng chữ thường, số và dấu gạch ngang'
+      },
+    },
+    {
+      name: 'routePath',
+      type: 'text',
+      required: true,
+      unique: true,
+      index: true,
+      label: 'Route path',
+      admin: {
+        description: 'Duong dan public khong co dau / o dau. Ho tro nested route, vi du: info/chinh-sach-bao-mat',
+      },
+      validate: (value) => {
+        if (!value) return 'Route path là bắt buộc'
+        return normalizeRoutePath(value) === value ? true : 'Route path chỉ dùng slug va dau /'
       },
     },
     {

@@ -5,11 +5,16 @@ import { fileURLToPath } from 'url';
 import { buildConfig } from 'payload';
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import sharp from 'sharp';
 
 import { Media } from '../../src/collections/Media.js';
 import { Categories } from '../../src/collections/Categories.js';
 import { Products } from '../../src/collections/Products.js';
 import { Banners } from '../../src/collections/Banners.js';
+import { Pages } from '../../src/collections/Pages.js';
+import { Posts } from '../../src/collections/Posts.js';
+import { SiteSettings } from '../../src/globals/SiteSettings.js';
+import { Promotions } from '../../src/globals/Promotions.js';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -48,9 +53,12 @@ function loadDotEnv(filePath) {
 loadDotEnv(path.join(projectRoot, '.env'));
 
 const config = buildConfig({
-  collections: [Media, Categories, Products, Banners],
+  collections: [Media, Categories, Products, Banners, Pages, Posts],
+  globals: [SiteSettings, Promotions],
   editor: lexicalEditor({}),
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   secret: process.env.PAYLOAD_SECRET || 'ba4c9d7a2b3c4d5e6f7a8b9c0d1e2f3a',
+  sharp,
   db: mongooseAdapter({
     url: process.env.MONGODB_URI,
   }),

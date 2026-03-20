@@ -7,7 +7,7 @@ import { useCart } from './CartContext';
 
 export function ProductCard({ product }) {
    const { addItem, setIsCartOpen } = useCart();
-   const fallbackImage = 'https://cdn.dienthoaigiakho.vn/photos/1731313707122-Samsung-Galaxy-S25-Ultra-Den.jpg';
+   const fallbackImage = 'https://bizweb.dktcdn.net/100/112/815/themes/966034/assets/km_product1.png?1768028836881';
    const initialImage = useMemo(() => product.thumbnail || product.image || product.primary_image || fallbackImage, [product]);
    const [imageSrc, setImageSrc] = useState(initialImage);
    const brandLabel = product.brand && product.brand !== 'Khác' ? product.brand : product.category;
@@ -101,4 +101,3 @@ export function ProductCard({ product }) {
     </Link>
   );
 }
-

@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-03-19T02:25:12.792Z",
+  "dryRun": false,
+  "summary": {
+    "candidatePosts": 4
+  },
+  "importedSlugs": [
+    "ios-26-4-beta-1-co-gi-moi-iphone-nao-duoc-cap-nhat",
+    "iphone-cu-99-la-gi-dung-de-99-chi-la-loi-quang-cao",
+    "ios-26-3-beta-3-chinh-thuc-phat-hanh",
+    "2026-nhung-iphone-5s-van-duoc-cap-nhat-phan-mem-moi"
+  ],
+  "writeResult": {
+    "created": 4,
+    "updated": 0
+  },
+  "mediaTotals": {
+    "mediaCreated": 4,
+    "mediaReused": 0,
+    "productMatched": 0,
+    "productUpdated": 0,
+    "productMissing": 0,
+    "bannerMatched": 0,
+    "bannerCreated": 0,
+    "bannerUpdated": 0
+  },
+  "sampleChecks": [
+    {
+      "type": "post",
+      "slug": "ios-26-4-beta-1-co-gi-moi-iphone-nao-duoc-cap-nhat",
+      "category": "tin-tuc",
+      "hasCoverImage": true
+    },
+    {
+      "type": "post",
+      "slug": "iphone-cu-99-la-gi-dung-de-99-chi-la-loi-quang-cao",
+      "category": "huong-dan",
+      "hasCoverImage": true
+    },
+    {
+      "type": "post",
+      "slug": "ios-26-3-beta-3-chinh-thuc-phat-hanh",
+      "category": "tin-tuc",
+      "hasCoverImage": true
+    },
+    {
+      "type": "post",
+      "slug": "2026-nhung-iphone-5s-van-duoc-cap-nhat-phan-mem-moi",
+      "category": "tin-tuc",
+      "hasCoverImage": true
+    }
+  ],
+  "missingImageSources": [],
+  "brokenMappings": []
+}

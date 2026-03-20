@@ -2,15 +2,15 @@ import { BlogCard } from '@/components/BlogCard';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { SectionHeading } from '@/components/SectionHeading';
-import { getLatestBlogPosts } from '@/data/siteData';
+import { getBlogListingData } from '@/lib/api/content';
 
 export const metadata = {
   title: 'Tin tức | Điện tử Thuỷ Chi',
   description: 'Trang danh sách tin tức và tư vấn công nghệ theo phong cách storefront của Điện tử Thuỷ Chi.',
 };
 
-export default function BlogListingPage() {
-  const posts = getLatestBlogPosts();
+export default async function BlogListingPage() {
+  const posts = await getBlogListingData();
   const [featuredPost, ...otherPosts] = posts;
 
   return (

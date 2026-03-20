@@ -3,7 +3,7 @@ const HIDDEN_PRODUCT_PATTERN = /\btest\b/i;
 const ACCESSORY_PATTERN = /(sac|sạc|cap|cáp|tai nghe|op lung|ốp|bao da|mieng dan|miếng dán|cuong luc|cường lực|pin sac du phong|pin sạc dự phòng|ban phim|bàn phím|chuot|chuột|adapter|dock|hub|camera|but cam ung|bút cảm ứng|stylus|case|cover|strap|day deo|dây đeo|charger|power bank|powerstation|combo|ppf)/i;
 const PHONE_BRAND_PATTERN = /(samsung|galaxy|xiaomi|redmi|oppo|realme|vivo|nokia|tecno|infinix|honor|huawei|poco)/i;
 const TABLET_PATTERN = /(tablet|galaxy tab|xiaomi pad|redmi pad|matepad|oppo pad|lenovo tab|honor pad)/i;
-const INVALID_IMAGE_PATTERN = /(via\.placeholder\.com\/300x300|\/km_product\d+\.png)/i;
+const INVALID_IMAGE_PATTERN = /via\.placeholder\.com\/300x300/i;
 
 export const DISPLAY_CATEGORIES = {
   'dien-thoai': { tagName: 'dien-thoai', title: 'Điện Thoại', type: 'Brand' },
@@ -135,7 +135,7 @@ function normalizeVariants(rawProduct) {
     label: variant.label || variant.name || null,
     slug: variant.slug || null,
     href: variant.href || null,
-    sku: variant.sku || rawProduct.sku || null,
+    sku: variant.sku || variant.slug || null,
     price: typeof variant.price === 'number' ? variant.price : rawProduct.price ?? null,
     stock: typeof variant.stock === 'number' ? variant.stock : null,
     color: variant.color || variant.label || null,

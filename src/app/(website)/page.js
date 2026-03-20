@@ -1,109 +1,100 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import { ProductCard } from '@/components/ProductCard';
 import { BlogCard } from '@/components/BlogCard';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { HeroCarousel } from '@/components/HeroCarousel';
-import {
-  accessoryProducts,
-  phoneProducts,
-  categoryRailItems,
-  editorialSections,
-  featuredCategories,
-  getLatestBlogPosts,
-  heroSlides,
-  socialLinks,
-  storeBenefits,
-  tabletProducts,
-} from '@/data/siteData';
+import { ProductCard } from '@/components/ProductCard';
+import { getHomePageContent } from '@/lib/api/content';
+import { getHomepageProductData } from '@/lib/api/products';
 
-export default function Home() {
-  const posts = getLatestBlogPosts();
+const FALLBACK_SKY_BANNERS = [
+  {
+    title: 'Sky Left',
+    href: '/danh-muc/dien-thoai',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1772422775466-roll1-2.jpg',
+  },
+  {
+    title: 'Sky Right',
+    href: '/danh-muc/dien-thoai',
+    image: 'https://cdn.dienthoaigiakho.vn/photos/1773022062519-s26-pre-roll-1.jpg',
+  },
+];
+
+export default async function Home() {
+  const { accessoryProducts, phoneProducts, tabletProducts } = await getHomepageProductData()
+  const homeContent = await getHomePageContent();
+  const posts = homeContent.posts || [];
   const [featuredPost, ...secondaryPosts] = posts;
-  const guideVideos = editorialSections.videos || [];
+  const guideVideos = homeContent.guideVideos || [];
+  const skyBanners = homeContent.skyBanners?.length ? homeContent.skyBanners.slice(0, 2) : FALLBACK_SKY_BANNERS;
+  const socialLinks = homeContent.chrome.socialLinks || [];
+  const storeBenefits = homeContent.chrome.storeBenefits || [];
 
   return (
     <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
-      {/* Sky Banners - Exact Gia Kho Banners */}
-      <div className="fixed left-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
-         <div className="relative aspect-[1/5] w-full">
-            <Image 
-              src="https://cdn.dienthoaigiakho.vn/photos/1772422775466-roll1-2.jpg" 
-              alt="Sky Left" 
-              fill 
-              className="object-contain"
-            />
-         </div>
-      </div>
-      <div className="fixed right-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
-         <div className="relative aspect-[1/5] w-full">
-            <Image 
-              src="https://cdn.dienthoaigiakho.vn/photos/1773022062519-s26-pre-roll-1.jpg" 
-              alt="Sky Right" 
-              fill 
-              className="object-contain"
-            />
-         </div>
-      </div>
+      {skyBanners[0] ? (
+        <div className="fixed left-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
+          <Link href={skyBanners[0].href || '#'} className="relative block aspect-[1/5] w-full">
+            <Image src={skyBanners[0].image} alt={skyBanners[0].title} fill sizes="160px" className="object-contain" />
+          </Link>
+        </div>
+      ) : null}
+      {skyBanners[1] ? (
+        <div className="fixed right-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
+          <Link href={skyBanners[1].href || '#'} className="relative block aspect-[1/5] w-full">
+            <Image src={skyBanners[1].image} alt={skyBanners[1].title} fill sizes="160px" className="object-contain" />
+          </Link>
+        </div>
+      ) : null}
 
       <Header />
 
       <main className="mx-auto max-w-[1270px] px-3 py-3 sm:px-4 lg:py-4">
-        
-        {/* ============= HERO SECTION ============= */}
         <section className="grid gap-3 lg:grid-cols-[250px_minmax(0,1fr)] xl:grid-cols-[250px_minmax(0,1fr)]">
-          
-          {/* Left Category Sidebar */}
           <div className="hidden lg:block bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm">
-              <div className="flex flex-col">
-                {categoryRailItems.map((cat) => (
-                  <Link
-                    key={cat.title}
-                    href={cat.href}
-                    className="group flex items-center gap-3 border-b border-slate-50 last:border-0 px-4 py-[10px] text-[13.5px] font-medium text-slate-700 transition hover:bg-slate-50"
-                  >
-                    {cat.icon && (
-                      <div className="relative h-6 w-6 shrink-0">
-                        <Image src={cat.icon} alt={cat.title} fill className="object-contain" />
-                      </div>
-                    )}
-                    <span className="truncate group-hover:text-[#d70018]">{cat.title}</span>
-                    {cat.title === 'Thu Cũ Đổi Mới' && (
-                       <span className="ml-auto rounded-full bg-red-500 px-1.5 py-0.5 text-[9px] font-bold text-white animate-pulse">HOT</span>
-                    )}
-                  </Link>
-                ))}
+            <div className="flex flex-col">
+              {homeContent.chrome.categoryRailItems.map((cat) => (
+                <Link
+                  key={cat.title}
+                  href={cat.href}
+                  className="group flex items-center gap-3 border-b border-slate-50 last:border-0 px-4 py-[10px] text-[13.5px] font-medium text-slate-700 transition hover:bg-slate-50"
+                >
+                  {cat.icon ? (
+                    <div className="relative h-6 w-6 shrink-0">
+                      <Image src={cat.icon} alt={cat.title} fill sizes="24px" className="object-contain" />
+                    </div>
+                  ) : null}
+                  <span className="truncate group-hover:text-[#d70018]">{cat.title}</span>
+                  {cat.title === 'Thu Cũ Đổi Mới' ? (
+                    <span className="ml-auto rounded-full bg-red-500 px-1.5 py-0.5 text-[9px] font-bold text-white animate-pulse">HOT</span>
+                  ) : null}
+                </Link>
+              ))}
             </div>
           </div>
 
-          {/* Center slider */}
           <div className="relative z-0 w-full min-w-0">
-             <HeroCarousel slides={heroSlides} />
-           </div>
-
+            <HeroCarousel slides={homeContent.heroSlides} />
+          </div>
         </section>
 
-        {/* ============= CATEGORY ICON BAR ============= */}
-         <section className="mt-5 rounded-xl border border-slate-50 bg-white p-4 shadow-sm">
-            <div className="flex flex-wrap justify-center gap-x-4 gap-y-6 sm:gap-x-6 lg:gap-x-10">
-               {categoryRailItems.map((item) => (
-                  <Link key={item.title} href={item.href} className="group flex w-[92px] flex-col items-center gap-2 sm:w-[110px]">
-                     <div className="relative h-[60px] w-[60px] overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
-                        <Image src={item.icon || ''} alt={item.title} fill className="object-contain p-3 transition duration-300 group-hover:scale-110" />
-                     </div>
-                     <span className="text-center text-[12px] font-bold text-slate-800 leading-tight line-clamp-2 h-7 flex items-center">{item.title}</span>
-                  </Link>
-              ))}
-           </div>
+        <section className="mt-5 rounded-xl border border-slate-50 bg-white p-4 shadow-sm">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-6 sm:gap-x-6 lg:gap-x-10">
+            {homeContent.chrome.categoryRailItems.map((item) => (
+              <Link key={item.title} href={item.href} className="group flex w-[92px] flex-col items-center gap-2 sm:w-[110px]">
+                <div className="relative h-[60px] w-[60px] overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
+                  <Image src={item.icon || ''} alt={item.title} fill sizes="60px" className="object-contain p-3 transition duration-300 group-hover:scale-110" />
+                </div>
+                <span className="text-center text-[12px] font-bold text-slate-800 leading-tight line-clamp-2 h-7 flex items-center">{item.title}</span>
+              </Link>
+            ))}
+          </div>
         </section>
 
-        {/* ============= TOP COLLECTIONS ============= */}
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Top Collection</h2>
@@ -113,8 +104,8 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-4 xl:gap-5">
-            {featuredCategories.map((cat) => (
-              <Link key={cat.title} href={cat.href} className="group block w-[calc(50%-0.5rem)] overflow-hidden rounded-lg sm:w-[calc(33.333%-0.75rem)] md:w-[220px] lg:w-[250px] xl:w-[270px]">
+            {homeContent.featuredCategories.map((cat) => (
+              <Link key={cat.key || cat.title} href={cat.href || '#'} className="group block w-[calc(50%-0.5rem)] overflow-hidden rounded-lg sm:w-[calc(33.333%-0.75rem)] md:w-[220px] lg:w-[250px] xl:w-[270px]">
                 <div className="relative aspect-[3/4] overflow-hidden">
                   <Image
                     src={cat.image}
@@ -132,8 +123,6 @@ export default function Home() {
           </div>
         </section>
 
-        
-        {/* ============= FEATURED PRODUCTS ============= */}
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Điện thoại nổi bật</h2>
@@ -143,12 +132,12 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
             {phoneProducts.slice(0, 10).map((product, idx) => (
-               <ProductCard key={`${product.id}-${idx}`} product={product} /> 
+              <ProductCard key={`${product.id}-${idx}`} product={product} />
             ))}
           </div>
         </section>
 
-        {/* ============= TABLET ============= */}
+
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Thiết bị tablet</h2>
@@ -157,38 +146,23 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* 2 Mid-page Horizontal Banners */}
           <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <Link href="/danh-muc/tablet" className="group block overflow-hidden rounded-xl border border-slate-50 shadow-sm">
+            {homeContent.midPageBanners.slice(0, 2).map((banner) => (
+              <Link key={banner.key || banner.title} href={banner.href || '#'} className="group block overflow-hidden rounded-xl border border-slate-50 shadow-sm">
                 <div className="relative aspect-[595/214] w-full">
-                    <Image
-                        src="https://cdn.dienthoaigiakho.vn/photos/1770690260094-Android-Adapt-xiaomi-reedmi-pad-2-pro-1.jpg"
-                        alt="Left Mid Banner"
-                        fill
-                        className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                    />
+                  <Image src={banner.image} alt={banner.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition duration-500 group-hover:scale-[1.02]" />
                 </div>
-            </Link>
-            <Link href="/danh-muc/tablet" className="group block overflow-hidden rounded-xl border border-slate-50 shadow-sm">
-                <div className="relative aspect-[595/214] w-full">
-                    <Image
-                        src="https://cdn.dienthoaigiakho.vn/photos/1773028447455-top-colection-galaxy-tab.jpg"
-                        alt="Right Mid Banner"
-                        fill
-                        className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                    />
-                </div>
-            </Link>
+              </Link>
+            ))}
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
             {tabletProducts.slice(0, 10).map((product, idx) => (
-               <ProductCard key={`${product.id}-${idx}`} product={product} /> 
+              <ProductCard key={`${product.id}-${idx}`} product={product} />
             ))}
           </div>
         </section>
 
-        {/* ============= PHỤ KIỆN ============= */}
         <section className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm md:p-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-[22px] font-black tracking-tight text-[#05030c] uppercase">Phụ Kiện Công Nghệ</h2>
@@ -198,12 +172,11 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:gap-5">
             {accessoryProducts.slice(0, 10).map((product, idx) => (
-               <ProductCard key={`${product.id}-${idx}`} product={product} /> 
+              <ProductCard key={`${product.id}-${idx}`} product={product} />
             ))}
           </div>
         </section>
 
-        {/* ============= STORE BENEFITS ============= */}
         <section className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
           {storeBenefits.map((benefit) => (
             <div key={benefit} className="rounded border border-slate-200 bg-white px-4 py-3 text-[13px] font-bold text-slate-700 shadow-sm">
@@ -212,39 +185,39 @@ export default function Home() {
           ))}
         </section>
 
-        {/* ============= NEWS SECTION ============= */}
-        <section id="tin-tuc" className="mt-3 rounded border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="border-l-4 border-[#1b66d2] pl-3 text-[18px] font-black uppercase text-slate-900">Tin tức mới nhất</h2>
-            <Link href="/tin-tuc" className="text-[12px] font-bold uppercase text-[#1b66d2] hover:underline">
-              Xem toàn bộ →
-            </Link>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-4">
-            <article className="overflow-hidden rounded border border-slate-200 bg-slate-50 lg:col-span-2">
-              <Link href={`/tin-tuc/${featuredPost.slug}`} className="relative block aspect-[16/9]">
-                <Image src={featuredPost.image} alt={featuredPost.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+        {featuredPost ? (
+          <section id="tin-tuc" className="mt-3 rounded border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="border-l-4 border-[#1b66d2] pl-3 text-[18px] font-black uppercase text-slate-900">Tin tức mới nhất</h2>
+              <Link href="/tin-tuc" className="text-[12px] font-bold uppercase text-[#1b66d2] hover:underline">
+                Xem toàn bộ →
               </Link>
-              <div className="space-y-2 p-4">
-                <div className="text-[10px] font-bold uppercase text-[#1b66d2]">{featuredPost.date}</div>
-                <Link href={`/tin-tuc/${featuredPost.slug}`} className="block text-[16px] font-black leading-snug text-slate-950 transition hover:text-[#1b66d2]">
-                  {featuredPost.title}
-                </Link>
-                <p className="text-[13px] leading-6 text-slate-600">{featuredPost.excerpt}</p>
-              </div>
-            </article>
-
-            <div className="grid gap-3 lg:col-span-2 lg:grid-cols-2">
-              {secondaryPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} compact />
-              ))}
             </div>
-          </div>
-        </section>
 
-        {/* ============= GUIDE VIDEOS ============= */}
-        {guideVideos.length > 0 && (
+            <div className="grid gap-4 lg:grid-cols-4">
+              <article className="overflow-hidden rounded border border-slate-200 bg-slate-50 lg:col-span-2">
+                <Link href={`/tin-tuc/${featuredPost.slug}`} className="relative block aspect-[16/9]">
+                  <Image src={featuredPost.image} alt={featuredPost.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+                </Link>
+                <div className="space-y-2 p-4">
+                  <div className="text-[10px] font-bold uppercase text-[#1b66d2]">{featuredPost.date}</div>
+                  <Link href={`/tin-tuc/${featuredPost.slug}`} className="block text-[16px] font-black leading-snug text-slate-950 transition hover:text-[#1b66d2]">
+                    {featuredPost.title}
+                  </Link>
+                  <p className="text-[13px] leading-6 text-slate-600">{featuredPost.excerpt}</p>
+                </div>
+              </article>
+
+              <div className="grid gap-3 lg:col-span-2 lg:grid-cols-2">
+                {secondaryPosts.map((post) => (
+                  <BlogCard key={post.slug} post={post} compact />
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {guideVideos.length > 0 ? (
           <section className="mt-3 rounded border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="border-l-4 border-[#1b66d2] pl-3 text-[18px] font-black uppercase text-slate-900">Hướng Dẫn Thủ Thuật</h2>
@@ -258,14 +231,13 @@ export default function Home() {
                   <div className="relative aspect-[16/10] overflow-hidden rounded border border-slate-200 bg-slate-100">
                     <Image src={video.image} alt={video.title} fill sizes="240px" className="object-cover transition duration-500 group-hover:scale-105" />
                   </div>
-                  <div className="mt-2 line-clamp-2 text-[13px] font-bold leading-5 text-slate-900">{video.title}</div>
+                  <div className="mt-3 text-sm font-semibold leading-6 text-slate-900">{video.title}</div>
                 </article>
               ))}
             </div>
           </section>
-        )}
+        ) : null}
 
-        {/* ============= NEWSLETTER + SOCIAL ============= */}
         <section className="mt-3 overflow-hidden rounded bg-black text-white">
           <div className="flex flex-col gap-3 px-4 py-4 lg:flex-row lg:items-center lg:justify-between">
             <form className="flex w-full max-w-xl overflow-hidden rounded bg-white">
@@ -276,15 +248,9 @@ export default function Home() {
               <span className="font-semibold">Kết nối với chúng tôi:</span>
               <div className="flex gap-2">
                 {socialLinks.map((item) => (
-                  item.href && item.href !== '#' ? (
-                    <a key={item.title} href={item.href} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
-                      <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
-                    </a>
-                  ) : (
-                    <div key={item.title} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
-                      <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
-                    </div>
-                  )
+                  <a key={item.title} href={item.href || '#'} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
+                    <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
+                  </a>
                 ))}
               </div>
             </div>
