@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-20T10:53:57.428Z",
+  "generatedAt": "2026-03-20T11:32:32.886Z",
   "projectRoot": "/Users/bephi/thuychi/dientuthuychi",
   "featureFlags": {
     "env": {
@@ -11,7 +11,7 @@
       "fallback-local": "Keep local data as the primary source while migration work is still incomplete.",
       "payload-only": "Disable local fallback and fail fast if Payload data is missing or unavailable."
     },
-    "defaultMode": "payload-only"
+    "defaultMode": "payload-first"
   },
   "routeAudit": {
     "directDataModules": [
@@ -23,12 +23,12 @@
   },
   "rolloutChecklist": [
     "Run `npm run compare:payload` and review count or slug mismatches before switching traffic.",
-    "Keep `PAYLOAD_DATA_MODE=payload-only` so storefront data reads from Mongo/Payload instead of local hardcoded fallbacks.",
+    "Keep `PAYLOAD_DATA_MODE=payload-first` during migration so Mongo/Payload is preferred without losing old storefront data.",
     "Smoke test homepage, category, product detail, blog, and static pages after every import run.",
-    "If compare reports show mismatches, fix the Payload data or import scripts instead of switching back to local hardcoded sources."
+    "Move to `payload-only` only after compare reports are clean and image parity is confirmed."
   ],
   "rollbackChecklist": [
-    "Set `PAYLOAD_DATA_MODE=payload-first` only if you need a temporary safety net while fixing Mongo/Payload data.",
+    "Set `PAYLOAD_DATA_MODE=fallback-local` only as an emergency rollback if Payload becomes unavailable.",
     "If Payload traffic must stop completely, keep the same code and turn off Payload-dependent routes or credentials instead of deleting local fallback.",
     "Re-run `npm run qa:report` and `npm run compare:payload` to capture the failure state for follow-up work."
   ],

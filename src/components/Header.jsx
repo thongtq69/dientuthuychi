@@ -66,14 +66,19 @@ export function Header() {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex items-center justify-center p-1 h-[68px]">
+          <Link 
+            href="/" 
+            className="shrink-0 p-1"
+            style={{ height: '72px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
             <Image
               src={logoSrc || resolvedLogo}
               alt={siteMeta.name}
               width={64}
               height={64}
               priority
-              className="h-[64px] w-auto object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
+              style={{ height: '64px', width: 'auto', display: 'block', maxHeight: '64px' }}
+              className="object-contain object-center transition-all duration-300 hover:brightness-110 active:scale-95"
               onError={() => setLogoSrc('/logo-thuychi.jpg')}
             />
           </Link>
