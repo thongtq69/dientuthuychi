@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T02:25:12.792Z",
+  "generatedAt": "2026-03-20T11:14:17.272Z",
   "dryRun": false,
   "summary": {
     "candidatePosts": 4
@@ -11,12 +11,12 @@
     "2026-nhung-iphone-5s-van-duoc-cap-nhat-phan-mem-moi"
   ],
   "writeResult": {
-    "created": 4,
-    "updated": 0
+    "created": 0,
+    "updated": 4
   },
   "mediaTotals": {
-    "mediaCreated": 4,
-    "mediaReused": 0,
+    "mediaCreated": 0,
+    "mediaReused": 4,
     "productMatched": 0,
     "productUpdated": 0,
     "productMissing": 0,

@@ -38,14 +38,14 @@ export default async function Home() {
     <div className="min-h-screen bg-[#f3f5f7] text-slate-900">
       {skyBanners[0] ? (
         <div className="fixed left-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
-          <Link href={skyBanners[0].href || '#'} className="relative block aspect-[1/5] w-full">
+          <Link href={skyBanners[0].href || '#'} className="relative block aspect-[1/5] w-full" style={{ aspectRatio: '1/5' }}>
             <Image src={skyBanners[0].image} alt={skyBanners[0].title} fill sizes="160px" className="object-contain" />
           </Link>
         </div>
       ) : null}
       {skyBanners[1] ? (
         <div className="fixed right-0 top-[150px] hidden 2xl:block z-10 w-[160px] px-2 transition-all">
-          <Link href={skyBanners[1].href || '#'} className="relative block aspect-[1/5] w-full">
+          <Link href={skyBanners[1].href || '#'} className="relative block aspect-[1/5] w-full" style={{ aspectRatio: '1/5' }}>
             <Image src={skyBanners[1].image} alt={skyBanners[1].title} fill sizes="160px" className="object-contain" />
           </Link>
         </div>

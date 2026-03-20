@@ -66,7 +66,7 @@ export function Header() {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex items-center justify-center p-1">
+          <Link href="/" className="shrink-0 flex items-center justify-center p-1 h-[68px]">
             <Image
               src={logoSrc || resolvedLogo}
               alt={siteMeta.name}

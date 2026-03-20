@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-18T16:19:00.264Z",
+  "generatedAt": "2026-03-20T11:17:37.982Z",
   "report": {
     "rawTotal": 2432,
     "filteredTotal": 838,
@@ -10,7 +10,7 @@
       "dien-thoai": 97,
       "phu-kien": 250
     },
-    "missingImage": 23,
+    "missingImage": 0,
     "missingSpecs": 251,
     "sample": [
       {
@@ -61,8 +61,8 @@
     "skipped": 0
   },
   "mediaTotals": {
-    "mediaCreated": 0,
-    "mediaReused": 381,
+    "mediaCreated": 1,
+    "mediaReused": 380,
     "productMatched": 0,
     "productUpdated": 0,
     "productMissing": 0,
