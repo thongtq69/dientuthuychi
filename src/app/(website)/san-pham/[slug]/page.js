@@ -81,6 +81,21 @@ function extractDetailsFromText(text) {
   return sections.filter(s => s.content.length > 30);
 }
 
+function normalizeDescriptionSections(description) {
+  if (Array.isArray(description)) {
+    return description.filter(Boolean);
+  }
+
+  if (typeof description === 'string') {
+    return description
+      .split(/\n{2,}/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
 /* ── Image Filter ── */
 const EXCLUDE = ['icon','logo','home-credit','kredivo','warranty','warehouse','banner','hero-badge','coupon','payment','he-thong','gio-hang','menu-bar','thong-tin','hot.svg','shield','badge','back-ground','u-u-dai','giakho','facebook','youtube','tiktok','zalo','messenger','instagram','authentic','instalment','fast-delivery','free-return','Subbaner','SUB-BANNER','align-price'];
 
@@ -165,7 +180,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
     ? product.featured_highlights.map((item) => (typeof item === 'string' ? { heading: '', content: item } : item))
     : extractDetailsFromText(product.text_content).length > 0
       ? extractDetailsFromText(product.text_content)
-      : (product.description || []).map((item, index) => ({ heading: index === 0 ? 'Giới thiệu' : '', content: item }));
+      : normalizeDescriptionSections(product.description).map((item, index) => ({ heading: index === 0 ? 'Giới thiệu' : '', content: item }));
 
   const gallery = filterGallery(product.images_list, product.primary_image || product.image);
 

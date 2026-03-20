@@ -6,12 +6,13 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 const { protocol, hostname, port } = new URL(serverUrl);
+const shouldDisableImageOptimization = process.env.VERCEL === '1';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: dirname,
   images: {
-    unoptimized: true,
+    unoptimized: shouldDisableImageOptimization,
     remotePatterns: [
       {
         protocol: protocol.replace(':', ''),
