@@ -129,9 +129,16 @@ const normalizeSettings = (settings, promotion) => {
   }
 }
 
-export const getSiteSettings = async (options = {}) => {
+const siteSettingsCache = new Map()
+
+const getSiteSettingsCached = async (mode = '') => {
+  if (siteSettingsCache.has(mode)) {
+    return siteSettingsCache.get(mode)
+  }
+
+  const promise = (async () => {
   const result = await withPayloadFallback({
-    mode: options.mode,
+    mode,
     loadPayload: async (payload) => {
       const [settings, promotion] = await Promise.all([
         payload.findGlobal({ slug: 'site-settings', depth: 2, draft: false }),
@@ -145,6 +152,14 @@ export const getSiteSettings = async (options = {}) => {
   })
 
   return result.data
+  })()
+
+  siteSettingsCache.set(mode, promise)
+  return promise
+}
+
+export const getSiteSettings = async (options = {}) => {
+  return getSiteSettingsCached(options.mode || '')
 }
 
 export const getPromotionSettings = async (options = {}) => {

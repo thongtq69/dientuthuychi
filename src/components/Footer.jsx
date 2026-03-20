@@ -43,6 +43,7 @@ export function Footer() {
   const context = useSiteContent();
   const chrome = context?.chrome || context || {};
   const [activeTab, setActiveTab] = useState(0);
+  const [logoSrc, setLogoSrc] = useState(null);
 
   const siteData = chrome.siteMeta || DEFAULT_SITE_META;
   const contactInfo = chrome.footerContactInfo || DEFAULT_FOOTER_CONTACT_INFO;
@@ -58,8 +59,16 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-8">
           {/* Brand and Services */}
           <div className="space-y-6">
-            <div className="relative h-12 w-48">
-              <Image src={siteData.logo || '/logo-thuychi.jpg'} alt={siteData.name} fill className="object-contain object-left" />
+            <div className="flex h-12 w-48 items-center justify-start">
+              <Image 
+                src={logoSrc || siteData.logo || '/logo-thuychi.jpg'} 
+                alt={siteData.name} 
+                width={192} 
+                height={48} 
+                style={{ height: '48px', width: 'auto', display: 'block' }}
+                className="object-contain object-left" 
+                onError={() => setLogoSrc('/logo-thuychi.jpg')}
+              />
             </div>
             <div className="space-y-3">
               <h4 className="text-[15px] font-black uppercase text-slate-800">Dịch vụ cá nhân</h4>
@@ -116,8 +125,8 @@ export function Footer() {
               <h4 className="text-[15px] font-black uppercase text-slate-800">Kết nối với chúng tôi</h4>
               <div className="flex gap-2">
                 {social.map((item) => (
-                  <a key={item.title} href={item.href || '#'} target="_blank" rel="noopener noreferrer" className="relative h-9 w-9 overflow-hidden rounded-lg bg-slate-50 border border-slate-100 p-1.5 transition hover:shadow-md hover:border-blue-100">
-                    <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
+                  <a key={item.title} href={item.href || '#'} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-100 p-1.5 transition hover:shadow-md hover:border-blue-100">
+                    <Image src={item.image} alt={item.title} width={24} height={24} className="object-contain" />
                   </a>
                 ))}
               </div>
@@ -131,8 +140,8 @@ export function Footer() {
               <span className="text-[12px] font-bold uppercase text-slate-400">Thanh toán an toàn:</span>
               <div className="flex gap-2.5">
                 {payments.map((p) => (
-                  <div key={p.title} className="relative h-6 w-10 overflow-hidden rounded bg-white shadow-[0_1px_3px_rgba(0,0,0,0.1)] grayscale hover:grayscale-0 transition duration-300">
-                    <Image src={p.image} alt={p.title} fill className="object-contain p-1" />
+                  <div key={p.title} className="flex h-6 w-10 items-center justify-center overflow-hidden rounded bg-white shadow-[0_1px_3px_rgba(0,0,0,0.1)] grayscale hover:grayscale-0 transition duration-300">
+                    <Image src={p.image} alt={p.title} width={32} height={16} className="object-contain" />
                   </div>
                 ))}
               </div>

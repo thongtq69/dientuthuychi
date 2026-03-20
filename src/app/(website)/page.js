@@ -64,8 +64,8 @@ export default async function Home() {
                   className="group flex items-center gap-3 border-b border-slate-50 last:border-0 px-4 py-[10px] text-[13.5px] font-medium text-slate-700 transition hover:bg-slate-50"
                 >
                   {cat.icon ? (
-                    <div className="relative h-6 w-6 shrink-0">
-                      <Image src={cat.icon} alt={cat.title} fill sizes="24px" className="object-contain" />
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center">
+                      <Image src={cat.icon} alt={cat.title} width={24} height={24} className="object-contain" />
                     </div>
                   ) : null}
                   <span className="truncate group-hover:text-[#d70018]">{cat.title}</span>
@@ -86,8 +86,8 @@ export default async function Home() {
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-6 sm:gap-x-6 lg:gap-x-10">
             {homeContent.chrome.categoryRailItems.map((item) => (
               <Link key={item.title} href={item.href} className="group flex w-[92px] flex-col items-center gap-2 sm:w-[110px]">
-                <div className="relative h-[60px] w-[60px] overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
-                  <Image src={item.icon || ''} alt={item.title} fill sizes="60px" className="object-contain p-3 transition duration-300 group-hover:scale-110" />
+                <div className="flex h-[60px] w-[60px] items-center justify-center overflow-hidden rounded-full bg-slate-50 transition group-hover:shadow-md">
+                  <Image src={item.icon || ''} alt={item.title} width={40} height={40} className="object-contain transition duration-300 group-hover:scale-110" />
                 </div>
                 <span className="text-center text-[12px] font-bold text-slate-800 leading-tight line-clamp-2 h-7 flex items-center">{item.title}</span>
               </Link>
@@ -248,8 +248,8 @@ export default async function Home() {
               <span className="font-semibold">Kết nối với chúng tôi:</span>
               <div className="flex gap-2">
                 {socialLinks.map((item) => (
-                  <a key={item.title} href={item.href || '#'} className="relative h-8 w-8 overflow-hidden rounded bg-white" title={item.title}>
-                    <Image src={item.image} alt={item.title} fill sizes="32px" className="object-contain" />
+                  <a key={item.title} href={item.href || '#'} className="flex h-8 w-8 items-center justify-center overflow-hidden rounded bg-white" title={item.title}>
+                    <Image src={item.image} alt={item.title} width={24} height={24} className="object-contain" />
                   </a>
                 ))}
               </div>

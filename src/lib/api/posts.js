@@ -38,13 +38,20 @@ const normalizePost = (post) => {
   }
 }
 
-export const getPosts = async (options = {}) => {
+const postsCache = new Map()
+
+const getPostsCached = async (mode = '') => {
+  if (postsCache.has(mode)) {
+    return postsCache.get(mode)
+  }
+
+  const promise = (async () => {
   const result = await withPayloadFallback({
-    mode: options.mode,
+    mode,
     loadPayload: async (payload) => {
       const response = await payload.find({
         collection: 'posts',
-        depth: 2,
+        depth: 1,
         draft: false,
         limit: DEFAULT_QUERY_LIMIT,
         sort: '-publishedAt',
@@ -62,6 +69,14 @@ export const getPosts = async (options = {}) => {
   })
 
   return result.data
+  })()
+
+  postsCache.set(mode, promise)
+  return promise
+}
+
+export const getPosts = async (options = {}) => {
+  return getPostsCached(options.mode || '')
 }
 
 export const getLatestPosts = async (limit = 4, options = {}) => {

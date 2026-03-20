@@ -206,9 +206,9 @@ const loadPayloadProducts = async (options = {}) => {
     loadPayload: async (payload) => {
       const response = await payload.find({
         collection: 'products',
-        depth: 2,
+        depth: 1,
         draft: false,
-        limit: DEFAULT_QUERY_LIMIT,
+        limit: Math.max(DEFAULT_QUERY_LIMIT, 500),
         sort: '-updatedAt',
         where: {
           isActive: {
@@ -228,14 +228,29 @@ const loadPayloadProducts = async (options = {}) => {
   return result
 }
 
-export const getProducts = async (options = {}) => {
-  const result = await loadPayloadProducts(options)
+const productsCache = new Map()
 
-  if (result.source === 'payload' && resolvePayloadDataMode(options.mode) !== 'payload-only') {
+const getProductsCached = async (mode = '') => {
+  if (productsCache.has(mode)) {
+    return productsCache.get(mode)
+  }
+
+  const promise = (async () => {
+  const result = await loadPayloadProducts({ mode })
+
+  if (result.source === 'payload' && resolvePayloadDataMode(mode) !== 'payload-only') {
     return mergeProductsWithLocalFallback(result.data, localProducts)
   }
 
   return result.data
+  })()
+
+  productsCache.set(mode, promise)
+  return promise
+}
+
+export const getProducts = async (options = {}) => {
+  return getProductsCached(options.mode || '')
 }
 
 export const getProductBySlug = async (slug, options = {}) => {
@@ -370,12 +385,10 @@ const getFeaturedProducts = (collection, sourceProducts) => {
 }
 
 export const getHomepageProductData = async (options = {}) => {
-  const [products, phoneProducts, tabletProducts, accessoryProducts] = await Promise.all([
-    getProducts(options),
-    getProductsByCategory('dien-thoai', options),
-    getProductsByCategory('tablet', options),
-    getProductsByCategory('phu-kien', options),
-  ])
+  const products = await getProducts(options)
+  const phoneProducts = products.filter((product) => product.categorySlug === 'dien-thoai' || product.category === 'dien-thoai')
+  const tabletProducts = products.filter((product) => product.categorySlug === 'tablet' || product.category === 'tablet')
+  const accessoryProducts = products.filter((product) => product.categorySlug === 'phu-kien' || product.category === 'phu-kien')
 
   return {
     phoneProducts: getHomepageProductsWithImagesFirst(phoneProducts, localPhoneProducts),

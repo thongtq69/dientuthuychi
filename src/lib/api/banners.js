@@ -39,13 +39,20 @@ const isBannerActive = (banner) => {
   return true
 }
 
-export const getBanners = async (options = {}) => {
+const bannersCache = new Map()
+
+const getBannersCached = async (mode = '') => {
+  if (bannersCache.has(mode)) {
+    return bannersCache.get(mode)
+  }
+
+  const promise = (async () => {
   const result = await withPayloadFallback({
-    mode: options.mode,
+    mode,
     loadPayload: async (payload) => {
       const response = await payload.find({
         collection: 'banners',
-        depth: 2,
+        depth: 1,
         draft: false,
         limit: DEFAULT_QUERY_LIMIT,
         sort: 'sortOrder',
@@ -58,6 +65,14 @@ export const getBanners = async (options = {}) => {
   })
 
   return result.data
+  })()
+
+  bannersCache.set(mode, promise)
+  return promise
+}
+
+export const getBanners = async (options = {}) => {
+  return getBannersCached(options.mode || '')
 }
 
 export const getBannersByPosition = async (position, options = {}) => {
