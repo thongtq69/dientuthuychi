@@ -798,6 +798,11 @@ export function getProductsByCategory(category) {
     return directMatches;
   }
 
+  // Avoid recursion for base categories
+  if (category === 'dien-thoai' || category === 'tablet' || category === 'phu-kien') {
+    return [];
+  }
+
   return getCollectionProductsBySlug(category);
 }
 

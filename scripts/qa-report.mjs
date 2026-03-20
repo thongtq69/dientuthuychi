@@ -15,18 +15,18 @@ const featureFlags = {
     'fallback-local': 'Keep local data as the primary source while migration work is still incomplete.',
     'payload-only': 'Disable local fallback and fail fast if Payload data is missing or unavailable.',
   },
-  defaultMode: 'fallback-local',
+  defaultMode: 'payload-first',
 };
 
 const rolloutChecklist = [
   'Run `npm run compare:payload` and review count or slug mismatches before switching traffic.',
-  'Keep mode at `fallback-local` until Task 2, Task 4, Task 6, and Task 7 finish their data paths.',
-  'Switch to `payload-first` in staging or a controlled environment and smoke test homepage, category, product detail, blog, and static pages.',
-  'Promote to production with `payload-first`, monitor fetch failures or missing content, then consider `payload-only` only after compare reports are clean.',
+  'Keep `PAYLOAD_DATA_MODE=payload-first` during migration so Mongo/Payload is preferred without losing old storefront data.',
+  'Smoke test homepage, category, product detail, blog, and static pages after every import run.',
+  'Move to `payload-only` only after compare reports are clean and image parity is confirmed.',
 ];
 
 const rollbackChecklist = [
-  'Set `PAYLOAD_DATA_MODE=fallback-local` and redeploy or restart the app.',
+  'Set `PAYLOAD_DATA_MODE=fallback-local` only as an emergency rollback if Payload becomes unavailable.',
   'If Payload traffic must stop completely, keep the same code and turn off Payload-dependent routes or credentials instead of deleting local fallback.',
   'Re-run `npm run qa:report` and `npm run compare:payload` to capture the failure state for follow-up work.',
 ];
@@ -41,9 +41,9 @@ async function main() {
     rolloutChecklist,
     rollbackChecklist,
     risks: [
-      'Task 2 product import is still blocked, so compare results can show product mismatches even if QA tooling is healthy.',
-      'Task 4 has not migrated pages/posts/globals yet, so page and post counts are expected to lag behind local sources.',
-      'Several public routes still depend on `src/data/*`, so `payload-only` is not safe until Task 5/6/7 move those paths behind the shared data layer.',
+      'Payload compare still reports 1 product integrity mismatch, so gallery parity should be cleaned up in Mongo.',
+      'A few unused components still import `src/data/*`; they do not drive public routes now, but should be cleaned up if reused later.',
+      'Cloudinary sync depends on valid env vars and will silently skip upload when they are missing.',
     ],
   };
 

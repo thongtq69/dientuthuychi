@@ -24,172 +24,124 @@ const DEFAULT_FOOTER_POLICY_LINKS = ['Ưu đãi hội viên', 'Hướng dẫn mu
 const DEFAULT_FOOTER_SERVICE_LINKS = ['Khách hàng doanh nghiệp (B2B)', 'Tuyển dụng', 'Điều khoản sử dụng'];
 const DEFAULT_FOOTER_SHOWROOMS = {
   title: 'Showroom Thủy Chi',
-  hours: 'Giờ hoạt động Showroom: 8h30 - 21h30',
   locations: [DEFAULT_SITE_META.address],
 };
+
+const DEFAULT_SOCIAL_LINKS = [
+  { title: 'Facebook', href: '#', image: '/images/footer-assets/facebook.png' },
+  { title: 'Instagram', href: '#', image: '/images/footer-assets/instagram.png' },
+  { title: 'Youtube', href: '#', image: '/images/footer-assets/youtube.png' },
+];
+
 const DEFAULT_PAYMENT_BADGES = [
   { title: 'Visa', image: '/images/footer-assets/visa.svg' },
   { title: 'Mastercard', image: '/images/footer-assets/mastercard.svg' },
-  { title: 'ATM', image: '/images/footer-assets/atm.svg' },
+  { title: 'Momo', image: '/images/footer-assets/momo.webp' },
 ];
-const DEFAULT_SOCIAL_LINKS = [
-  { title: 'Facebook', href: '#', image: '/images/footer-assets/facebook.png' },
-  { title: 'TikTok', href: '#', image: '/images/footer-tiktok.svg' },
-];
-const DEFAULT_FOOTER_CERTIFICATION = {
-  title: 'Đã thông báo Bộ Công Thương',
-  image: '/images/footer-assets/bocongthuong.png',
-};
-
-function FooterSectionTitle({ children }) {
-  return (
-    <div className="space-y-3">
-      <h3 className="text-[18px] font-black uppercase tracking-normal text-slate-900 sm:text-[20px]">{children}</h3>
-      <div className="h-1 w-24 rounded-full bg-[#f4cf16]" />
-    </div>
-  );
-}
-
-function PaymentBadge({ item }) {
-  return (
-    <div className="relative h-[68px] overflow-hidden rounded-[10px] border border-slate-300 bg-white shadow-[0_2px_6px_rgba(15,23,42,0.06)]">
-      <Image src={item.image} alt={item.title} fill sizes="160px" className="object-contain p-2.5" />
-    </div>
-  );
-}
 
 export function Footer() {
-  const [logoSrc, setLogoSrc] = useState(null);
-  const siteContent = useSiteContent();
-  const footerCertification = siteContent?.footerCertification || DEFAULT_FOOTER_CERTIFICATION;
-  const footerContactInfo = siteContent?.footerContactInfo || DEFAULT_FOOTER_CONTACT_INFO;
-  const footerPolicyLinks = siteContent?.footerPolicyLinks || DEFAULT_FOOTER_POLICY_LINKS;
-  const footerServiceLinks = siteContent?.footerServiceLinks || DEFAULT_FOOTER_SERVICE_LINKS;
-  const footerShowrooms = siteContent?.footerShowrooms || DEFAULT_FOOTER_SHOWROOMS;
-  const paymentBadges = siteContent?.paymentBadges || DEFAULT_PAYMENT_BADGES;
-  const socialLinks = siteContent?.socialLinks || DEFAULT_SOCIAL_LINKS;
-  const siteMeta = siteContent?.siteMeta || DEFAULT_SITE_META;
-  const resolvedLogo = siteMeta?.logo || '/logo-thuychi.jpg';
+  const context = useSiteContent();
+  const chrome = context?.chrome || context || {};
+  const [activeTab, setActiveTab] = useState(0);
+
+  const siteData = chrome.siteMeta || DEFAULT_SITE_META;
+  const contactInfo = chrome.footerContactInfo || DEFAULT_FOOTER_CONTACT_INFO;
+  const policyLinks = chrome.footerPolicyLinks || DEFAULT_FOOTER_POLICY_LINKS;
+  const serviceLinks = chrome.footerServiceLinks || DEFAULT_FOOTER_SERVICE_LINKS;
+  const showrooms = chrome.footerShowrooms || DEFAULT_FOOTER_SHOWROOMS;
+  const social = chrome.socialLinks || DEFAULT_SOCIAL_LINKS;
+  const payments = chrome.paymentBadges || DEFAULT_PAYMENT_BADGES;
 
   return (
-    <footer className="mt-12 border-t border-slate-200 bg-white pt-10 pb-6 text-slate-800">
-      <div className="mx-auto max-w-[1270px] space-y-8 overflow-x-hidden px-4 sm:px-5 lg:px-6">
-        <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[1.15fr_0.95fr_0.85fr_1fr]">
-          <div className="space-y-10">
-            <div className="space-y-6">
-              <Link href="/" className="inline-block">
-                <div className="relative h-[80px] w-[80px] overflow-hidden rounded-2xl bg-[#05030c] p-2">
-                  <Image 
-                    src={logoSrc || resolvedLogo} 
-                    alt={siteMeta.name} 
-                    fill 
-                    sizes="80px"
-                    className="object-contain"
-                    onError={() => setLogoSrc('/logo-thuychi.jpg')}
-                  />
-                </div>
-              </Link>
-              
-              <div className="space-y-4">
-                <FooterSectionTitle>Thông tin liên hệ</FooterSectionTitle>
-                <div className="space-y-3 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                  {footerContactInfo.map((item) => (
-                    <p key={item.label}>
-                      <span className="font-bold text-slate-900">{item.label}:</span>{' '}
-                      <span className={item.label === 'Hotline' ? 'font-extrabold text-[#d70018]' : item.label === 'Email' ? 'font-semibold text-[#1d4ed8]' : 'text-slate-600'}>{item.value}</span>{' '}
-                      {item.note ? <span className="text-slate-500">{item.note}</span> : null}
-                    </p>
-                  ))}
-                </div>
-              </div>
+    <footer className="mt-8 border-t border-slate-200 bg-white pt-10">
+      <div className="mx-auto max-w-[1270px] px-4">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-8">
+          {/* Brand and Services */}
+          <div className="space-y-6">
+            <div className="relative h-12 w-48">
+              <Image src={siteData.logo || '/logo-thuychi.jpg'} alt={siteData.name} fill className="object-contain object-left" />
             </div>
-
-            <div className="space-y-4">
-              <FooterSectionTitle>{footerShowrooms.title}</FooterSectionTitle>
-              <div className="space-y-3 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                <p className="font-semibold text-slate-700">{footerShowrooms.hours}</p>
-                {footerShowrooms.locations.map((item) => (
-                  <p key={item}>{item}</p>
+            <div className="space-y-3">
+              <h4 className="text-[15px] font-black uppercase text-slate-800">Dịch vụ cá nhân</h4>
+              <ul className="space-y-2 text-[13px] font-medium text-slate-500">
+                {serviceLinks.map((link) => (
+                  <li key={typeof link === 'string' ? link : link.title} className="hover:text-[#d70018]">
+                    <Link href={typeof link === 'string' ? '#' : link.href || '#'}>{typeof link === 'string' ? link : link.title}</Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
 
-          <div className="space-y-4">
-            <FooterSectionTitle>Thông tin & Chính sách</FooterSectionTitle>
-            <ul className="space-y-3 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-              {footerPolicyLinks.map((item) => (
-                <li key={item}>
-                  <Link href="#" className="transition hover:text-[#d70018]">{item}</Link>
+          {/* Policies */}
+          <div className="space-y-3">
+            <h4 className="text-[15px] font-black uppercase text-slate-800">Chính sách & Hướng dẫn</h4>
+            <ul className="space-y-2 text-[13px] font-medium text-slate-500">
+              {policyLinks.map((link) => (
+                <li key={typeof link === 'string' ? link : link.title} className="hover:text-[#d70018]">
+                  <Link href={typeof link === 'string' ? '#' : link.href || '#'}>{typeof link === 'string' ? link : link.title}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="space-y-10">
-            <div className="space-y-4">
-              <FooterSectionTitle>Dịch vụ & Thông tin khác</FooterSectionTitle>
-              <ul className="space-y-3 text-[16px] font-medium leading-relaxed text-slate-600 sm:text-[17px]">
-                {footerServiceLinks.map((item) => (
-                  <li key={item}>
-                    <Link href="#" className="transition hover:text-[#d70018]">{item}</Link>
+          {/* Contact Info */}
+          <div className="space-y-3">
+            <h4 className="text-[15px] font-black uppercase text-slate-800">Thông tin liên hệ</h4>
+            <ul className="space-y-3">
+              {contactInfo.map((info) => (
+                <li key={info.label} className="flex flex-col gap-0.5">
+                  <span className="text-[12px] font-bold uppercase text-slate-400">{info.label}</span>
+                  <span className="text-[13.5px] font-bold text-slate-700">{info.value}</span>
+                  {info.note && <span className="text-[11px] font-medium italic text-slate-400">{info.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Showrooms and Social */}
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <h4 className="text-[15px] font-black uppercase text-slate-800">{showrooms.title || 'Hệ thống cửa hàng'}</h4>
+              <ul className="space-y-2 text-[13px] font-medium text-slate-500">
+                {showrooms.locations?.map((loc, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="mt-1 text-red-500">📍</span>
+                    <span>{loc}</span>
                   </li>
                 ))}
               </ul>
             </div>
-
-          </div>
-
-          <div className="space-y-10">
             <div className="space-y-4">
-              <FooterSectionTitle>Kết nối với chúng tôi</FooterSectionTitle>
-              <div className="flex flex-wrap gap-3 sm:gap-4">
-                {socialLinks.map((item) => (
-                  <a
-                    key={item.title}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group"
-                    title={item.title}
-                  >
-                    <div className="relative h-[56px] w-[56px] overflow-hidden rounded-full bg-white transition duration-200 group-hover:-translate-y-1 sm:h-[60px] sm:w-[60px]">
-                      <Image src={item.image} alt={item.title} fill sizes="60px" className="object-contain" />
-                    </div>
+              <h4 className="text-[15px] font-black uppercase text-slate-800">Kết nối với chúng tôi</h4>
+              <div className="flex gap-2">
+                {social.map((item) => (
+                  <a key={item.title} href={item.href || '#'} target="_blank" rel="noopener noreferrer" className="relative h-9 w-9 overflow-hidden rounded-lg bg-slate-50 border border-slate-100 p-1.5 transition hover:shadow-md hover:border-blue-100">
+                    <Image src={item.image} alt={item.title} fill className="object-contain p-2" />
                   </a>
                 ))}
               </div>
             </div>
-
-            <div className="space-y-4">
-              <FooterSectionTitle>Phương thức thanh toán</FooterSectionTitle>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {paymentBadges.map((item) => (
-                  <PaymentBadge key={item.title} item={item} />
-                ))}
-              </div>
-
-              <Link href="#" className="inline-block pt-3">
-                <div className="relative h-[78px] w-[208px] max-w-full overflow-hidden sm:h-[90px] sm:w-[240px]">
-                  <Image
-                    src={footerCertification.image}
-                    alt={footerCertification.title}
-                    fill
-                    sizes="240px"
-                    className="object-contain object-left"
-                  />
-                </div>
-              </Link>
-            </div>
           </div>
         </div>
 
-        <div className="border-t border-slate-100 pt-6 text-[12px] leading-6 text-slate-500 sm:text-[13px]">
-          <p>
-            © Công ty TNHH Điện tử Thủy Chi | Địa chỉ: Số 315 Đường Hoàng Mai, Phường Tương Mai, Thành phố Hà Nội |
-            Email hỗ trợ: <span className="font-semibold text-[#1d4ed8]">thuychi@gmail.com</span> | Gọi mua hàng:{' '}
-            <span className="font-semibold text-[#1d4ed8]">0899 918 668</span>
-          </p>
+        <div className="mt-12 border-t border-slate-100 py-8">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <span className="text-[12px] font-bold uppercase text-slate-400">Thanh toán an toàn:</span>
+              <div className="flex gap-2.5">
+                {payments.map((p) => (
+                  <div key={p.title} className="relative h-6 w-10 overflow-hidden rounded bg-white shadow-[0_1px_3px_rgba(0,0,0,0.1)] grayscale hover:grayscale-0 transition duration-300">
+                    <Image src={p.image} alt={p.title} fill className="object-contain p-1" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="text-center text-[12px] font-medium text-slate-400 lg:text-right">
+              © 2026 {siteData.name}. Mọi quyền được bảo lưu. <br className="sm:hidden" />
+              Thiết kế và phát triển bởi Đội ngũ Công nghệ Thủy Chi.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

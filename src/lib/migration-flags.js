@@ -2,11 +2,11 @@ const VALID_DATA_MODES = new Set(['payload-first', 'fallback-local', 'payload-on
 
 function normalizeDataMode(value) {
   if (!value) {
-    return 'fallback-local';
+    return 'payload-first';
   }
 
   const normalized = String(value).trim().toLowerCase();
-  return VALID_DATA_MODES.has(normalized) ? normalized : 'fallback-local';
+  return VALID_DATA_MODES.has(normalized) ? normalized : 'payload-first';
 }
 
 export function getPayloadDataMode(overrides = {}) {
