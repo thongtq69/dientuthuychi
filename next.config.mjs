@@ -11,6 +11,7 @@ const { protocol, hostname, port } = new URL(serverUrl);
 const nextConfig = {
   outputFileTracingRoot: dirname,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: protocol.replace(':', ''),
