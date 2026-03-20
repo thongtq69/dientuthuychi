@@ -126,14 +126,7 @@ export function Header() {
                 className="h-full w-full min-w-0 border-0 px-4 text-[14px] text-slate-900 outline-none placeholder:text-slate-400"
               />
             <button type="submit" className="absolute right-0 flex h-full shrink-0 items-center px-4 text-slate-600 bg-transparent hover:bg-slate-100 transition">
-              <Image 
-                src={logoSrc || resolvedLogo} 
-                width={20} 
-                height={20} 
-                alt="search" 
-                className="object-contain opacity-80" 
-                onError={() => setLogoSrc('/logo-thuychi.jpg')}
-              />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
           </form>
 

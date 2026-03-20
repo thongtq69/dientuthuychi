@@ -24,7 +24,12 @@ export async function generateMetadata() {
     },
     description: siteMeta.tagline || 'Điện tử Thuỷ Chi chuyên điện thoại, linh kiện sửa chữa và phụ kiện công nghệ với hỗ trợ tư vấn nhanh, giao hàng nội thành và nhiều sản phẩm bán chạy.',
     icons: {
-      icon: '/logo-thuychi.jpg',
+      icon: [
+        { url: '/logo-thuychi.jpg' },
+        { url: '/logo-thuychi.jpg', sizes: '32x32', type: 'image/jpeg' },
+        { url: '/logo-thuychi.jpg', sizes: '192x192', type: 'image/jpeg' },
+      ],
+      shortcut: '/logo-thuychi.jpg',
       apple: '/logo-thuychi.jpg',
     },
   };
