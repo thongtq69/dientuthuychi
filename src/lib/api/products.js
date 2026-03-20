@@ -248,35 +248,48 @@ const getProductsCached = async (mode = '') => {
   return productsCache.get(mode)()
 }
 
+const productBySlugCache = new Map()
+
+const getProductBySlugCached = async (slug, mode = '') => {
+  const key = `${mode || 'default'}:${slug}`
+
+  if (!productBySlugCache.has(key)) {
+    productBySlugCache.set(key, unstable_cache(async () => {
+      const result = await withPayloadFallback({
+        mode,
+        loadPayload: async (payload) => {
+          const response = await payload.find({
+            collection: 'products',
+            depth: 1,
+            draft: false,
+            limit: 1,
+            where: {
+              slug: {
+                equals: slug,
+              },
+            },
+          })
+
+          return response?.docs?.[0] ? normalizePayloadProduct(response.docs[0]) : null
+        },
+        loadLocal: async () => getLocalProductBySlug(slug),
+        isPayloadUsable: (product) => Boolean(product) && PUBLIC_PRODUCT_STATUSES.has(product?.status),
+      })
+
+      return result.data || null
+    }, ['storefront-product-by-slug', mode || 'default', slug], { revalidate: 300, tags: ['products', `product:${slug}`] }))
+  }
+
+  return productBySlugCache.get(key)()
+}
+
 export const getProducts = async (options = {}) => {
   return getProductsCached(options.mode || '')
 }
 
 export const getProductBySlug = async (slug, options = {}) => {
   if (!slug) return null
-
-  const result = await withPayloadFallback({
-    mode: options.mode,
-    loadPayload: async (payload) => {
-      const response = await payload.find({
-        collection: 'products',
-        depth: 2,
-        draft: false,
-        limit: 1,
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
-      })
-
-      return response?.docs?.[0] ? normalizePayloadProduct(response.docs[0]) : null
-    },
-    loadLocal: async () => getLocalProductBySlug(slug),
-    isPayloadUsable: (product) => Boolean(product) && PUBLIC_PRODUCT_STATUSES.has(product?.status),
-  })
-
-  return result.data || null
+  return getProductBySlugCached(slug, options.mode || '')
 }
 
 export const getProductsBySlugs = async (slugs = [], options = {}) => {

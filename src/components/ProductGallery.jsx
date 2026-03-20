@@ -100,6 +100,7 @@ export function ProductGallery({ images = [], alt }) {
                 alt={`${alt} - ${idx}`} 
                 fill 
                 sizes="80px" 
+                loading="lazy"
                 className="object-contain p-1 lg:p-2" 
               />
             </button>

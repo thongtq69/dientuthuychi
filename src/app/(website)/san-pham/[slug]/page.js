@@ -19,6 +19,9 @@ import { ProductCTA } from '@/components/ProductCTA';
 import { getProductPageData, getProductRouteSlugs } from '@/lib/api/products';
 import { sanitizeProductName } from '@/lib/productDisplay';
 
+const extendedProductDataCache = new Map();
+const productPageDataCache = new Map();
+
 /* ── Helpers ── */
 function formatPrice(price) {
   if (typeof price === 'string') {
@@ -32,15 +35,34 @@ function formatPrice(price) {
 }
 
 function getExtendedProductData(slug) {
+  if (extendedProductDataCache.has(slug)) {
+    return extendedProductDataCache.get(slug);
+  }
+
+  let result = null;
+
   try {
     const pagesDir = path.join(process.cwd(), 'pages-json');
     const filePath = path.join(pagesDir, `${slug}.json`);
-    if (fs.existsSync(filePath)) return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const files = fs.readdirSync(pagesDir);
-    const match = files.find(f => f.startsWith(slug) && f.endsWith('.json'));
-    if (match) return JSON.parse(fs.readFileSync(path.join(pagesDir, match), 'utf8'));
+    if (fs.existsSync(filePath)) {
+      result = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } else {
+      const files = fs.readdirSync(pagesDir);
+      const match = files.find(f => f.startsWith(slug) && f.endsWith('.json'));
+      if (match) result = JSON.parse(fs.readFileSync(path.join(pagesDir, match), 'utf8'));
+    }
   } catch (err) {}
-  return null;
+
+  extendedProductDataCache.set(slug, result);
+  return result;
+}
+
+async function getCachedProductPageData(slug) {
+  if (!productPageDataCache.has(slug)) {
+    productPageDataCache.set(slug, getProductPageData(slug));
+  }
+
+  return productPageDataCache.get(slug);
 }
 
 function extractPromotionsFromText(text) {
@@ -114,7 +136,7 @@ function filterGallery(images, primary) {
 /* ── Metadata ── */
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const { product } = await getProductPageData(slug);
+  const { product } = await getCachedProductPageData(slug);
   const data = getExtendedProductData(slug);
   if (!product && !data) return { title: 'Sản phẩm' };
 
@@ -140,7 +162,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
   const { slug } = await params;
   const { sku } = await searchParams;
   
-  const { product: dataLayerProduct, relatedProducts } = await getProductPageData(slug);
+  const { product: dataLayerProduct, relatedProducts } = await getCachedProductPageData(slug);
   const baseProduct = dataLayerProduct;
   const extendedData = getExtendedProductData(slug);
   if (!baseProduct && !extendedData) notFound();
