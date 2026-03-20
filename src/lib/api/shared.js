@@ -1,5 +1,6 @@
 import 'server-only'
 
+import { optimizeCloudinaryUrl } from '@/lib/cloudinary'
 import { readPayload, resolvePayloadDataMode, shouldUseLocalFallback } from '@/lib/payload'
 
 export const DEFAULT_QUERY_LIMIT = 200
@@ -12,12 +13,16 @@ export const isPopulatedDoc = (value) => Boolean(value && typeof value === 'obje
 
 export const getMediaUrl = (media, preferredSize) => {
   if (!isPopulatedDoc(media)) {
-    return typeof media === 'string' && /^https?:\/\//.test(media) ? media : null
+    if (typeof media === 'string' && /^https?:\/\//.test(media)) {
+      return optimizeCloudinaryUrl(media, preferredSize)
+    }
+
+    return null
   }
 
   const preferred = preferredSize ? media?.sizes?.[preferredSize]?.url : null
 
-  return preferred || media?.externalURL || media?.cloudinary?.secureUrl || media?.url || null
+  return optimizeCloudinaryUrl(preferred || media?.externalURL || media?.cloudinary?.secureUrl || media?.url || null, preferredSize)
 }
 
 export const normalizeMediaAsset = (media) => {

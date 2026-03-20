@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { unstable_cache } from 'next/cache'
+
 import {
   accessoryProducts as localAccessoryProducts,
   categoryRailItems,
@@ -231,22 +233,19 @@ const loadPayloadProducts = async (options = {}) => {
 const productsCache = new Map()
 
 const getProductsCached = async (mode = '') => {
-  if (productsCache.has(mode)) {
-    return productsCache.get(mode)
+  if (!productsCache.has(mode)) {
+    productsCache.set(mode, unstable_cache(async () => {
+      const result = await loadPayloadProducts({ mode })
+
+      if (result.source === 'payload' && resolvePayloadDataMode(mode) !== 'payload-only') {
+        return mergeProductsWithLocalFallback(result.data, localProducts)
+      }
+
+      return result.data
+    }, ['storefront-products', mode || 'default'], { revalidate: 300, tags: ['products'] }))
   }
 
-  const promise = (async () => {
-  const result = await loadPayloadProducts({ mode })
-
-  if (result.source === 'payload' && resolvePayloadDataMode(mode) !== 'payload-only') {
-    return mergeProductsWithLocalFallback(result.data, localProducts)
-  }
-
-  return result.data
-  })()
-
-  productsCache.set(mode, promise)
-  return promise
+  return productsCache.get(mode)()
 }
 
 export const getProducts = async (options = {}) => {

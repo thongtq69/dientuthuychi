@@ -74,3 +74,46 @@ export async function deleteFromCloudinary(publicId) {
 export function getCloudinaryPublicUrl(doc) {
   return doc?.cloudinary?.secureUrl || doc?.externalURL || doc?.url || null
 }
+
+const CLOUDINARY_SIZE_PRESETS = {
+  thumbnail: { width: 400, height: 300, crop: 'fill' },
+  card: { width: 768, height: 1024, crop: 'fill' },
+  tablet: { width: 1024, crop: 'limit' },
+  banner: { width: 1600, crop: 'limit' },
+  hero: { width: 1800, crop: 'limit' },
+}
+
+export function optimizeCloudinaryUrl(url, preset = 'default') {
+  if (typeof url !== 'string' || !url.includes('res.cloudinary.com')) {
+    return url || null
+  }
+
+  try {
+    const parsed = new URL(url)
+    const uploadMarker = '/image/upload/'
+    const markerIndex = parsed.pathname.indexOf(uploadMarker)
+
+    if (markerIndex === -1) {
+      return url
+    }
+
+    const transformation = ['f_auto', 'q_auto']
+    const sizePreset = CLOUDINARY_SIZE_PRESETS[preset] || CLOUDINARY_SIZE_PRESETS.default || null
+
+    if (sizePreset?.width) transformation.push(`w_${sizePreset.width}`)
+    if (sizePreset?.height) transformation.push(`h_${sizePreset.height}`)
+    if (sizePreset?.crop) transformation.push(`c_${sizePreset.crop}`)
+
+    const before = parsed.pathname.slice(0, markerIndex + uploadMarker.length)
+    const after = parsed.pathname.slice(markerIndex + uploadMarker.length)
+
+    if (/^(?:[A-Za-z]_\w+|[a-z]{1,3}_[^/]+|f_[^/]+|q_[^/]+)/.test(after)) {
+      return url
+    }
+
+    parsed.pathname = `${before}${transformation.join(',')}/${after}`
+    return parsed.toString()
+  } catch {
+    return url
+  }
+}

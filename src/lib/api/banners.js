@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { unstable_cache } from 'next/cache'
+
 import { featuredCategories, heroSlides, midPageBanners } from '@/data/siteData'
 import { DEFAULT_QUERY_LIMIT, coerceArray, getMediaUrl, withPayloadFallback } from '@/lib/api/shared'
 
@@ -42,33 +44,30 @@ const isBannerActive = (banner) => {
 const bannersCache = new Map()
 
 const getBannersCached = async (mode = '') => {
-  if (bannersCache.has(mode)) {
-    return bannersCache.get(mode)
-  }
+  if (!bannersCache.has(mode)) {
+    bannersCache.set(mode, unstable_cache(async () => {
+      const result = await withPayloadFallback({
+        mode,
+        loadPayload: async (payload) => {
+          const response = await payload.find({
+            collection: 'banners',
+            depth: 1,
+            draft: false,
+            limit: DEFAULT_QUERY_LIMIT,
+            sort: 'sortOrder',
+          })
 
-  const promise = (async () => {
-  const result = await withPayloadFallback({
-    mode,
-    loadPayload: async (payload) => {
-      const response = await payload.find({
-        collection: 'banners',
-        depth: 1,
-        draft: false,
-        limit: DEFAULT_QUERY_LIMIT,
-        sort: 'sortOrder',
+          return coerceArray(response?.docs).map(normalizeBanner).filter(isBannerActive)
+        },
+        loadLocal: async () => Object.entries(LOCAL_BANNER_FALLBACKS).flatMap(([position, items]) => items.map((item, index) => normalizeBanner({ ...item, position, order: index }))),
+        isPayloadUsable: (docs) => Array.isArray(docs) && docs.length > 0,
       })
 
-      return coerceArray(response?.docs).map(normalizeBanner).filter(isBannerActive)
-    },
-    loadLocal: async () => Object.entries(LOCAL_BANNER_FALLBACKS).flatMap(([position, items]) => items.map((item, index) => normalizeBanner({ ...item, position, order: index }))),
-    isPayloadUsable: (docs) => Array.isArray(docs) && docs.length > 0,
-  })
+      return result.data
+    }, ['storefront-banners', mode || 'default'], { revalidate: 300, tags: ['banners'] }))
+  }
 
-  return result.data
-  })()
-
-  bannersCache.set(mode, promise)
-  return promise
+  return bannersCache.get(mode)()
 }
 
 export const getBanners = async (options = {}) => {

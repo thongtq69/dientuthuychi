@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { unstable_cache } from 'next/cache'
+
 import { blogPosts as localBlogPosts, getBlogPostBySlug as getLocalBlogPostBySlug } from '@/data/siteData'
 import { DEFAULT_QUERY_LIMIT, coerceArray, formatVietnameseDate, getMediaUrl, richTextToParagraphs, withPayloadFallback } from '@/lib/api/shared'
 
@@ -41,38 +43,35 @@ const normalizePost = (post) => {
 const postsCache = new Map()
 
 const getPostsCached = async (mode = '') => {
-  if (postsCache.has(mode)) {
-    return postsCache.get(mode)
-  }
+  if (!postsCache.has(mode)) {
+    postsCache.set(mode, unstable_cache(async () => {
+      const result = await withPayloadFallback({
+        mode,
+        loadPayload: async (payload) => {
+          const response = await payload.find({
+            collection: 'posts',
+            depth: 1,
+            draft: false,
+            limit: DEFAULT_QUERY_LIMIT,
+            sort: '-publishedAt',
+            where: {
+              status: {
+                equals: 'published',
+              },
+            },
+          })
 
-  const promise = (async () => {
-  const result = await withPayloadFallback({
-    mode,
-    loadPayload: async (payload) => {
-      const response = await payload.find({
-        collection: 'posts',
-        depth: 1,
-        draft: false,
-        limit: DEFAULT_QUERY_LIMIT,
-        sort: '-publishedAt',
-        where: {
-          status: {
-            equals: 'published',
-          },
+          return coerceArray(response?.docs).map(normalizePost)
         },
+        loadLocal: async () => localBlogPosts,
+        isPayloadUsable: (docs) => Array.isArray(docs) && docs.length > 0,
       })
 
-      return coerceArray(response?.docs).map(normalizePost)
-    },
-    loadLocal: async () => localBlogPosts,
-    isPayloadUsable: (docs) => Array.isArray(docs) && docs.length > 0,
-  })
+      return result.data
+    }, ['storefront-posts', mode || 'default'], { revalidate: 600, tags: ['posts'] }))
+  }
 
-  return result.data
-  })()
-
-  postsCache.set(mode, promise)
-  return promise
+  return postsCache.get(mode)()
 }
 
 export const getPosts = async (options = {}) => {

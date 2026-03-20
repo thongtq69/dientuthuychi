@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { unstable_cache } from 'next/cache'
+
 import {
   categoryRailItems,
   footerCertification,
@@ -132,30 +134,27 @@ const normalizeSettings = (settings, promotion) => {
 const siteSettingsCache = new Map()
 
 const getSiteSettingsCached = async (mode = '') => {
-  if (siteSettingsCache.has(mode)) {
-    return siteSettingsCache.get(mode)
+  if (!siteSettingsCache.has(mode)) {
+    siteSettingsCache.set(mode, unstable_cache(async () => {
+      const result = await withPayloadFallback({
+        mode,
+        loadPayload: async (payload) => {
+          const [settings, promotion] = await Promise.all([
+            payload.findGlobal({ slug: 'site-settings', depth: 2, draft: false }),
+            payload.findGlobal({ slug: 'promotions', depth: 2, draft: false }),
+          ])
+
+          return normalizeSettings(settings, promotion)
+        },
+        loadLocal: async () => getLocalSettings(),
+        isPayloadUsable: (value) => Boolean(value?.siteMeta?.name),
+      })
+
+      return result.data
+    }, ['storefront-settings', mode || 'default'], { revalidate: 300, tags: ['settings', 'promotions'] }))
   }
 
-  const promise = (async () => {
-  const result = await withPayloadFallback({
-    mode,
-    loadPayload: async (payload) => {
-      const [settings, promotion] = await Promise.all([
-        payload.findGlobal({ slug: 'site-settings', depth: 2, draft: false }),
-        payload.findGlobal({ slug: 'promotions', depth: 2, draft: false }),
-      ])
-
-      return normalizeSettings(settings, promotion)
-    },
-    loadLocal: async () => getLocalSettings(),
-    isPayloadUsable: (value) => Boolean(value?.siteMeta?.name),
-  })
-
-  return result.data
-  })()
-
-  siteSettingsCache.set(mode, promise)
-  return promise
+  return siteSettingsCache.get(mode)()
 }
 
 export const getSiteSettings = async (options = {}) => {
